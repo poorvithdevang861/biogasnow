@@ -9,8 +9,8 @@ import {
 } from 'lucide-react';
 
 /**
- * StatusBadge Component (Dark Theme)
- * Displays semantic status with both icon and text on dark graphite.
+ * StatusBadge Component (Adaptive Light & Dark Theme)
+ * Displays semantic status with both icon and text matching unslop guidelines.
  */
 export function StatusBadge({
   status = 'illustrative',
@@ -21,7 +21,7 @@ export function StatusBadge({
   const normalizedStatus = status?.toLowerCase() || 'illustrative';
 
   let config = {
-    bg: 'bg-zinc-800/80 border-zinc-700 text-zinc-300',
+    bg: 'bg-zinc-100 dark:bg-zinc-800/80 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300',
     icon: Info,
     defaultLabel: 'Illustrative prototype data',
   };
@@ -30,7 +30,7 @@ export function StatusBadge({
     case 'verified':
     case 'provided':
       config = {
-        bg: 'bg-emerald-950/70 border-emerald-800 text-emerald-300',
+        bg: 'bg-emerald-50 dark:bg-emerald-950/70 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300',
         icon: ShieldCheck,
         defaultLabel: 'Verified / Provided',
       };
@@ -38,7 +38,7 @@ export function StatusBadge({
 
     case 'pending':
       config = {
-        bg: 'bg-amber-950/70 border-amber-800 text-amber-300',
+        bg: 'bg-amber-50 dark:bg-amber-950/70 border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-300',
         icon: Clock,
         defaultLabel: 'Pending verification',
       };
@@ -48,7 +48,7 @@ export function StatusBadge({
     case 'not provided':
     case 'not verified':
       config = {
-        bg: 'bg-rose-950/70 border-rose-800 text-rose-300',
+        bg: 'bg-rose-50 dark:bg-rose-950/70 border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300',
         icon: AlertCircle,
         defaultLabel: 'Not provided / Not verified',
       };
@@ -58,7 +58,7 @@ export function StatusBadge({
     case 'not sure':
     case 'assessment required':
       config = {
-        bg: 'bg-amber-950/80 border-amber-700 text-amber-200',
+        bg: 'bg-amber-100/70 dark:bg-amber-950/80 border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200',
         icon: HelpCircle,
         defaultLabel: 'Assessment required',
       };
@@ -68,7 +68,7 @@ export function StatusBadge({
     case 'sample':
     default:
       config = {
-        bg: 'bg-zinc-800/80 border-zinc-700 text-zinc-300',
+        bg: 'bg-zinc-100 dark:bg-zinc-800/80 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300',
         icon: Info,
         defaultLabel: 'Illustrative prototype data',
       };

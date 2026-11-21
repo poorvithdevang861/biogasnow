@@ -3,7 +3,7 @@ import { ShieldCheck, AlertCircle, Clock, Building2, Check, X, Info } from 'luci
 import { StatusBadge } from './StatusBadge';
 
 /**
- * CompareTable Component (Dark Theme & Unslop)
+ * CompareTable Component (Dual Theme: Light + Dark Unslop)
  * Side-by-side comparison of 2 to 3 plant providers with uniform rows and visibly flagged missing data.
  */
 export function CompareTable({
@@ -15,19 +15,19 @@ export function CompareTable({
 }) {
   if (!plants || plants.length === 0) {
     return (
-      <div className="p-8 text-center text-zinc-400 bg-zinc-900/80 rounded-2xl border border-zinc-800">
+      <div className="p-8 text-center text-zinc-500 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-900/80 rounded-2xl border border-zinc-200 dark:border-zinc-800">
         Please select at least 2 plant providers to view side-by-side comparison.
       </div>
     );
   }
 
   return (
-    <div className={`overflow-x-auto bg-zinc-900 rounded-2xl border border-zinc-800 shadow-sm ${className}`}>
+    <div className={`overflow-x-auto bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xs ${className}`}>
       <table className="w-full text-left border-collapse text-xs">
         {/* Table Header: Providers */}
         <thead>
-          <tr className="border-b border-zinc-800 bg-zinc-950/70">
-            <th className="p-4 sm:p-5 w-1/4 min-w-[180px] text-xs font-bold text-zinc-400 uppercase tracking-wider">
+          <tr className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/70">
+            <th className="p-4 sm:p-5 w-1/4 min-w-[180px] text-xs font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
               Comparison Metric
             </th>
             {plants.map((plant) => {
@@ -36,12 +36,12 @@ export function CompareTable({
                 <th key={plant.id} className="p-4 sm:p-5 min-w-[240px] align-top">
                   <div className="space-y-2.5">
                     <div className="flex items-start justify-between gap-2">
-                      <span className="text-sm font-bold text-zinc-100 block">{plant.organisation}</span>
+                      <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100 block">{plant.organisation}</span>
                       {onRemove && (
                         <button
                           type="button"
                           onClick={() => onRemove(plant.id)}
-                          className="text-zinc-500 hover:text-zinc-300 p-0.5 rounded transition-colors"
+                          className="text-zinc-400 hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-300 p-0.5 rounded transition-colors"
                           title="Remove from comparison"
                           aria-label={`Remove ${plant.organisation} from comparison`}
                         >
@@ -50,7 +50,7 @@ export function CompareTable({
                       )}
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <span className="capitalize text-[11px] font-semibold text-zinc-300 bg-zinc-800 px-2 py-0.5 rounded border border-zinc-700">
+                      <span className="capitalize text-[11px] font-semibold text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-200 dark:border-zinc-700">
                         Scale: {plant.scale}
                       </span>
                     </div>
@@ -62,7 +62,7 @@ export function CompareTable({
                         className={`w-full py-1.5 px-3 rounded-lg text-xs font-semibold border transition-colors flex items-center justify-center gap-1.5 ${
                           isSelected
                             ? 'bg-amber-600 text-white border-amber-500 hover:bg-amber-500'
-                            : 'bg-zinc-800 text-zinc-200 border-zinc-700 hover:bg-zinc-750 hover:border-zinc-600'
+                            : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border-zinc-200 dark:border-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-750'
                         }`}
                       >
                         {isSelected ? <Check size={13} className="stroke-[3]" /> : null}
@@ -76,14 +76,14 @@ export function CompareTable({
           </tr>
         </thead>
 
-        <tbody className="divide-y divide-zinc-800">
+        <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800">
           {/* Row 1: Capacity Range */}
           <tr>
-            <td className="p-4 sm:p-5 font-semibold text-zinc-200 bg-zinc-950/40">
+            <td className="p-4 sm:p-5 font-semibold text-zinc-800 dark:text-zinc-200 bg-zinc-50/50 dark:bg-zinc-950/40">
               Capacity Range
             </td>
             {plants.map((p) => (
-              <td key={p.id} className="p-4 sm:p-5 text-zinc-300 font-medium">
+              <td key={p.id} className="p-4 sm:p-5 text-zinc-700 dark:text-zinc-300 font-medium">
                 {p.capacityRange}
               </td>
             ))}
@@ -91,14 +91,14 @@ export function CompareTable({
 
           {/* Row 2: Service Area */}
           <tr>
-            <td className="p-4 sm:p-5 font-semibold text-zinc-200 bg-zinc-950/40">
+            <td className="p-4 sm:p-5 font-semibold text-zinc-800 dark:text-zinc-200 bg-zinc-50/50 dark:bg-zinc-950/40">
               Service Area
             </td>
             {plants.map((p) => (
-              <td key={p.id} className="p-4 sm:p-5 text-zinc-300">
+              <td key={p.id} className="p-4 sm:p-5 text-zinc-700 dark:text-zinc-300">
                 <div className="flex flex-wrap gap-1">
                   {p.serviceArea.map((area) => (
-                    <span key={area} className="px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300 text-[10px]">
+                    <span key={area} className="px-1.5 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 text-[10px]">
                       {area}
                     </span>
                   ))}
@@ -109,14 +109,14 @@ export function CompareTable({
 
           {/* Row 3: Stated O&M Offering (Claim) */}
           <tr>
-            <td className="p-4 sm:p-5 font-semibold text-zinc-200 bg-zinc-950/40">
+            <td className="p-4 sm:p-5 font-semibold text-zinc-800 dark:text-zinc-200 bg-zinc-50/50 dark:bg-zinc-950/40">
               <div>
                 <span>Stated O&M Agreement</span>
-                <span className="text-[10px] text-zinc-400 block font-normal">Provider's commercial claim</span>
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block font-normal">Provider's commercial claim</span>
               </div>
             </td>
             {plants.map((p) => (
-              <td key={p.id} className="p-4 sm:p-5 text-zinc-300">
+              <td key={p.id} className="p-4 sm:p-5 text-zinc-700 dark:text-zinc-300">
                 {p.isOmMissing ? (
                   <StatusBadge status="missing" label="Not provided / Not verified" size="sm" />
                 ) : (
@@ -128,36 +128,36 @@ export function CompareTable({
 
           {/* Row 4: Warranty Coverage */}
           <tr>
-            <td className="p-4 sm:p-5 font-semibold text-zinc-200 bg-zinc-950/40">
+            <td className="p-4 sm:p-5 font-semibold text-zinc-800 dark:text-zinc-200 bg-zinc-50/50 dark:bg-zinc-950/40">
               <div>
                 <span>Warranty Coverage</span>
-                <span className="text-[10px] text-zinc-400 block font-normal">Component & vessel guarantees</span>
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block font-normal">Component & vessel guarantees</span>
               </div>
             </td>
             {plants.map((p) => (
-              <td key={p.id} className="p-4 sm:p-5 text-zinc-300">
+              <td key={p.id} className="p-4 sm:p-5 text-zinc-700 dark:text-zinc-300">
                 {p.isWarrantyMissing ? (
                   <StatusBadge status="missing" label="Not provided / Not verified" size="sm" />
                 ) : (
-                  <span className="font-medium text-zinc-200">{p.statedWarranty}</span>
+                  <span className="font-medium text-zinc-800 dark:text-zinc-200">{p.statedWarranty}</span>
                 )}
               </td>
             ))}
           </tr>
 
           {/* SECTION HEADER: VERIFIED EVIDENCE */}
-          <tr className="bg-emerald-950/30 border-y border-emerald-900/50">
-            <td colSpan={plants.length + 1} className="px-4 sm:px-5 py-2.5 font-bold text-emerald-300 text-xs tracking-wide">
+          <tr className="bg-emerald-50 dark:bg-emerald-950/30 border-y border-emerald-200 dark:border-emerald-900/50">
+            <td colSpan={plants.length + 1} className="px-4 sm:px-5 py-2.5 font-bold text-emerald-800 dark:text-emerald-300 text-xs tracking-wide">
               Documented & Independent Evidence
             </td>
           </tr>
 
           {/* Row 5: Commissioning Certificate */}
           <tr>
-            <td className="p-4 sm:p-5 font-semibold text-zinc-200 bg-zinc-950/40">
+            <td className="p-4 sm:p-5 font-semibold text-zinc-800 dark:text-zinc-200 bg-zinc-50/50 dark:bg-zinc-950/40">
               <div>
                 <span>Commissioning Sign-off</span>
-                <span className="text-[10px] text-zinc-400 block font-normal">Safety, pressure & gas compliance</span>
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block font-normal">Safety, pressure & gas compliance</span>
               </div>
             </td>
             {plants.map((p) => {
@@ -165,9 +165,9 @@ export function CompareTable({
               return (
                 <td key={p.id} className="p-4 sm:p-5 space-y-1.5">
                   <StatusBadge status={comm?.status || 'missing'} size="sm" />
-                  <p className="text-[11px] text-zinc-300">{comm?.title}</p>
+                  <p className="text-[11px] text-zinc-700 dark:text-zinc-300">{comm?.title}</p>
                   {comm?.source && comm.source !== 'Not provided' && (
-                    <span className="text-[10px] text-zinc-500 block">Ref: {comm.source}</span>
+                    <span className="text-[10px] text-zinc-400 dark:text-zinc-500 block">Ref: {comm.source}</span>
                   )}
                 </td>
               );
@@ -176,10 +176,10 @@ export function CompareTable({
 
           {/* Row 6: Customer Reference */}
           <tr>
-            <td className="p-4 sm:p-5 font-semibold text-zinc-200 bg-zinc-950/40">
+            <td className="p-4 sm:p-5 font-semibold text-zinc-800 dark:text-zinc-200 bg-zinc-50/50 dark:bg-zinc-950/40">
               <div>
                 <span>Client Reference</span>
-                <span className="text-[10px] text-zinc-400 block font-normal">Verified continuous uptime</span>
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block font-normal">Verified continuous uptime</span>
               </div>
             </td>
             {plants.map((p) => {
@@ -187,9 +187,9 @@ export function CompareTable({
               return (
                 <td key={p.id} className="p-4 sm:p-5 space-y-1.5">
                   <StatusBadge status={ref?.status || 'missing'} size="sm" />
-                  <p className="text-[11px] text-zinc-300">{ref?.title}</p>
+                  <p className="text-[11px] text-zinc-700 dark:text-zinc-300">{ref?.title}</p>
                   {ref?.source && ref.source !== 'Not provided' && (
-                    <span className="text-[10px] text-zinc-500 block">Ref: {ref.source}</span>
+                    <span className="text-[10px] text-zinc-400 dark:text-zinc-500 block">Ref: {ref.source}</span>
                   )}
                 </td>
               );
@@ -198,10 +198,10 @@ export function CompareTable({
 
           {/* Row 7: Demonstrated Project Example */}
           <tr>
-            <td className="p-4 sm:p-5 font-semibold text-zinc-200 bg-zinc-950/40">
+            <td className="p-4 sm:p-5 font-semibold text-zinc-800 dark:text-zinc-200 bg-zinc-50/50 dark:bg-zinc-950/40">
               <div>
                 <span>Case Study Example</span>
-                <span className="text-[10px] text-zinc-400 block font-normal">Operating installation</span>
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block font-normal">Operating installation</span>
               </div>
             </td>
             {plants.map((p) => {
@@ -209,9 +209,9 @@ export function CompareTable({
               return (
                 <td key={p.id} className="p-4 sm:p-5 space-y-1.5">
                   <StatusBadge status={proj?.status || 'missing'} size="sm" />
-                  <p className="text-[11px] text-zinc-300">{proj?.title}</p>
+                  <p className="text-[11px] text-zinc-700 dark:text-zinc-300">{proj?.title}</p>
                   {proj?.source && proj.source !== 'Not provided' && (
-                    <span className="text-[10px] text-zinc-500 block">Ref: {proj.source}</span>
+                    <span className="text-[10px] text-zinc-400 dark:text-zinc-500 block">Ref: {proj.source}</span>
                   )}
                 </td>
               );
@@ -220,14 +220,14 @@ export function CompareTable({
 
           {/* Row 8: Supply Continuity */}
           <tr>
-            <td className="p-4 sm:p-5 font-semibold text-zinc-200 bg-zinc-950/40">
+            <td className="p-4 sm:p-5 font-semibold text-zinc-800 dark:text-zinc-200 bg-zinc-50/50 dark:bg-zinc-950/40">
               <div>
                 <span>Continuity & Winter Risk</span>
-                <span className="text-[10px] text-zinc-400 block font-normal">Thermal insulation & storage</span>
+                <span className="text-[10px] text-zinc-500 dark:text-zinc-400 block font-normal">Thermal insulation & storage</span>
               </div>
             </td>
             {plants.map((p) => (
-              <td key={p.id} className="p-4 sm:p-5 text-zinc-300 leading-relaxed text-[11px]">
+              <td key={p.id} className="p-4 sm:p-5 text-zinc-700 dark:text-zinc-300 leading-relaxed text-[11px]">
                 {p.continuityRisk}
               </td>
             ))}

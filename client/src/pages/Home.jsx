@@ -6,7 +6,6 @@ import {
   Factory,
   ArrowRight,
   Check,
-  MapPin,
   User,
 } from 'lucide-react';
 import { useProfile } from '../context/ProfileContext';
@@ -24,16 +23,16 @@ export function Home() {
     <div className="space-y-10 my-auto">
       {/* Title directly above the profile cards (no top bar on landing page) */}
       <section className="text-center space-y-4 max-w-2xl mx-auto">
-        <div className="inline-flex items-center gap-2 text-emerald-400 font-bold text-xs tracking-wider uppercase bg-emerald-950/40 px-3 py-1 rounded-full border border-emerald-800/80">
+        <div className="inline-flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-bold text-xs tracking-wider uppercase bg-emerald-50 dark:bg-emerald-950/40 px-3 py-1 rounded-full border border-emerald-200 dark:border-emerald-800/80">
           <Leaf size={15} className="stroke-[2.5]" aria-hidden="true" />
           <span>Biogas Trust Platform</span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-zinc-100 tracking-tight leading-[1.15]">
+        <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight leading-[1.15]">
           Select your role to begin
         </h1>
 
-        <p className="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-xl mx-auto">
+        <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-xl mx-auto">
           An evidence-based decision framework connecting organic waste producers, biogas consumers, and qualified plant providers.
         </p>
       </section>
@@ -44,32 +43,32 @@ export function Home() {
           {/* Role 1: Waste Provider (Wired to Green Fork Bistro) */}
           <div
             onClick={() => handleRoleSelect('waste-restaurant-1', '/waste-provider')}
-            className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800 hover:border-emerald-600/80 transition-all flex flex-col justify-between cursor-pointer shadow-sm group"
+            className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800 hover:border-emerald-500/80 dark:hover:border-emerald-600/80 transition-all flex flex-col justify-between cursor-pointer shadow-xs group"
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <Leaf size={28} className="text-emerald-400 stroke-[2.2]" aria-hidden="true" />
-                <span className="text-xs font-semibold text-emerald-300 bg-emerald-950/60 px-2.5 py-0.5 rounded-full border border-emerald-800">
+                <Leaf size={28} className="text-emerald-600 dark:text-emerald-400 stroke-[2.2]" aria-hidden="true" />
+                <span className="text-xs font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
                   Waste Provider
                 </span>
               </div>
 
               <div>
-                <h2 className="text-lg font-bold text-zinc-100 group-hover:text-emerald-300 transition-colors">
+                <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors">
                   I have organic waste
                 </h2>
-                <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1 leading-relaxed">
                   Evaluate commercial kitchen or household food waste, calculate realistic biogas yields, find nearby digester plants, and book drop-off slots.
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-zinc-800 space-y-1.5 text-xs text-zinc-300">
+              <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-1.5 text-xs text-zinc-700 dark:text-zinc-300">
                 <div className="flex items-center gap-1.5">
-                  <Check size={14} className="text-emerald-400 shrink-0" />
+                  <Check size={14} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
                   <span>Documented yield assumptions with sources</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <Check size={14} className="text-emerald-400 shrink-0" />
+                  <Check size={14} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
                   <span>Nearby plant discovery & drop-off booking</span>
                 </div>
               </div>
@@ -85,10 +84,10 @@ export function Home() {
               </button>
 
               {/* Single Wired Persona Info */}
-              <div className="pt-2 border-t border-zinc-800/80 text-[11px] text-zinc-400 flex items-center justify-between">
-                <span className="text-zinc-500">Wired profile:</span>
-                <span className="font-medium text-zinc-300 flex items-center gap-1">
-                  <User size={11} className="text-emerald-400" />
+              <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800/80 text-[11px] text-zinc-500 dark:text-zinc-400 flex items-center justify-between">
+                <span>Wired profile:</span>
+                <span className="font-medium text-zinc-800 dark:text-zinc-300 flex items-center gap-1">
+                  <User size={11} className="text-emerald-600 dark:text-emerald-400" />
                   Green Fork Bistro (Bristol)
                 </span>
               </div>
@@ -98,32 +97,32 @@ export function Home() {
           {/* Role 2: Biogas Consumer (Wired to Oakfield Eco-Terrace) */}
           <div
             onClick={() => handleRoleSelect('consumer-household-1', '/consumer')}
-            className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800 hover:border-amber-600/80 transition-all flex flex-col justify-between cursor-pointer shadow-sm group"
+            className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800 hover:border-amber-500/80 dark:hover:border-amber-600/80 transition-all flex flex-col justify-between cursor-pointer shadow-xs group"
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <Flame size={28} className="text-amber-400 stroke-[2.2]" aria-hidden="true" />
-                <span className="text-xs font-semibold text-amber-300 bg-amber-950/60 px-2.5 py-0.5 rounded-full border border-amber-800">
+                <Flame size={28} className="text-amber-600 dark:text-amber-400 stroke-[2.2]" aria-hidden="true" />
+                <span className="text-xs font-semibold text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 px-2.5 py-0.5 rounded-full border border-amber-200 dark:border-amber-800">
                   Consumer
                 </span>
               </div>
 
               <div>
-                <h2 className="text-lg font-bold text-zinc-100 group-hover:text-amber-300 transition-colors">
+                <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-amber-600 dark:group-hover:text-amber-300 transition-colors">
                   I want to use biogas
                 </h2>
-                <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1 leading-relaxed">
                   Clarify cooking and thermal demand, choose a realistic digester scale (Small, Medium, Large), compare plant providers side-by-side, and request proposals.
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-zinc-800 space-y-1.5 text-xs text-zinc-300">
+              <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-1.5 text-xs text-zinc-700 dark:text-zinc-300">
                 <div className="flex items-center gap-1.5">
-                  <Check size={14} className="text-amber-400 shrink-0" />
+                  <Check size={14} className="text-amber-600 dark:text-amber-400 shrink-0" />
                   <span>Choose plant size without default lock-in</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <Check size={14} className="text-amber-400 shrink-0" />
+                  <Check size={14} className="text-amber-600 dark:text-amber-400 shrink-0" />
                   <span>Side-by-side comparison with missing evidence flagged</span>
                 </div>
               </div>
@@ -139,10 +138,10 @@ export function Home() {
               </button>
 
               {/* Single Wired Persona Info */}
-              <div className="pt-2 border-t border-zinc-800/80 text-[11px] text-zinc-400 flex items-center justify-between">
-                <span className="text-zinc-500">Wired profile:</span>
-                <span className="font-medium text-zinc-300 flex items-center gap-1">
-                  <User size={11} className="text-amber-400" />
+              <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800/80 text-[11px] text-zinc-500 dark:text-zinc-400 flex items-center justify-between">
+                <span>Wired profile:</span>
+                <span className="font-medium text-zinc-800 dark:text-zinc-300 flex items-center gap-1">
+                  <User size={11} className="text-amber-600 dark:text-amber-400" />
                   Oakfield Residence (Bristol)
                 </span>
               </div>
@@ -152,32 +151,32 @@ export function Home() {
           {/* Role 3: Biogas Plant Provider (Wired to Apex BioGen) */}
           <div
             onClick={() => handleRoleSelect('plant-apex-1', '/plant-provider')}
-            className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800 hover:border-teal-600/80 transition-all flex flex-col justify-between cursor-pointer shadow-sm group"
+            className="bg-white dark:bg-zinc-900 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800 hover:border-teal-500/80 dark:hover:border-teal-600/80 transition-all flex flex-col justify-between cursor-pointer shadow-xs group"
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <Factory size={28} className="text-teal-400 stroke-[2.2]" aria-hidden="true" />
-                <span className="text-xs font-semibold text-teal-300 bg-teal-950/60 px-2.5 py-0.5 rounded-full border border-teal-800">
+                <Factory size={28} className="text-teal-600 dark:text-teal-400 stroke-[2.2]" aria-hidden="true" />
+                <span className="text-xs font-semibold text-teal-800 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/60 px-2.5 py-0.5 rounded-full border border-teal-200 dark:border-teal-800">
                   Plant Provider
                 </span>
               </div>
 
               <div>
-                <h2 className="text-lg font-bold text-zinc-100 group-hover:text-teal-300 transition-colors">
+                <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-teal-600 dark:group-hover:text-teal-300 transition-colors">
                   I provide biogas plants
                 </h2>
-                <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1 leading-relaxed">
                   Simple dashboard to review incoming project proposals and waste intake requests from local kitchens, businesses, and homes.
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-zinc-800 space-y-1.5 text-xs text-zinc-300">
+              <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800 space-y-1.5 text-xs text-zinc-700 dark:text-zinc-300">
                 <div className="flex items-center gap-1.5">
-                  <Check size={14} className="text-teal-400 shrink-0" />
+                  <Check size={14} className="text-teal-600 dark:text-teal-400 shrink-0" />
                   <span>Incoming request triage & fast reply</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <Check size={14} className="text-teal-400 shrink-0" />
+                  <Check size={14} className="text-teal-600 dark:text-teal-400 shrink-0" />
                   <span>Plant credentials & verification checklist</span>
                 </div>
               </div>
@@ -193,10 +192,10 @@ export function Home() {
               </button>
 
               {/* Single Wired Persona Info */}
-              <div className="pt-2 border-t border-zinc-800/80 text-[11px] text-zinc-400 flex items-center justify-between">
-                <span className="text-zinc-500">Wired profile:</span>
-                <span className="font-medium text-zinc-300 flex items-center gap-1">
-                  <User size={11} className="text-teal-400" />
+              <div className="pt-2 border-t border-zinc-100 dark:border-zinc-800/80 text-[11px] text-zinc-500 dark:text-zinc-400 flex items-center justify-between">
+                <span>Wired profile:</span>
+                <span className="font-medium text-zinc-800 dark:text-zinc-300 flex items-center gap-1">
+                  <User size={11} className="text-teal-600 dark:text-teal-400" />
                   Apex BioGen (South West)
                 </span>
               </div>

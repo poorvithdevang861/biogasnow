@@ -186,32 +186,32 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
   };
 
   return (
-    <div className="bg-zinc-900 rounded-2xl border border-zinc-800 shadow-sm p-6 sm:p-8 space-y-7 w-full">
+    <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-xs p-6 sm:p-8 space-y-7 w-full text-zinc-900 dark:text-zinc-100">
       {/* Top Header & Preset Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-100 dark:border-zinc-800 pb-4">
         <div>
-          <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/40 px-2.5 py-0.5 rounded border border-emerald-800">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-0.5 rounded border border-emerald-200 dark:border-emerald-800">
             Feedstock Decision Journey
           </span>
-          <h2 className="text-xl sm:text-2xl font-bold text-zinc-100 mt-1">
+          <h2 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100 mt-1">
             Organic Feedstock Assessment & Matching
           </h2>
         </div>
 
         {/* Quick Preload Presets */}
         <div className="flex items-center gap-2">
-          <span className="text-xs text-zinc-400 hidden sm:inline">Pre-fill test data:</span>
+          <span className="text-xs text-zinc-500 dark:text-zinc-400 hidden sm:inline">Pre-fill test data:</span>
           <button
             type="button"
             onClick={() => loadPreset('restaurant')}
-            className="text-xs px-2.5 py-1 rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-750 text-zinc-200 font-medium transition-colors"
+            className="text-xs px-2.5 py-1 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-750 text-zinc-700 dark:text-zinc-200 font-medium transition-colors"
           >
             Restaurant (150 kg/day)
           </button>
           <button
             type="button"
             onClick={() => loadPreset('uncertain')}
-            className="text-xs px-2.5 py-1 rounded-lg border border-amber-800/80 bg-amber-950/40 hover:bg-amber-900/50 text-amber-200 font-medium transition-colors"
+            className="text-xs px-2.5 py-1 rounded-lg border border-amber-300 dark:border-amber-800/80 bg-amber-50 dark:bg-amber-950/40 hover:bg-amber-100 dark:hover:bg-amber-900/50 text-amber-800 dark:text-amber-200 font-medium transition-colors"
           >
             "Not sure" Stream
           </button>
@@ -220,11 +220,11 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
 
       {/* Animated Step Progress Bar */}
       <div className="space-y-2">
-        <div className="flex justify-between items-center text-xs font-semibold text-zinc-300">
+        <div className="flex justify-between items-center text-xs font-semibold text-zinc-700 dark:text-zinc-300">
           <span>Step {currentStep} of {STEPS.length}: {STEPS[currentStep - 1].title}</span>
-          <span className="text-zinc-500 font-normal">Illustrative demo workflow</span>
+          <span className="text-zinc-500 dark:text-zinc-400 font-normal">Illustrative demo workflow</span>
         </div>
-        <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+        <div className="h-1.5 w-full bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
           <motion.div
             initial={false}
             animate={{ width: `${(currentStep / STEPS.length) * 100}%` }}
@@ -237,25 +237,25 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
       {/* Confirmation View after Enquiry Submission */}
       {enquirySuccess ? (
         <div className="space-y-6 text-center py-6">
-          <CheckCircle2 size={42} className="text-emerald-400 mx-auto stroke-[2.2]" aria-hidden="true" />
+          <CheckCircle2 size={42} className="text-emerald-600 dark:text-emerald-400 mx-auto stroke-[2.2]" aria-hidden="true" />
 
           <div className="space-y-2 max-w-md mx-auto">
             <StatusBadge status="verified" label="Simulated Enquiry Recorded" size="md" />
-            <h3 className="text-2xl font-bold text-zinc-100">Enquiry Forwarded to Plant Inbox</h3>
-            <p className="text-sm text-zinc-400 leading-relaxed">
+            <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">Enquiry Forwarded to Plant Inbox</h3>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
               Your structured project summary has been registered in the demo data store under reference ID{' '}
-              <strong className="font-mono text-zinc-100 bg-zinc-800 border border-zinc-700 px-1.5 py-0.5 rounded">{enquirySuccess.id}</strong>.
+              <strong className="font-mono text-zinc-900 dark:text-zinc-100 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 px-1.5 py-0.5 rounded">{enquirySuccess.id}</strong>.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-zinc-950/60 border border-zinc-800 text-left max-w-md mx-auto text-xs space-y-2">
-            <span className="font-bold text-zinc-200 block">Forwarded to Selected Providers:</span>
-            <ul className="space-y-1.5 text-zinc-400">
+          <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 text-left max-w-md mx-auto text-xs space-y-2">
+            <span className="font-bold text-zinc-900 dark:text-zinc-200 block">Forwarded to Selected Providers:</span>
+            <ul className="space-y-1.5 text-zinc-600 dark:text-zinc-400">
               {matchedPlants
                 .filter((p) => selectedPlantIds.includes(p.id))
                 .map((p) => (
                   <li key={p.id} className="flex items-center gap-1.5">
-                    <Building2 size={13} className="text-emerald-400 shrink-0" />
+                    <Building2 size={13} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
                     <span>{p.organisation} ({p.serviceArea.slice(0, 2).join(', ')})</span>
                   </li>
                 ))}
@@ -271,7 +271,7 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                 if (onViewEnquiries) onViewEnquiries();
                 else if (onComplete) onComplete();
               }}
-              className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors"
+              className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors shadow-xs"
             >
               <span>View in Sent Enquiries</span>
               <ArrowRight size={15} />
@@ -282,7 +282,7 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                 setEnquirySuccess(null);
                 setCurrentStep(1);
               }}
-              className="px-4 py-2 text-xs sm:text-sm text-zinc-400 hover:text-zinc-200 font-medium transition-colors"
+              className="px-4 py-2 text-xs sm:text-sm text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 font-medium transition-colors"
             >
               Start Another Assessment
             </button>
@@ -295,40 +295,40 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
           {currentStep === 1 && (
             <div className="space-y-6 animate-in fade-in duration-200">
               <div className="space-y-1">
-                <h3 className="text-lg font-bold text-zinc-100">What information is needed to assess biogas potential?</h3>
-                <p className="text-xs sm:text-sm text-zinc-400">
+                <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">What information is needed to assess biogas potential?</h3>
+                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
                   Anaerobic digestion relies on organic matter purity and physical consistency. Here is what we collect:
                 </p>
               </div>
 
               <div className="grid sm:grid-cols-3 gap-4">
-                <div className="p-4 rounded-xl bg-zinc-950/50 border border-zinc-800 space-y-2">
-                  <span className="text-xs font-bold text-emerald-400 font-mono tracking-wider">Step 01</span>
-                  <h4 className="text-sm font-bold text-zinc-100">Feedstock Type</h4>
-                  <p className="text-xs text-zinc-400 leading-relaxed">
+                <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-950/50 border border-zinc-200 dark:border-zinc-800 space-y-2">
+                  <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono tracking-wider">Step 01</span>
+                  <h4 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">Feedstock Type</h4>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
                     Pre-consumer prep scraps, plate waste, spent grains, or slurries have different volatile solids and gas yields.
                   </p>
                 </div>
-                <div className="p-4 rounded-xl bg-zinc-950/50 border border-zinc-800 space-y-2">
-                  <span className="text-xs font-bold text-emerald-400 font-mono tracking-wider">Step 02</span>
-                  <h4 className="text-sm font-bold text-zinc-100">Mass & Rhythm</h4>
-                  <p className="text-xs text-zinc-400 leading-relaxed">
+                <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-950/50 border border-zinc-200 dark:border-zinc-800 space-y-2">
+                  <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono tracking-wider">Step 02</span>
+                  <h4 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">Mass & Rhythm</h4>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
                     Kilograms per day or standard wheelie bin counts. Consistent feeding prevents biological shock to the bacteria.
                   </p>
                 </div>
-                <div className="p-4 rounded-xl bg-zinc-950/50 border border-zinc-800 space-y-2">
-                  <span className="text-xs font-bold text-emerald-400 font-mono tracking-wider">Step 03</span>
-                  <h4 className="text-sm font-bold text-zinc-100">Site Space & Access</h4>
-                  <p className="text-xs text-zinc-400 leading-relaxed">
+                <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-950/50 border border-zinc-200 dark:border-zinc-800 space-y-2">
+                  <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono tracking-wider">Step 03</span>
+                  <h4 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">Site Space & Access</h4>
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
                     Tanker road access, outdoor footprint for containerized modules, and physical bin staging space.
                   </p>
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-amber-950/30 border border-amber-800/80 text-xs text-amber-200 flex items-start gap-2.5">
-                <HelpCircle size={16} className="text-amber-400 shrink-0 mt-0.5" />
+              <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/80 text-xs text-amber-900 dark:text-amber-200 flex items-start gap-2.5">
+                <HelpCircle size={16} className="text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                 <div className="leading-relaxed">
-                  <span className="font-bold block mb-0.5 text-amber-100">Don't have exact metrics?</span>
+                  <span className="font-bold block mb-0.5 text-amber-950 dark:text-amber-100">Don't have exact metrics?</span>
                   Every screen has an <strong>"I'm not sure"</strong> option. The platform will flag missing metrics as "Assessment required" and explain the necessary survey steps instead of guessing.
                 </div>
               </div>
@@ -339,8 +339,8 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
           {currentStep === 2 && (
             <div className="space-y-6 animate-in fade-in duration-200">
               <div className="space-y-1">
-                <h3 className="text-lg font-bold text-zinc-100">What type of organic waste do you produce?</h3>
-                <p className="text-xs sm:text-sm text-zinc-400">
+                <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">What type of organic waste do you produce?</h3>
+                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
                   Select the primary organic stream generated on site.
                 </p>
               </div>
@@ -374,26 +374,26 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                     onClick={() => setFormData({ ...formData, wasteType: item.title, wasteTypeNotSure: false })}
                     className={`p-4 rounded-xl border text-left transition-all ${
                       !formData.wasteTypeNotSure && formData.wasteType === item.title
-                        ? 'border-emerald-500 bg-emerald-950/30 ring-1 ring-emerald-500/40 text-emerald-100'
-                        : 'border-zinc-800 hover:border-zinc-700 bg-zinc-950/40 text-zinc-300'
+                        ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 ring-1 ring-emerald-500/40 text-emerald-900 dark:text-emerald-100'
+                        : 'border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 bg-zinc-50/60 dark:bg-zinc-950/40 text-zinc-800 dark:text-zinc-300'
                     }`}
                   >
                     <div className="flex justify-between items-start gap-2">
-                      <span className="text-sm font-bold text-zinc-100">{item.title}</span>
-                      <span className="text-[10px] font-semibold text-emerald-300 bg-zinc-900 px-2 py-0.5 rounded border border-emerald-800 shrink-0">
+                      <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{item.title}</span>
+                      <span className="text-[10px] font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-zinc-900 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800 shrink-0">
                         {item.category}
                       </span>
                     </div>
-                    <p className="text-xs text-zinc-400 mt-1.5 leading-relaxed">{item.sub}</p>
+                    <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-1.5 leading-relaxed">{item.sub}</p>
                   </button>
                 ))}
               </div>
 
               {/* Not Sure Toggle */}
-              <div className="p-4 rounded-xl border border-dashed border-amber-800/80 bg-amber-950/20 flex items-center justify-between gap-4">
+              <div className="p-4 rounded-xl border border-dashed border-amber-300 dark:border-amber-800/80 bg-amber-50 dark:bg-amber-950/20 flex items-center justify-between gap-4">
                 <div className="text-xs">
-                  <span className="font-bold text-zinc-200 block">I am not sure of the exact waste classification</span>
-                  <span className="text-zinc-400">Our stream is mixed, uncharacterized, or seasonal.</span>
+                  <span className="font-bold text-zinc-800 dark:text-zinc-200 block">I am not sure of the exact waste classification</span>
+                  <span className="text-zinc-600 dark:text-zinc-400">Our stream is mixed, uncharacterized, or seasonal.</span>
                 </div>
                 <button
                   type="button"
@@ -401,7 +401,7 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
                     formData.wasteTypeNotSure
                       ? 'bg-amber-600 text-white border-amber-500'
-                      : 'bg-zinc-800 text-zinc-300 border-zinc-700 hover:border-zinc-600'
+                      : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600'
                   }`}
                 >
                   {formData.wasteTypeNotSure ? 'Selected: Not sure' : "I'm not sure"}
@@ -414,16 +414,16 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
           {currentStep === 3 && (
             <div className="space-y-6 animate-in fade-in duration-200">
               <div className="space-y-1">
-                <h3 className="text-lg font-bold text-zinc-100">How much organic waste is generated?</h3>
-                <p className="text-xs sm:text-sm text-zinc-400">
+                <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">How much organic waste is generated?</h3>
+                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
                   Provide an estimated daily kilogram weight or pick a typical container preset.
                 </p>
               </div>
 
               {!formData.quantityNotSure && (
-                <div className="space-y-4 p-5 rounded-xl bg-zinc-950/50 border border-zinc-800">
+                <div className="space-y-4 p-5 rounded-xl bg-zinc-50 dark:bg-zinc-950/50 border border-zinc-200 dark:border-zinc-800">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <label htmlFor="quantity-input" className="text-xs font-bold text-zinc-300 uppercase tracking-wide">
+                    <label htmlFor="quantity-input" className="text-xs font-bold text-zinc-600 dark:text-zinc-300 uppercase tracking-wide">
                       Estimated Daily Weight (kg/day)
                     </label>
                     <div className="flex items-center gap-1.5">
@@ -437,7 +437,7 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                           key={preset.label}
                           type="button"
                           onClick={() => setFormData({ ...formData, quantityKg: preset.kg })}
-                          className="text-[11px] px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 hover:border-zinc-600 text-zinc-300 font-medium transition-colors"
+                          className="text-[11px] px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600 text-zinc-700 dark:text-zinc-300 font-medium transition-colors"
                         >
                           {preset.label}
                         </button>
@@ -453,13 +453,13 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                       max="20000"
                       value={formData.quantityKg}
                       onChange={(e) => setFormData({ ...formData, quantityKg: e.target.value })}
-                      className="w-36 text-lg font-bold px-3 py-2 rounded-xl bg-zinc-800 border border-zinc-700 text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-36 text-lg font-bold px-3 py-2 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
-                    <span className="text-sm font-semibold text-zinc-300">kg per day (fresh weight)</span>
+                    <span className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">kg per day (fresh weight)</span>
                   </div>
 
-                  <div className="pt-3 border-t border-zinc-800 space-y-2">
-                    <label className="text-xs font-bold text-zinc-300 uppercase tracking-wide block">
+                  <div className="pt-3 border-t border-zinc-200 dark:border-zinc-800 space-y-2">
+                    <label className="text-xs font-bold text-zinc-600 dark:text-zinc-300 uppercase tracking-wide block">
                       Collection / Generation Frequency
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -471,7 +471,7 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                           className={`text-xs py-2 px-2.5 rounded-lg border font-medium text-center transition-colors ${
                             formData.frequency === freq && !formData.frequencyNotSure
                               ? 'bg-emerald-600 text-white border-emerald-500'
-                              : 'bg-zinc-800 text-zinc-300 border-zinc-700 hover:border-zinc-600'
+                              : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600'
                           }`}
                         >
                           {freq}
@@ -483,10 +483,10 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
               )}
 
               {/* Not Sure Toggle */}
-              <div className="p-4 rounded-xl border border-dashed border-amber-800/80 bg-amber-950/20 flex items-center justify-between gap-4">
+              <div className="p-4 rounded-xl border border-dashed border-amber-300 dark:border-amber-800/80 bg-amber-50 dark:bg-amber-950/20 flex items-center justify-between gap-4">
                 <div className="text-xs">
-                  <span className="font-bold text-zinc-200 block">I am not sure of our exact kilograms</span>
-                  <span className="text-zinc-400">We do not currently weigh our waste containers.</span>
+                  <span className="font-bold text-zinc-800 dark:text-zinc-200 block">I am not sure of our exact kilograms</span>
+                  <span className="text-zinc-600 dark:text-zinc-400">We do not currently weigh our waste containers.</span>
                 </div>
                 <button
                   type="button"
@@ -494,7 +494,7 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
                     formData.quantityNotSure
                       ? 'bg-amber-600 text-white border-amber-500'
-                      : 'bg-zinc-800 text-zinc-300 border-zinc-700 hover:border-zinc-600'
+                      : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600'
                   }`}
                 >
                   {formData.quantityNotSure ? 'Selected: Not sure' : "I'm not sure"}
@@ -507,15 +507,15 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
           {currentStep === 4 && (
             <div className="space-y-6 animate-in fade-in duration-200">
               <div className="space-y-1">
-                <h3 className="text-lg font-bold text-zinc-100">Physical Site Layout & Location</h3>
-                <p className="text-xs sm:text-sm text-zinc-400">
+                <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Physical Site Layout & Location</h3>
+                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
                   Where is the feedstock located, and are there physical access restrictions?
                 </p>
               </div>
 
               <div className="space-y-4">
                 <div className="space-y-1.5">
-                  <label htmlFor="location-input" className="text-xs font-bold text-zinc-300 uppercase tracking-wide block">
+                  <label htmlFor="location-input" className="text-xs font-bold text-zinc-600 dark:text-zinc-300 uppercase tracking-wide block">
                     Location / Postal District
                   </label>
                   <input
@@ -523,14 +523,14 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                     type="text"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    className="w-full text-sm px-3.5 py-2.5 rounded-xl bg-zinc-800 border border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full text-sm px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     placeholder="e.g. Bristol Central, Bath, Mendip"
                   />
                 </div>
 
                 {!formData.siteConstraintsNotSure && (
                   <div className="space-y-1.5">
-                    <label htmlFor="constraints-input" className="text-xs font-bold text-zinc-300 uppercase tracking-wide block">
+                    <label htmlFor="constraints-input" className="text-xs font-bold text-zinc-600 dark:text-zinc-300 uppercase tracking-wide block">
                       Physical Access & Footprint Notes
                     </label>
                     <textarea
@@ -538,17 +538,17 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                       rows="3"
                       value={formData.siteConstraints}
                       onChange={(e) => setFormData({ ...formData, siteConstraints: e.target.value })}
-                      className="w-full text-sm p-3 rounded-xl bg-zinc-800 border border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full text-sm p-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       placeholder="e.g. Rear alleyway only, no heavy truck turnaround, ground space for 2 bins"
                     />
                   </div>
                 )}
 
                 {/* Not Sure Toggle */}
-                <div className="p-4 rounded-xl border border-dashed border-amber-800/80 bg-amber-950/20 flex items-center justify-between gap-4">
+                <div className="p-4 rounded-xl border border-dashed border-amber-300 dark:border-amber-800/80 bg-amber-50 dark:bg-amber-950/20 flex items-center justify-between gap-4">
                   <div className="text-xs">
-                    <span className="font-bold text-zinc-200 block">I am not sure of physical site constraints</span>
-                    <span className="text-zinc-400">A physical survey will be needed to verify footprints and gate widths.</span>
+                    <span className="font-bold text-zinc-800 dark:text-zinc-200 block">I am not sure of physical site constraints</span>
+                    <span className="text-zinc-600 dark:text-zinc-400">A physical survey will be needed to verify footprints and gate widths.</span>
                   </div>
                   <button
                     type="button"
@@ -556,7 +556,7 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
                       formData.siteConstraintsNotSure
                         ? 'bg-amber-600 text-white border-amber-500'
-                        : 'bg-zinc-800 text-zinc-300 border-zinc-700 hover:border-zinc-600'
+                        : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600'
                     }`}
                   >
                     {formData.siteConstraintsNotSure ? 'Selected: Not sure' : "I'm not sure"}
@@ -572,36 +572,36 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
               {assessmentResult.status === 'assessment_required' ? (
                 /* Assessment Required State */
                 <div className="space-y-5">
-                  <div className="p-6 rounded-2xl bg-amber-950/25 border border-amber-800/80 space-y-4">
+                  <div className="p-6 rounded-2xl bg-amber-50 dark:bg-amber-950/25 border border-amber-200 dark:border-amber-800/80 space-y-4">
                     <div className="flex items-center gap-2">
                       <StatusBadge status="notsure" label="Assessment Required" size="lg" />
                     </div>
                     <div className="space-y-1">
-                      <h3 className="text-xl font-bold text-amber-200">{assessmentResult.headline}</h3>
-                      <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
+                      <h3 className="text-xl font-bold text-amber-950 dark:text-amber-200">{assessmentResult.headline}</h3>
+                      <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed">
                         {assessmentResult.explanation}
                       </p>
                     </div>
 
-                    <div className="space-y-2 pt-2 border-t border-amber-800/60">
-                      <span className="text-xs font-bold text-zinc-200 block">Uncertain or Unspecified Metrics:</span>
-                      <ul className="space-y-1 text-xs text-amber-300">
+                    <div className="space-y-2 pt-2 border-t border-amber-200 dark:border-amber-800/60">
+                      <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 block">Uncertain or Unspecified Metrics:</span>
+                      <ul className="space-y-1 text-xs text-amber-800 dark:text-amber-300">
                         {assessmentResult.uncertainFields?.map((field) => (
                           <li key={field} className="flex items-center gap-1.5">
-                            <AlertCircle size={13} className="text-amber-400" />
+                            <AlertCircle size={13} className="text-amber-600 dark:text-amber-400" />
                             <span>{field}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-zinc-900 border border-amber-800/60 text-xs text-zinc-300 space-y-1">
-                      <span className="font-bold text-zinc-100 block">Next Steps:</span>
+                    <div className="p-3.5 rounded-xl bg-white dark:bg-zinc-900 border border-amber-200 dark:border-amber-800/60 text-xs text-zinc-700 dark:text-zinc-300 space-y-1">
+                      <span className="font-bold text-zinc-900 dark:text-zinc-100 block">Next Steps:</span>
                       <p>{assessmentResult.recommendation}</p>
                     </div>
                   </div>
 
-                  <p className="text-xs text-zinc-400">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400">
                     You can still proceed to view regional plant providers who conduct physical site audits and feedstock sampling in your area.
                   </p>
                 </div>
@@ -610,8 +610,8 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="text-xs text-zinc-400 font-medium">Assessed Stream:</span>
-                      <h3 className="text-lg font-bold text-zinc-100">{assessmentResult.wasteType}</h3>
+                      <span className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Assessed Stream:</span>
+                      <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">{assessmentResult.wasteType}</h3>
                     </div>
                     <StatusBadge status="verified" label="Evidence-Based Range" size="sm" />
                   </div>
@@ -656,12 +656,12 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
             <div className="space-y-6 animate-in fade-in duration-200">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <h3 className="text-lg font-bold text-zinc-100">Matching Regional Plant Providers</h3>
-                  <p className="text-xs sm:text-sm text-zinc-400">
+                  <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Matching Regional Plant Providers</h3>
+                  <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
                     Filtered by feedstock compatibility ({formData.wasteTypeNotSure ? 'Unclassified' : formData.wasteType}) and regional service area ({formData.location}).
                   </p>
                 </div>
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-950/50 text-emerald-300 border border-emerald-800">
+                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                   {matchedPlants.length} matches found
                 </span>
               </div>
@@ -675,14 +675,14 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                       onClick={() => togglePlantSelect(plant.id)}
                       className={`p-4 rounded-xl border transition-all cursor-pointer space-y-3 ${
                         isSelected
-                          ? 'border-emerald-500 bg-emerald-950/30 ring-1 ring-emerald-500/40 text-emerald-100'
-                          : 'border-zinc-800 hover:border-zinc-700 bg-zinc-950/40 text-zinc-300'
+                          ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 ring-1 ring-emerald-500/40 text-emerald-950 dark:text-emerald-100'
+                          : 'border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 bg-zinc-50/60 dark:bg-zinc-950/40 text-zinc-800 dark:text-zinc-300'
                       }`}
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div>
-                          <h4 className="text-sm font-bold text-zinc-100">{plant.organisation}</h4>
-                          <span className="text-[11px] text-zinc-400 capitalize">
+                          <h4 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{plant.organisation}</h4>
+                          <span className="text-[11px] text-zinc-500 dark:text-zinc-400 capitalize">
                             Scale: {plant.scale} · {plant.capacityMin}–{plant.capacityMax} {plant.capacityUnit}
                           </span>
                         </div>
@@ -690,31 +690,31 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                           type="checkbox"
                           checked={isSelected}
                           onChange={() => {}} // Handled by div click
-                          className="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500 mt-1 cursor-pointer bg-zinc-800 border-zinc-700"
+                          className="w-4 h-4 rounded text-emerald-500 focus:ring-emerald-500 mt-1 cursor-pointer bg-white dark:bg-zinc-800 border-zinc-300 dark:border-zinc-700"
                         />
                       </div>
 
-                      <div className="space-y-1 text-xs text-zinc-400">
+                      <div className="space-y-1 text-xs text-zinc-600 dark:text-zinc-400">
                         {plant.matchReasons?.map((reason, idx) => (
-                          <div key={idx} className="flex items-center gap-1.5 text-[11px] text-emerald-300">
+                          <div key={idx} className="flex items-center gap-1.5 text-[11px] text-emerald-700 dark:text-emerald-300">
                             <CheckCircle2 size={12} className="shrink-0" />
                             <span>{reason}</span>
                           </div>
                         ))}
                       </div>
 
-                      <div className="pt-2 border-t border-zinc-800 flex items-center justify-between text-[11px]">
+                      <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-[11px]">
                         <div className="flex items-center gap-2">
-                          <span className="inline-flex items-center gap-1 text-emerald-300 font-medium">
+                          <span className="inline-flex items-center gap-1 text-emerald-700 dark:text-emerald-300 font-medium">
                             <ShieldCheck size={11} /> {plant.evidenceSummary.provided} verified
                           </span>
                           {plant.evidenceSummary.missing > 0 && (
-                            <span className="inline-flex items-center gap-1 text-rose-400 font-medium">
+                            <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 font-medium">
                               <AlertCircle size={11} /> {plant.evidenceSummary.missing} missing
                             </span>
                           )}
                         </div>
-                        <span className="text-zinc-500">
+                        <span className="text-zinc-400 dark:text-zinc-500">
                           {isSelected ? 'Selected' : 'Click to select'}
                         </span>
                       </div>
@@ -724,7 +724,7 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
               </div>
 
               {selectedPlantIds.length === 0 && (
-                <div className="p-3.5 rounded-xl bg-amber-950/30 border border-amber-800/80 text-xs text-amber-200 flex items-center gap-2">
+                <div className="p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/80 text-xs text-amber-900 dark:text-amber-200 flex items-center gap-2">
                   <AlertCircle size={15} className="shrink-0" />
                   <span>Please select at least one plant provider to receive your enquiry.</span>
                 </div>
@@ -736,56 +736,56 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
           {currentStep === 7 && (
             <div className="space-y-6 animate-in fade-in duration-200">
               <div className="space-y-1">
-                <h3 className="text-lg font-bold text-zinc-100">Review Project Summary</h3>
-                <p className="text-xs sm:text-sm text-zinc-400">
+                <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">Review Project Summary</h3>
+                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
                   Always review your specifications and assumptions before sending a simulated enquiry.
                 </p>
               </div>
 
               {/* Review Summary Card */}
-              <div className="p-5 rounded-xl bg-zinc-950/50 border border-zinc-800 space-y-4 text-xs">
-                <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-                  <span className="font-bold text-zinc-200">Enquiry Summary</span>
+              <div className="p-5 rounded-xl bg-zinc-50 dark:bg-zinc-950/50 border border-zinc-200 dark:border-zinc-800 space-y-4 text-xs">
+                <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-2">
+                  <span className="font-bold text-zinc-900 dark:text-zinc-200">Enquiry Summary</span>
                   <StatusBadge status="illustrative" size="sm" label="Simulated enquiry" />
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <div>
-                    <span className="text-zinc-500 block">Sender Persona:</span>
-                    <strong className="text-zinc-200">{activeProfile.name}</strong>
+                    <span className="text-zinc-500 dark:text-zinc-400 block">Sender Persona:</span>
+                    <strong className="text-zinc-900 dark:text-zinc-200">{activeProfile.name}</strong>
                   </div>
                   <div>
-                    <span className="text-zinc-500 block">Location:</span>
-                    <strong className="text-zinc-200">{formData.location}</strong>
+                    <span className="text-zinc-500 dark:text-zinc-400 block">Location:</span>
+                    <strong className="text-zinc-900 dark:text-zinc-200">{formData.location}</strong>
                   </div>
                   <div>
-                    <span className="text-zinc-500 block">Feedstock Type:</span>
-                    <strong className="text-zinc-200">{formData.wasteTypeNotSure ? 'Assessment Required' : formData.wasteType}</strong>
+                    <span className="text-zinc-500 dark:text-zinc-400 block">Feedstock Type:</span>
+                    <strong className="text-zinc-900 dark:text-zinc-200">{formData.wasteTypeNotSure ? 'Assessment Required' : formData.wasteType}</strong>
                   </div>
                   <div>
-                    <span className="text-zinc-500 block">Daily Volume:</span>
-                    <strong className="text-zinc-200">
+                    <span className="text-zinc-500 dark:text-zinc-400 block">Daily Volume:</span>
+                    <strong className="text-zinc-900 dark:text-zinc-200">
                       {formData.quantityNotSure ? 'Assessment Required' : `${formData.quantityKg} kg/day (${formData.frequency})`}
                     </strong>
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-zinc-800">
-                  <span className="text-zinc-500 block">Estimated Biogas Output:</span>
-                  <strong className="text-sm font-bold text-emerald-400">
+                <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800">
+                  <span className="text-zinc-500 dark:text-zinc-400 block">Estimated Biogas Output:</span>
+                  <strong className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
                     {assessmentResult?.dailyBiogas
                       ? `${assessmentResult.dailyBiogas.min} – ${assessmentResult.dailyBiogas.max} m³/day (${assessmentResult.thermalEnergy.min}–${assessmentResult.thermalEnergy.max} kWh/day thermal)`
                       : 'Assessment required (on-site audit required)'}
                   </strong>
                 </div>
 
-                <div className="pt-2 border-t border-zinc-800">
-                  <span className="text-zinc-500 block">Selected Recipient Providers:</span>
+                <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800">
+                  <span className="text-zinc-500 dark:text-zinc-400 block">Selected Recipient Providers:</span>
                   <div className="flex flex-wrap gap-1.5 mt-1">
                     {matchedPlants
                       .filter((p) => selectedPlantIds.includes(p.id))
                       .map((p) => (
-                        <span key={p.id} className="px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-200 font-medium">
+                        <span key={p.id} className="px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 font-medium">
                           {p.organisation}
                         </span>
                       ))}
@@ -796,7 +796,7 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
               {/* Questions & Contact Preference */}
               <div className="space-y-4">
                 <div className="space-y-1.5">
-                  <label htmlFor="questions-input" className="text-xs font-bold text-zinc-300 uppercase tracking-wide block">
+                  <label htmlFor="questions-input" className="text-xs font-bold text-zinc-600 dark:text-zinc-300 uppercase tracking-wide block">
                     Unresolved Questions & Site Specifics
                   </label>
                   <textarea
@@ -804,13 +804,13 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                     rows="3"
                     value={formData.questions}
                     onChange={(e) => setFormData({ ...formData, questions: e.target.value })}
-                    className="w-full text-xs sm:text-sm p-3 rounded-xl bg-zinc-800 border border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full text-xs sm:text-sm p-3 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     placeholder="Enter any questions regarding delivery access, container lease, or grid connection..."
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label htmlFor="pref-input" className="text-xs font-bold text-zinc-300 uppercase tracking-wide block">
+                  <label htmlFor="pref-input" className="text-xs font-bold text-zinc-600 dark:text-zinc-300 uppercase tracking-wide block">
                     Preferred Follow-Up Method
                   </label>
                   <input
@@ -818,7 +818,7 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                     type="text"
                     value={formData.contactPreference}
                     onChange={(e) => setFormData({ ...formData, contactPreference: e.target.value })}
-                    className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-zinc-800 border border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
               </div>
@@ -829,11 +829,11 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
 
       {/* Navigation Buttons Footer */}
       {!enquirySuccess && (
-        <div className="flex items-center justify-between border-t border-zinc-800 pt-5">
+        <div className="flex items-center justify-between border-t border-zinc-200 dark:border-zinc-800 pt-5">
           <button
             type="button"
             onClick={currentStep === 1 ? onCancel : prevStep}
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-zinc-400 hover:text-zinc-200 px-3 py-2 rounded-xl transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 px-3 py-2 rounded-xl transition-colors"
           >
             <ArrowLeft size={15} />
             <span>{currentStep === 1 ? 'Cancel Assessment' : 'Back'}</span>
@@ -845,7 +845,7 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                 type="button"
                 onClick={nextStep}
                 disabled={loading || (currentStep === 6 && selectedPlantIds.length === 0)}
-                className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:bg-zinc-800 disabled:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors"
+                className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:bg-zinc-200 dark:disabled:bg-zinc-800 disabled:text-zinc-400 dark:disabled:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors shadow-xs"
               >
                 <span>{currentStep === 4 ? (loading ? 'Calculating...' : 'Calculate Indicative Range') : 'Continue'}</span>
                 <ArrowRight size={15} />
@@ -855,7 +855,7 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                 type="button"
                 onClick={handleSubmitEnquiry}
                 disabled={loading || selectedPlantIds.length === 0}
-                className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:bg-zinc-800 disabled:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition-colors"
+                className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:bg-zinc-200 dark:disabled:bg-zinc-800 disabled:text-zinc-400 dark:disabled:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition-colors shadow-xs"
               >
                 <Send size={15} />
                 <span>{loading ? 'Submitting...' : 'Send Simulated Enquiry'}</span>
