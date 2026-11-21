@@ -2,7 +2,7 @@
   {
     "id": "enq-demo-001",
     "fromProfile": "waste-restaurant-1",
-    "fromName": "Green Fork Bistro",
+    "fromName": "Annapurna Kitchens",
     "toPlantIds": [
       "plant-apex-1"
     ],
@@ -11,11 +11,11 @@
       "wasteType": "Food waste (commercial kitchen)",
       "quantityRange": "120-180 kg/day",
       "frequency": "Daily collection",
-      "location": "Bristol Central",
+      "location": "Indiranagar, Bengaluru",
       "estimatedBiogasRange": "9.6 - 21.6 m³/day (indicative)",
-      "siteConstraints": "Rear alleyway access only; limited bin storage for 48 hours"
+      "siteConstraints": "Service lane vehicle access; limited bin storage for 48 hours"
     },
-    "questions": "Can a containerized digester be serviced from a narrow alleyway, or is off-site daily transport necessary?",
+    "questions": "Can a containerized digester be serviced from a service lane, or is daily off-site pickup required?",
     "contactPreference": "Email with preliminary technical feasibility note",
     "status": "pending_review",
     "createdAt": "2026-11-20T10:15:00.000Z"

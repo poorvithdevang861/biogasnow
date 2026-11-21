@@ -4,65 +4,65 @@
       "id": "waste-restaurant-1",
       "role": "waste_provider",
       "roleLabel": "Waste Provider",
-      "name": "Green Fork Bistro",
-      "location": "Bristol Central",
-      "description": "City centre restaurant generating 120–180 kg/day of separated pre-consumer and post-consumer food scraps with limited on-site storage."
+      "name": "Annapurna Kitchens",
+      "location": "Indiranagar, Bengaluru",
+      "description": "High-volume commercial South Indian restaurant generating 120–180 kg/day of clean, segregated vegetable peels and plate scraps."
     },
     {
       "id": "waste-kitchen-2",
       "role": "waste_provider",
       "roleLabel": "Waste Provider",
-      "name": "St. Jude Community Kitchen",
-      "location": "Bath & North East Somerset",
-      "description": "Charity community kitchen preparing 300 meals daily with variable vegetable peelings and plate scrapings."
+      "name": "Akshaya Community Bhojanalaya",
+      "location": "Shivajinagar, Pune",
+      "description": "Charity community kitchen preparing 450 meals daily with high volume vegetable peelings, lentils, and fresh food prep discards."
     },
     {
       "id": "consumer-household-1",
       "role": "consumer",
       "roleLabel": "Biogas Consumer",
-      "name": "Oakfield Eco-Terrace",
-      "location": "Bristol East",
-      "description": "Four-bedroom residential property seeking reliable local micro-biogas offtake for cooking gas and space heating."
+      "name": "Gulmohar Greens Society",
+      "location": "Kothrud, Pune",
+      "description": "Eco-friendly 36-unit residential gated community seeking reliable piped micro-biogas offtake for domestic cooking fuel."
     },
     {
       "id": "consumer-hotel-2",
       "role": "consumer",
       "roleLabel": "Biogas Consumer",
-      "name": "Somerset Meadow Inn",
-      "location": "Mendip District, Somerset",
-      "description": "24-room boutique hotel and dining room requiring continuous high-temperature water heating and kitchen fuel."
+      "name": "Heritage Haveli Retreat",
+      "location": "Udaipur, Rajasthan",
+      "description": "28-room heritage resort and banquet facility requiring continuous thermal water heating and central dining kitchen fuel."
     },
     {
       "id": "plant-apex-1",
       "role": "plant_provider",
       "roleLabel": "Plant Provider",
-      "name": "Apex BioGen Engineering",
-      "location": "South West & Midlands",
-      "description": "Turnkey anaerobic digestion systems, containerized modular reactors, and full-lifecycle operation and maintenance contracts."
+      "name": "UrjaVeda BioEnergy Tech",
+      "location": "Vadodara, Gujarat",
+      "description": "Turnkey CSTR biomethanation systems, containerized wet waste digesters, and 24/7 telemetry monitoring contracts across Western & Southern India."
     },
     {
       "id": "plant-circular-2",
       "role": "plant_provider",
       "roleLabel": "Plant Provider",
-      "name": "Circular Gas Systems",
-      "location": "Wales & West",
-      "description": "Modular digesters for commercial food processors and farm cooperatives with basic self-operating support."
+      "name": "Prakriti CleanGas Systems",
+      "location": "Bengaluru & Coimbatore",
+      "description": "Modular pre-fabricated digesters for commercial hotels, mandis, and IT park cafeterias with on-site biological support."
     },
     {
       "id": "plant-terra-3",
       "role": "plant_provider",
       "roleLabel": "Plant Provider",
-      "name": "TerraFirma BioPower",
-      "location": "South West England",
-      "description": "Decentralized micro-digesters for commercial hospitality and community sites."
+      "name": "Bhoomi Shakti BioPower",
+      "location": "Indore, Madhya Pradesh",
+      "description": "Decentralized anaerobic food waste processors for educational campuses and urban municipal wards."
     },
     {
       "id": "plant-valebio-4",
       "role": "plant_provider",
       "roleLabel": "Plant Provider",
-      "name": "Vale Biomass & Energy",
-      "location": "Somerset & Gloucestershire",
-      "description": "Agricultural and multi-feedstock farm-scale anaerobic digestion facility developers."
+      "name": "Kisan Urja BioRefineries",
+      "location": "Nashik & Western Maharashtra",
+      "description": "Agro-residue, sugarcane press-mud, and cattle dairy slurry Bio-CNG / SATAT facility developer."
     }
   ],
   "wasteProfiles": [
@@ -71,8 +71,8 @@
       "wasteType": "Food waste (commercial kitchen)",
       "quantityRange": "120-180 kg/day",
       "frequency": "Daily collection",
-      "intendedUse": "Local digestion & cooking gas offtake",
-      "siteConstraints": "Rear alleyway access only; limited bin storage for 48 hours"
+      "intendedUse": "Local digestion & kitchen cooking gas offtake",
+      "siteConstraints": "Rear service lane access only; limited bin storage for 48 hours"
     },
     {
       "profileId": "waste-kitchen-2",
@@ -86,42 +86,40 @@
   "plants": [
     {
       "id": "plant-apex-1",
-      "organisation": "Apex BioGen Engineering",
+      "organisation": "UrjaVeda BioEnergy Tech",
       "services": [
         "Feasibility study & feedstock characterization",
         "Turnkey containerized digester build",
         "Civil & ground works integration",
         "Full ongoing O&M contract",
-        "Commissioning and Gas Safe sign-off"
+        "Commissioning & CPCB/PESO safety sign-off"
       ],
       "supportedFeedstock": [
         "Food waste (commercial kitchen)",
-        "Brewery spent grain & trub",
-        "Agricultural slurry & manure"
+        "Mandi vegetable & fruit discards",
+        "Cattle dung & dairy slurry"
       ],
       "capacityMin": 50,
       "capacityMax": 1000,
       "capacityUnit": "kg/day",
       "scale": "medium",
       "serviceArea": [
-        "Bristol",
-        "Bath",
-        "South Gloucestershire",
-        "North Somerset",
-        "Midlands"
+        "Bengaluru",
+        "Vadodara",
+        "Pune",
+        "Ahmedabad",
+        "Mumbai MMR"
       ],
-      "omOffering": "Comprehensive 24/7 preventative maintenance with remote telemetry and bi-monthly biological testing.",
-      "warranty": "5-year structural vessel warranty and 2-year electro-mechanical warranty.",
-      "continuityRisk": "",
-      "updatedAt": "2026-11-21T11:43:11.713Z"
+      "omOffering": "Comprehensive 24/7 preventative maintenance with IoT telemetry and bi-monthly biological volatile fatty acid testing.",
+      "warranty": "5-year structural vessel warranty and 2-year electro-mechanical warranty."
     },
     {
       "id": "plant-circular-2",
-      "organisation": "Circular Gas Systems",
+      "organisation": "Prakriti CleanGas Systems",
       "services": [
         "Modular containerized digester supply",
-        "Basic on-site plumbing connection",
-        "Operator training handbook"
+        "Basic on-site biogas burner plumbing connection",
+        "Operator training handbook & SOPs"
       ],
       "supportedFeedstock": [
         "Food waste (commercial kitchen)",
@@ -132,16 +130,17 @@
       "capacityUnit": "kg/day",
       "scale": "small",
       "serviceArea": [
-        "Wales",
-        "Bristol",
-        "Gloucestershire"
+        "Bengaluru",
+        "Coimbatore",
+        "Mysuru",
+        "Chennai"
       ],
       "omOffering": "Annual mechanical check-up; daily feedstock feeding and pH monitoring managed by customer.",
       "warranty": "2-year manufacturer component warranty (vessel unverified)."
     },
     {
       "id": "plant-terra-3",
-      "organisation": "TerraFirma BioPower",
+      "organisation": "Bhoomi Shakti BioPower",
       "services": [
         "Decentralized micro-digester unit manufacturing",
         "Standard delivery & basic siting"
@@ -155,23 +154,24 @@
       "capacityUnit": "kg/day",
       "scale": "small",
       "serviceArea": [
-        "South West England",
-        "Bristol",
-        "Bath"
+        "Indore",
+        "Bhopal",
+        "Ujjain",
+        "Central India"
       ],
       "omOffering": "Not provided / Not verified",
       "warranty": "1-year limited parts only"
     },
     {
       "id": "plant-valebio-4",
-      "organisation": "Vale Biomass & Energy",
+      "organisation": "Kisan Urja BioRefineries",
       "services": [
         "Large-scale continuous stirred-tank reactors (CSTR)",
-        "Biomethane purification and compression skids"
+        "Biomethane purification and Bio-CNG bottling skids"
       ],
       "supportedFeedstock": [
-        "Agricultural slurry & manure",
-        "Crop silage & grass clippings",
+        "Agricultural slurry & cattle manure",
+        "Sugarcane press-mud & mandi waste",
         "Food waste (commercial kitchen)"
       ],
       "capacityMin": 500,
@@ -179,9 +179,10 @@
       "capacityUnit": "kg/day",
       "scale": "large",
       "serviceArea": [
-        "Somerset",
-        "Gloucestershire",
-        "Wiltshire"
+        "Nashik",
+        "Pune Rural",
+        "Surat",
+        "Aurangabad"
       ],
       "omOffering": "Scheduled quarterly visits; emergency unscheduled call-out subject to standard commercial day rates.",
       "warranty": "Not provided / Not verified"
@@ -192,11 +193,11 @@
       "id": "ev-apex-1",
       "plantId": "plant-apex-1",
       "type": "project example",
-      "title": "150 kg/day kitchen waste digester at Queen Square Dining Hall",
+      "title": "150 kg/day kitchen waste digester at Bengaluru Tech Park Food Court",
       "status": "provided",
       "date": "2024-08-15",
-      "source": "Independent Case Study Report #CS-2024-04 (Apex BioGen)",
-      "details": "Operational continuously for 18 months, displacing 65% of kitchen cooking gas needs with zero odor complaints."
+      "source": "Independent Case Study Report #CS-2024-BLR (UrjaVeda)",
+      "details": "Operational continuously for 18 months, displacing 65% of commercial cooking gas needs with zero odor complaints."
     },
     {
       "id": "ev-apex-2",
@@ -205,14 +206,14 @@
       "title": "Third-party pressure, flame arrestor, and methane safety certificate",
       "status": "provided",
       "date": "2024-09-10",
-      "source": "Gas Safe Inspection UK Certification #GS-88219-B",
+      "source": "PESO & CPCB Approved Inspectorate Certification #IN-88219-B",
       "details": "Passed all methane leak tests, flare safety valves, and automatic shut-off triggers under full 1.2 bar operating pressure."
     },
     {
       "id": "ev-apex-3",
       "plantId": "plant-apex-1",
       "type": "reference",
-      "title": "Director of Sustainability, Bristol Regional Hospitality Group",
+      "title": "Head of Sustainability, Karnataka Hospitality Consortium",
       "status": "provided",
       "date": "2025-01-20",
       "source": "Verified Client Reference Letter & Billing Statements",
@@ -222,11 +223,11 @@
       "id": "ev-circular-1",
       "plantId": "plant-circular-2",
       "type": "project example",
-      "title": "80 kg/day modular unit installed at Newport Artisan Brewery",
+      "title": "80 kg/day modular unit installed at Coimbatore Organic Food Processing Unit",
       "status": "provided",
       "date": "2024-11-04",
-      "source": "Circular Gas Field Commissioning Log #CGS-2024-NPT",
-      "details": "Processes grain trub and taproom kitchen waste for supplemental hot water heating."
+      "source": "Prakriti Field Commissioning Log #PKS-2024-CBR",
+      "details": "Processes fruit pulp and canteen kitchen waste for supplemental hot water heating."
     },
     {
       "id": "ev-circular-2",
@@ -235,8 +236,8 @@
       "title": "Digestate biological stability and volatile fatty acid certification",
       "status": "pending",
       "date": "2025-03-01",
-      "source": "Soil Association & Environment Agency review underway",
-      "details": "Application submitted for unrestricted agricultural spreading approval; initial screening accepted."
+      "source": "ICAR & State Agricultural University review underway",
+      "details": "Application submitted for unrestricted organic agricultural spreading approval; initial screening accepted."
     },
     {
       "id": "ev-circular-3",
@@ -252,61 +253,61 @@
       "id": "ev-terra-1",
       "plantId": "plant-terra-3",
       "type": "project example",
-      "title": "Demonstration prototype at South West Farm Energy Fair",
-      "status": "pending",
-      "date": "2024-05-18",
-      "source": "Trade show exhibitor directory",
-      "details": "Field demonstration unit operated under supervised conditions; not a permanent commercial deployment."
+      "title": "50 kg/day educational hostel food waste unit in Indore",
+      "status": "provided",
+      "date": "2024-05-12",
+      "source": "Municipal Smart City Pilot Project Log #MP-IND-09",
+      "details": "Diverts hostel canteen scraps directly into a 4 m³ balloon digester for tea preparation."
     },
     {
       "id": "ev-terra-2",
       "plantId": "plant-terra-3",
       "type": "commissioning",
-      "title": "Formal pressure vessel and anaerobic safety sign-off",
+      "title": "Third-party pressure test certificate",
       "status": "missing",
       "date": null,
       "source": "Not provided / Not verified",
-      "details": "No third-party engineering sign-off submitted. Self-installation kit only."
+      "details": "No independent engineering sign-off on flame arrestor or gas pressure test has been submitted."
     },
     {
       "id": "ev-terra-3",
       "plantId": "plant-terra-3",
       "type": "reference",
-      "title": "Independent operational facility reference",
-      "status": "missing",
-      "date": null,
-      "source": "Not provided / Not verified",
-      "details": "No external operational references provided to date."
+      "title": "Hostel warden customer feedback form",
+      "status": "provided",
+      "date": "2024-06-18",
+      "source": "Signed customer testimonial",
+      "details": "Self-reported satisfaction statement from site warden; lacks audited gas generation logs."
     },
     {
       "id": "ev-valebio-1",
       "plantId": "plant-valebio-4",
       "type": "project example",
-      "title": "2-tonne daily slurry and vegetable waste digester at Chew Magna",
+      "title": "2,000 kg/day agro-dairy biomethanation facility in Nashik",
       "status": "provided",
-      "date": "2023-06-12",
-      "source": "Farm Energy Network Case Reference #FEN-401",
-      "details": "Large-scale continuous farm AD exporting electricity to local micro-grid."
+      "date": "2023-12-01",
+      "source": "MNRE SATAT Project Commissioning Report #SATAT-MH-104",
+      "details": "Generates 220 m³/day raw biogas with H2S scrubber, supplying boiler fuel to adjacent agro-processing unit."
     },
     {
       "id": "ev-valebio-2",
       "plantId": "plant-valebio-4",
       "type": "commissioning",
-      "title": "Food waste co-digestion environmental permit amendment",
-      "status": "missing",
-      "date": null,
-      "source": "Not provided / Not verified",
-      "details": "Existing plant is certified for farm manure; food waste pasteurization commissioning records not provided."
+      "title": "State Pollution Control Board Consent to Operate (CTO)",
+      "status": "provided",
+      "date": "2024-02-14",
+      "source": "MPCB CTO #BO/JD(APC)/EIC-NK-9921",
+      "details": "Compliant with all air and water emission thresholds for biomethanation facilities."
     },
     {
       "id": "ev-valebio-3",
       "plantId": "plant-valebio-4",
       "type": "reference",
-      "title": "Estate farm manager testimonial",
-      "status": "pending",
-      "date": "2024-12-05",
-      "source": "Under review by Vale Biomass legal verification team",
-      "details": "Client testimonial drafted; awaiting final client sign-off."
+      "title": "Commercial multi-year reference client",
+      "status": "missing",
+      "date": null,
+      "source": "Not provided / Not verified",
+      "details": "No third-party verified reference available on long-term equipment warranty and maintenance."
     }
   ],
   "assumptions": [
@@ -357,101 +358,9 @@
   ],
   "enquiries": [
     {
-      "id": "enq-1795257018346",
-      "fromProfile": "consumer-household-1",
-      "fromName": "Oakfield Eco-Terrace",
-      "toPlantIds": [
-        "plant-apex-1",
-        "plant-circular-2"
-      ],
-      "summary": {
-        "role": "consumer",
-        "intendedUse": "Cooking gas & domestic hot water",
-        "expectedDemand": "Medium (~4–8 m³/day)",
-        "chosenScale": "LARGE",
-        "siteFootprint": "Private garden terrace (~25 m² outdoor space)",
-        "continuityNeed": "Critical continuous supply (cannot tolerate complete winter outage)",
-        "location": "Bristol East"
-      },
-      "questions": "What is the expected gas pressure drop in January? Is secondary LPG backup necessary?",
-      "contactPreference": "Email with technical brochure and comparison notes",
-      "status": "pending_review",
-      "replies": [],
-      "createdAt": "2026-11-21T10:30:18.346Z"
-    },
-    {
-      "id": "enq-1795256869509",
-      "fromProfile": "waste-restaurant-1",
-      "fromName": "Green Fork Bistro",
-      "toPlantIds": [
-        "plant-apex-1",
-        "plant-circular-2",
-        "plant-valebio-4",
-        "plant-terra-3"
-      ],
-      "summary": {
-        "role": "waste_provider",
-        "wasteType": "Food waste (commercial kitchen)",
-        "quantityRange": "150 kg/day (Daily collection)",
-        "frequency": "Daily collection",
-        "location": "Bristol Central",
-        "estimatedBiogasRange": "10.2 – 20.8 m³/day",
-        "siteConstraints": "Rear alleyway access only; 48-hour bin storage capacity"
-      },
-      "questions": "Can a containerized digester be serviced from a narrow alleyway, or is off-site daily transport necessary?",
-      "contactPreference": "Email with technical feasibility summary",
-      "status": "pending_review",
-      "replies": [],
-      "createdAt": "2026-11-21T10:27:49.509Z"
-    },
-    {
-      "id": "enq-1795255111965",
-      "fromProfile": "consumer-household-1",
-      "fromName": "Oakfield Eco-Terrace",
-      "toPlantIds": [
-        "plant-apex-1",
-        "plant-terra-3"
-      ],
-      "summary": {
-        "role": "consumer",
-        "intendedUse": "Cooking gas & domestic hot water",
-        "expectedDemand": "Medium (~4–8 m³/day)",
-        "chosenScale": "SMALL",
-        "siteFootprint": "Private garden terrace (~25 m² outdoor space)",
-        "continuityNeed": "Critical continuous supply (cannot tolerate complete winter outage)",
-        "location": "Bristol East"
-      },
-      "questions": "What is the expected gas pressure drop in January? Is secondary LPG backup necessary?",
-      "contactPreference": "Email with technical brochure and comparison notes",
-      "status": "pending_review",
-      "replies": [],
-      "createdAt": "2026-11-21T09:58:31.965Z"
-    },
-    {
-      "id": "enq-1795254752683",
-      "fromProfile": "waste-restaurant-1",
-      "fromName": "Green Fork Bistro",
-      "toPlantIds": [
-        "plant-apex-1"
-      ],
-      "summary": {
-        "role": "waste_provider",
-        "wasteType": "Food waste (commercial kitchen)",
-        "quantityRange": "120–180 kg/day (Daily collection)",
-        "estimatedBiogasRange": "9.6 – 21.6 m³/day (57.6–129.6 kWh/day thermal)",
-        "location": "Bristol Central",
-        "siteConstraints": "Rear alleyway access only; 48-hour bin storage capacity"
-      },
-      "questions": "Can a containerized digester be serviced from a narrow alleyway, or is off-site daily transport necessary?",
-      "contactPreference": "Email with technical feasibility summary",
-      "status": "pending_review",
-      "replies": [],
-      "createdAt": "2026-11-21T09:52:32.683Z"
-    },
-    {
       "id": "enq-demo-001",
       "fromProfile": "waste-restaurant-1",
-      "fromName": "Green Fork Bistro",
+      "fromName": "Annapurna Kitchens",
       "toPlantIds": [
         "plant-apex-1"
       ],
@@ -460,18 +369,18 @@
         "wasteType": "Food waste (commercial kitchen)",
         "quantityRange": "120-180 kg/day",
         "frequency": "Daily collection",
-        "location": "Bristol Central",
+        "location": "Indiranagar, Bengaluru",
         "estimatedBiogasRange": "9.6 - 21.6 m³/day (indicative)",
-        "siteConstraints": "Rear alleyway access only; limited bin storage for 48 hours"
+        "siteConstraints": "Service lane vehicle access; limited bin storage for 48 hours"
       },
-      "questions": "Can a containerized digester be serviced from a narrow alleyway, or is off-site daily transport necessary?",
+      "questions": "Can a containerized digester be serviced from a service lane, or is daily off-site pickup required?",
       "contactPreference": "Email with preliminary technical feasibility note",
       "status": "pending_review",
       "createdAt": "2026-11-20T10:15:00.000Z"
     }
   ],
   "metadata": {
-    "initializedAt": "2026-11-21T09:40:01.400Z",
+    "initializedAt": "2026-11-21T18:34:12.952Z",
     "version": "0.1.0",
     "prototype": "illustrative"
   }

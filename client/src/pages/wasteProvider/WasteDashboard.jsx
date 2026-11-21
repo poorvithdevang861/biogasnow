@@ -105,7 +105,7 @@ export function WasteDashboard() {
               Welcome back, {activeProfile.name}
             </h1>
             <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
-              {activeProfile.location || 'Bristol Central'} · Commercial kitchen organic waste evaluation and regional digester matching.
+              {activeProfile.location || 'Indiranagar, Bengaluru'} · Commercial kitchen organic waste evaluation and regional digester matching.
             </p>
           </div>
 

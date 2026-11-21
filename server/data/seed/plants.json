@@ -1,40 +1,40 @@
 [
   {
     "id": "plant-apex-1",
-    "organisation": "Apex BioGen Engineering",
+    "organisation": "UrjaVeda BioEnergy Tech",
     "services": [
       "Feasibility study & feedstock characterization",
       "Turnkey containerized digester build",
       "Civil & ground works integration",
       "Full ongoing O&M contract",
-      "Commissioning and Gas Safe sign-off"
+      "Commissioning & CPCB/PESO safety sign-off"
     ],
     "supportedFeedstock": [
       "Food waste (commercial kitchen)",
-      "Brewery spent grain & trub",
-      "Agricultural slurry & manure"
+      "Mandi vegetable & fruit discards",
+      "Cattle dung & dairy slurry"
     ],
     "capacityMin": 50,
     "capacityMax": 1000,
     "capacityUnit": "kg/day",
     "scale": "medium",
     "serviceArea": [
-      "Bristol",
-      "Bath",
-      "South Gloucestershire",
-      "North Somerset",
-      "Midlands"
+      "Bengaluru",
+      "Vadodara",
+      "Pune",
+      "Ahmedabad",
+      "Mumbai MMR"
     ],
-    "omOffering": "Comprehensive 24/7 preventative maintenance with remote telemetry and bi-monthly biological testing.",
+    "omOffering": "Comprehensive 24/7 preventative maintenance with IoT telemetry and bi-monthly biological volatile fatty acid testing.",
     "warranty": "5-year structural vessel warranty and 2-year electro-mechanical warranty."
   },
   {
     "id": "plant-circular-2",
-    "organisation": "Circular Gas Systems",
+    "organisation": "Prakriti CleanGas Systems",
     "services": [
       "Modular containerized digester supply",
-      "Basic on-site plumbing connection",
-      "Operator training handbook"
+      "Basic on-site biogas burner plumbing connection",
+      "Operator training handbook & SOPs"
     ],
     "supportedFeedstock": [
       "Food waste (commercial kitchen)",
@@ -45,16 +45,17 @@
     "capacityUnit": "kg/day",
     "scale": "small",
     "serviceArea": [
-      "Wales",
-      "Bristol",
-      "Gloucestershire"
+      "Bengaluru",
+      "Coimbatore",
+      "Mysuru",
+      "Chennai"
     ],
     "omOffering": "Annual mechanical check-up; daily feedstock feeding and pH monitoring managed by customer.",
     "warranty": "2-year manufacturer component warranty (vessel unverified)."
   },
   {
     "id": "plant-terra-3",
-    "organisation": "TerraFirma BioPower",
+    "organisation": "Bhoomi Shakti BioPower",
     "services": [
       "Decentralized micro-digester unit manufacturing",
       "Standard delivery & basic siting"
@@ -68,23 +69,24 @@
     "capacityUnit": "kg/day",
     "scale": "small",
     "serviceArea": [
-      "South West England",
-      "Bristol",
-      "Bath"
+      "Indore",
+      "Bhopal",
+      "Ujjain",
+      "Central India"
     ],
     "omOffering": "Not provided / Not verified",
     "warranty": "1-year limited parts only"
   },
   {
     "id": "plant-valebio-4",
-    "organisation": "Vale Biomass & Energy",
+    "organisation": "Kisan Urja BioRefineries",
     "services": [
       "Large-scale continuous stirred-tank reactors (CSTR)",
-      "Biomethane purification and compression skids"
+      "Biomethane purification and Bio-CNG bottling skids"
     ],
     "supportedFeedstock": [
-      "Agricultural slurry & manure",
-      "Crop silage & grass clippings",
+      "Agricultural slurry & cattle manure",
+      "Sugarcane press-mud & mandi waste",
       "Food waste (commercial kitchen)"
     ],
     "capacityMin": 500,
@@ -92,9 +94,10 @@
     "capacityUnit": "kg/day",
     "scale": "large",
     "serviceArea": [
-      "Somerset",
-      "Gloucestershire",
-      "Wiltshire"
+      "Nashik",
+      "Pune Rural",
+      "Surat",
+      "Aurangabad"
     ],
     "omOffering": "Scheduled quarterly visits; emergency unscheduled call-out subject to standard commercial day rates.",
     "warranty": "Not provided / Not verified"

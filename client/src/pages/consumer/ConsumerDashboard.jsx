@@ -169,7 +169,7 @@ export function ConsumerDashboard() {
               Welcome back, {activeProfile.name}
             </h1>
             <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
-              {activeProfile.location || 'Bristol'} · Thermal energy and biogas demand sizing, provider comparison, and proposal dispatch.
+              {activeProfile.location || 'Pune'} · Thermal energy and biogas demand sizing, provider comparison, and proposal dispatch.
             </p>
           </div>
 

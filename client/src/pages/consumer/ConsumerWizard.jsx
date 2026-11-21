@@ -101,7 +101,7 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
     demandLevel: 'Medium (~4–8 m³/day)',
     siteFootprint: 'Private garden terrace (~25 m² outdoor space)',
     continuityNeed: 'Critical continuous supply (cannot tolerate complete winter outage)',
-    location: activeProfile.location || 'Bristol East',
+    location: activeProfile.location || 'Kothrud, Pune',
     unresolvedQuestions: 'What is the expected gas pressure drop in January? Is secondary LPG backup necessary?',
     contactPreference: 'Email with technical brochure and comparison notes',
   });
@@ -215,7 +215,7 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
         demandLevel: 'Low-Medium (~2–4 m³/day)',
         siteFootprint: 'Domestic rear garden (~25 m² space available)',
         continuityNeed: 'Flexible (can switch to electric induction during cold snaps)',
-        location: 'Bristol East',
+        location: 'Kothrud, Pune',
         unresolvedQuestions: 'Can a small containerized unit be sited within 5 meters of a residential boundary?',
         contactPreference: 'Email with installation specifications',
       });
@@ -226,7 +226,7 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
         demandLevel: 'High (~25–40 m³/day)',
         siteFootprint: 'Service yard and rear outbuilding (~150 m² space)',
         continuityNeed: 'Critical (hot water must be uninterrupted for guests)',
-        location: 'Mendip District, Somerset',
+        location: 'Udaipur, Rajasthan',
         unresolvedQuestions: 'What is the telemetry response time if digester heating fails?',
         contactPreference: 'Phone call with senior mechanical engineer',
       });

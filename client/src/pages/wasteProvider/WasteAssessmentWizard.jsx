@@ -53,11 +53,11 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
     quantityNotSure: false,
     frequency: 'Daily collection',
     frequencyNotSure: false,
-    location: activeProfile.location || 'Bristol Central',
-    siteConstraints: 'Rear alleyway access only; 48-hour bin storage capacity',
+    location: activeProfile.location || 'Indiranagar, Bengaluru',
+    siteConstraints: 'Rear service lane access only; 48-hour bin storage capacity',
     siteConstraintsNotSure: false,
     intendedUse: 'Displace commercial kitchen cooking gas',
-    questions: 'Can a containerized digester be serviced from a narrow alleyway, or is off-site daily transport necessary?',
+    questions: 'Can a containerized digester be serviced from a service lane, or is off-site daily transport necessary?',
     contactPreference: 'Email with technical feasibility summary',
   });
 
@@ -71,11 +71,11 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
         quantityNotSure: false,
         frequency: 'Daily collection',
         frequencyNotSure: false,
-        location: 'Bristol Central',
-        siteConstraints: 'Rear alleyway access only; 48-hour bin storage capacity',
+        location: 'Indiranagar, Bengaluru',
+        siteConstraints: 'Rear service lane access only; 48-hour bin storage capacity',
         siteConstraintsNotSure: false,
         intendedUse: 'Displace commercial kitchen cooking gas',
-        questions: 'Can a containerized digester be serviced from a narrow alleyway, or is off-site daily transport necessary?',
+        questions: 'Can a containerized digester be serviced from a service lane, or is off-site daily transport necessary?',
         contactPreference: 'Email with technical feasibility summary',
       });
     } else if (presetType === 'uncertain') {
@@ -86,7 +86,7 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
         quantityNotSure: true,
         frequency: 'not sure',
         frequencyNotSure: true,
-        location: activeProfile.location || 'Bath & North East Somerset',
+        location: activeProfile.location || 'Shivajinagar, Pune',
         siteConstraints: 'not sure',
         siteConstraintsNotSure: true,
         intendedUse: 'not sure',
@@ -533,7 +533,7 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                     className="w-full text-sm px-3.5 py-2.5 rounded-xl bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                    placeholder="e.g. Bristol Central, Bath, Mendip"
+                    placeholder="e.g. Bengaluru Central, Pune, Vadodara"
                   />
                 </div>
 

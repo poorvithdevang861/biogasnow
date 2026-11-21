@@ -822,7 +822,7 @@ export function PlantDashboard() {
                       type="text"
                       value={profileForm.serviceArea}
                       onChange={(e) => setProfileForm({ ...profileForm, serviceArea: e.target.value })}
-                      placeholder="e.g. Bristol, Bath & North East Somerset, South Gloucestershire"
+                      placeholder="e.g. Bengaluru, Vadodara, Pune, Ahmedabad"
                       className="w-full text-xs p-2.5 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:ring-2 focus:ring-teal-500"
                     />
                   </div>

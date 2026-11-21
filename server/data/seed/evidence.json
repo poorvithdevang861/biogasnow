@@ -3,11 +3,11 @@
     "id": "ev-apex-1",
     "plantId": "plant-apex-1",
     "type": "project example",
-    "title": "150 kg/day kitchen waste digester at Queen Square Dining Hall",
+    "title": "150 kg/day kitchen waste digester at Bengaluru Tech Park Food Court",
     "status": "provided",
     "date": "2024-08-15",
-    "source": "Independent Case Study Report #CS-2024-04 (Apex BioGen)",
-    "details": "Operational continuously for 18 months, displacing 65% of kitchen cooking gas needs with zero odor complaints."
+    "source": "Independent Case Study Report #CS-2024-BLR (UrjaVeda)",
+    "details": "Operational continuously for 18 months, displacing 65% of commercial cooking gas needs with zero odor complaints."
   },
   {
     "id": "ev-apex-2",
@@ -16,14 +16,14 @@
     "title": "Third-party pressure, flame arrestor, and methane safety certificate",
     "status": "provided",
     "date": "2024-09-10",
-    "source": "Gas Safe Inspection UK Certification #GS-88219-B",
+    "source": "PESO & CPCB Approved Inspectorate Certification #IN-88219-B",
     "details": "Passed all methane leak tests, flare safety valves, and automatic shut-off triggers under full 1.2 bar operating pressure."
   },
   {
     "id": "ev-apex-3",
     "plantId": "plant-apex-1",
     "type": "reference",
-    "title": "Director of Sustainability, Bristol Regional Hospitality Group",
+    "title": "Head of Sustainability, Karnataka Hospitality Consortium",
     "status": "provided",
     "date": "2025-01-20",
     "source": "Verified Client Reference Letter & Billing Statements",
@@ -33,11 +33,11 @@
     "id": "ev-circular-1",
     "plantId": "plant-circular-2",
     "type": "project example",
-    "title": "80 kg/day modular unit installed at Newport Artisan Brewery",
+    "title": "80 kg/day modular unit installed at Coimbatore Organic Food Processing Unit",
     "status": "provided",
     "date": "2024-11-04",
-    "source": "Circular Gas Field Commissioning Log #CGS-2024-NPT",
-    "details": "Processes grain trub and taproom kitchen waste for supplemental hot water heating."
+    "source": "Prakriti Field Commissioning Log #PKS-2024-CBR",
+    "details": "Processes fruit pulp and canteen kitchen waste for supplemental hot water heating."
   },
   {
     "id": "ev-circular-2",
@@ -46,8 +46,8 @@
     "title": "Digestate biological stability and volatile fatty acid certification",
     "status": "pending",
     "date": "2025-03-01",
-    "source": "Soil Association & Environment Agency review underway",
-    "details": "Application submitted for unrestricted agricultural spreading approval; initial screening accepted."
+    "source": "ICAR & State Agricultural University review underway",
+    "details": "Application submitted for unrestricted organic agricultural spreading approval; initial screening accepted."
   },
   {
     "id": "ev-circular-3",
@@ -63,60 +63,60 @@
     "id": "ev-terra-1",
     "plantId": "plant-terra-3",
     "type": "project example",
-    "title": "Demonstration prototype at South West Farm Energy Fair",
-    "status": "pending",
-    "date": "2024-05-18",
-    "source": "Trade show exhibitor directory",
-    "details": "Field demonstration unit operated under supervised conditions; not a permanent commercial deployment."
+    "title": "50 kg/day educational hostel food waste unit in Indore",
+    "status": "provided",
+    "date": "2024-05-12",
+    "source": "Municipal Smart City Pilot Project Log #MP-IND-09",
+    "details": "Diverts hostel canteen scraps directly into a 4 m³ balloon digester for tea preparation."
   },
   {
     "id": "ev-terra-2",
     "plantId": "plant-terra-3",
     "type": "commissioning",
-    "title": "Formal pressure vessel and anaerobic safety sign-off",
+    "title": "Third-party pressure test certificate",
     "status": "missing",
     "date": null,
     "source": "Not provided / Not verified",
-    "details": "No third-party engineering sign-off submitted. Self-installation kit only."
+    "details": "No independent engineering sign-off on flame arrestor or gas pressure test has been submitted."
   },
   {
     "id": "ev-terra-3",
     "plantId": "plant-terra-3",
     "type": "reference",
-    "title": "Independent operational facility reference",
-    "status": "missing",
-    "date": null,
-    "source": "Not provided / Not verified",
-    "details": "No external operational references provided to date."
+    "title": "Hostel warden customer feedback form",
+    "status": "provided",
+    "date": "2024-06-18",
+    "source": "Signed customer testimonial",
+    "details": "Self-reported satisfaction statement from site warden; lacks audited gas generation logs."
   },
   {
     "id": "ev-valebio-1",
     "plantId": "plant-valebio-4",
     "type": "project example",
-    "title": "2-tonne daily slurry and vegetable waste digester at Chew Magna",
+    "title": "2,000 kg/day agro-dairy biomethanation facility in Nashik",
     "status": "provided",
-    "date": "2023-06-12",
-    "source": "Farm Energy Network Case Reference #FEN-401",
-    "details": "Large-scale continuous farm AD exporting electricity to local micro-grid."
+    "date": "2023-12-01",
+    "source": "MNRE SATAT Project Commissioning Report #SATAT-MH-104",
+    "details": "Generates 220 m³/day raw biogas with H2S scrubber, supplying boiler fuel to adjacent agro-processing unit."
   },
   {
     "id": "ev-valebio-2",
     "plantId": "plant-valebio-4",
     "type": "commissioning",
-    "title": "Food waste co-digestion environmental permit amendment",
-    "status": "missing",
-    "date": null,
-    "source": "Not provided / Not verified",
-    "details": "Existing plant is certified for farm manure; food waste pasteurization commissioning records not provided."
+    "title": "State Pollution Control Board Consent to Operate (CTO)",
+    "status": "provided",
+    "date": "2024-02-14",
+    "source": "MPCB CTO #BO/JD(APC)/EIC-NK-9921",
+    "details": "Compliant with all air and water emission thresholds for biomethanation facilities."
   },
   {
     "id": "ev-valebio-3",
     "plantId": "plant-valebio-4",
     "type": "reference",
-    "title": "Estate farm manager testimonial",
-    "status": "pending",
-    "date": "2024-12-05",
-    "source": "Under review by Vale Biomass legal verification team",
-    "details": "Client testimonial drafted; awaiting final client sign-off."
+    "title": "Commercial multi-year reference client",
+    "status": "missing",
+    "date": null,
+    "source": "Not provided / Not verified",
+    "details": "No third-party verified reference available on long-term equipment warranty and maintenance."
   }
 ]

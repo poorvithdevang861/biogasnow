@@ -3,64 +3,64 @@
     "id": "waste-restaurant-1",
     "role": "waste_provider",
     "roleLabel": "Waste Provider",
-    "name": "Green Fork Bistro",
-    "location": "Bristol Central",
-    "description": "City centre restaurant generating 120–180 kg/day of separated pre-consumer and post-consumer food scraps with limited on-site storage."
+    "name": "Annapurna Kitchens",
+    "location": "Indiranagar, Bengaluru",
+    "description": "High-volume commercial South Indian restaurant generating 120–180 kg/day of clean, segregated vegetable peels and plate scraps."
   },
   {
     "id": "waste-kitchen-2",
     "role": "waste_provider",
     "roleLabel": "Waste Provider",
-    "name": "St. Jude Community Kitchen",
-    "location": "Bath & North East Somerset",
-    "description": "Charity community kitchen preparing 300 meals daily with variable vegetable peelings and plate scrapings."
+    "name": "Akshaya Community Bhojanalaya",
+    "location": "Shivajinagar, Pune",
+    "description": "Charity community kitchen preparing 450 meals daily with high volume vegetable peelings, lentils, and fresh food prep discards."
   },
   {
     "id": "consumer-household-1",
     "role": "consumer",
     "roleLabel": "Biogas Consumer",
-    "name": "Oakfield Eco-Terrace",
-    "location": "Bristol East",
-    "description": "Four-bedroom residential property seeking reliable local micro-biogas offtake for cooking gas and space heating."
+    "name": "Gulmohar Greens Society",
+    "location": "Kothrud, Pune",
+    "description": "Eco-friendly 36-unit residential gated community seeking reliable piped micro-biogas offtake for domestic cooking fuel."
   },
   {
     "id": "consumer-hotel-2",
     "role": "consumer",
     "roleLabel": "Biogas Consumer",
-    "name": "Somerset Meadow Inn",
-    "location": "Mendip District, Somerset",
-    "description": "24-room boutique hotel and dining room requiring continuous high-temperature water heating and kitchen fuel."
+    "name": "Heritage Haveli Retreat",
+    "location": "Udaipur, Rajasthan",
+    "description": "28-room heritage resort and banquet facility requiring continuous thermal water heating and central dining kitchen fuel."
   },
   {
     "id": "plant-apex-1",
     "role": "plant_provider",
     "roleLabel": "Plant Provider",
-    "name": "Apex BioGen Engineering",
-    "location": "South West & Midlands",
-    "description": "Turnkey anaerobic digestion systems, containerized modular reactors, and full-lifecycle operation and maintenance contracts."
+    "name": "UrjaVeda BioEnergy Tech",
+    "location": "Vadodara, Gujarat",
+    "description": "Turnkey CSTR biomethanation systems, containerized wet waste digesters, and 24/7 telemetry monitoring contracts across Western & Southern India."
   },
   {
     "id": "plant-circular-2",
     "role": "plant_provider",
     "roleLabel": "Plant Provider",
-    "name": "Circular Gas Systems",
-    "location": "Wales & West",
-    "description": "Modular digesters for commercial food processors and farm cooperatives with basic self-operating support."
+    "name": "Prakriti CleanGas Systems",
+    "location": "Bengaluru & Coimbatore",
+    "description": "Modular pre-fabricated digesters for commercial hotels, mandis, and IT park cafeterias with on-site biological support."
   },
   {
     "id": "plant-terra-3",
     "role": "plant_provider",
     "roleLabel": "Plant Provider",
-    "name": "TerraFirma BioPower",
-    "location": "South West England",
-    "description": "Decentralized micro-digesters for commercial hospitality and community sites."
+    "name": "Bhoomi Shakti BioPower",
+    "location": "Indore, Madhya Pradesh",
+    "description": "Decentralized anaerobic food waste processors for educational campuses and urban municipal wards."
   },
   {
     "id": "plant-valebio-4",
     "role": "plant_provider",
     "roleLabel": "Plant Provider",
-    "name": "Vale Biomass & Energy",
-    "location": "Somerset & Gloucestershire",
-    "description": "Agricultural and multi-feedstock farm-scale anaerobic digestion facility developers."
+    "name": "Kisan Urja BioRefineries",
+    "location": "Nashik & Western Maharashtra",
+    "description": "Agro-residue, sugarcane press-mud, and cattle dairy slurry Bio-CNG / SATAT facility developer."
   }
 ]
