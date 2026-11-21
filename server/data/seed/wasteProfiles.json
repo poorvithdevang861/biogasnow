@@ -1,0 +1,18 @@
+[
+  {
+    "profileId": "waste-restaurant-1",
+    "wasteType": "Food waste (commercial kitchen)",
+    "quantityRange": "120-180 kg/day",
+    "frequency": "Daily collection",
+    "intendedUse": "Local digestion & cooking gas offtake",
+    "siteConstraints": "Rear alleyway access only; limited bin storage for 48 hours"
+  },
+  {
+    "profileId": "waste-kitchen-2",
+    "wasteType": "Mixed organic & vegetable scraps",
+    "quantityRange": "40-60 kg/day",
+    "frequency": "3 times weekly",
+    "intendedUse": "not sure",
+    "siteConstraints": "not sure"
+  }
+]

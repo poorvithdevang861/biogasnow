@@ -1,0 +1,122 @@
+[
+  {
+    "id": "ev-apex-1",
+    "plantId": "plant-apex-1",
+    "type": "project example",
+    "title": "150 kg/day kitchen waste digester at Queen Square Dining Hall",
+    "status": "provided",
+    "date": "2024-08-15",
+    "source": "Independent Case Study Report #CS-2024-04 (Apex BioGen)",
+    "details": "Operational continuously for 18 months, displacing 65% of kitchen cooking gas needs with zero odor complaints."
+  },
+  {
+    "id": "ev-apex-2",
+    "plantId": "plant-apex-1",
+    "type": "commissioning",
+    "title": "Third-party pressure, flame arrestor, and methane safety certificate",
+    "status": "provided",
+    "date": "2024-09-10",
+    "source": "Gas Safe Inspection UK Certification #GS-88219-B",
+    "details": "Passed all methane leak tests, flare safety valves, and automatic shut-off triggers under full 1.2 bar operating pressure."
+  },
+  {
+    "id": "ev-apex-3",
+    "plantId": "plant-apex-1",
+    "type": "reference",
+    "title": "Director of Sustainability, Bristol Regional Hospitality Group",
+    "status": "provided",
+    "date": "2025-01-20",
+    "source": "Verified Client Reference Letter & Billing Statements",
+    "details": "Confirmed 98.4% uptime and prompt quarterly servicing response."
+  },
+  {
+    "id": "ev-circular-1",
+    "plantId": "plant-circular-2",
+    "type": "project example",
+    "title": "80 kg/day modular unit installed at Newport Artisan Brewery",
+    "status": "provided",
+    "date": "2024-11-04",
+    "source": "Circular Gas Field Commissioning Log #CGS-2024-NPT",
+    "details": "Processes grain trub and taproom kitchen waste for supplemental hot water heating."
+  },
+  {
+    "id": "ev-circular-2",
+    "plantId": "plant-circular-2",
+    "type": "commissioning",
+    "title": "Digestate biological stability and volatile fatty acid certification",
+    "status": "pending",
+    "date": "2025-03-01",
+    "source": "Soil Association & Environment Agency review underway",
+    "details": "Application submitted for unrestricted agricultural spreading approval; initial screening accepted."
+  },
+  {
+    "id": "ev-circular-3",
+    "plantId": "plant-circular-2",
+    "type": "reference",
+    "title": "Commercial multi-year reference client",
+    "status": "missing",
+    "date": null,
+    "source": "Not provided / Not verified",
+    "details": "No independent customer reference has been filed for longer than 6 months of continuous operation."
+  },
+  {
+    "id": "ev-terra-1",
+    "plantId": "plant-terra-3",
+    "type": "project example",
+    "title": "Demonstration prototype at South West Farm Energy Fair",
+    "status": "pending",
+    "date": "2024-05-18",
+    "source": "Trade show exhibitor directory",
+    "details": "Field demonstration unit operated under supervised conditions; not a permanent commercial deployment."
+  },
+  {
+    "id": "ev-terra-2",
+    "plantId": "plant-terra-3",
+    "type": "commissioning",
+    "title": "Formal pressure vessel and anaerobic safety sign-off",
+    "status": "missing",
+    "date": null,
+    "source": "Not provided / Not verified",
+    "details": "No third-party engineering sign-off submitted. Self-installation kit only."
+  },
+  {
+    "id": "ev-terra-3",
+    "plantId": "plant-terra-3",
+    "type": "reference",
+    "title": "Independent operational facility reference",
+    "status": "missing",
+    "date": null,
+    "source": "Not provided / Not verified",
+    "details": "No external operational references provided to date."
+  },
+  {
+    "id": "ev-valebio-1",
+    "plantId": "plant-valebio-4",
+    "type": "project example",
+    "title": "2-tonne daily slurry and vegetable waste digester at Chew Magna",
+    "status": "provided",
+    "date": "2023-06-12",
+    "source": "Farm Energy Network Case Reference #FEN-401",
+    "details": "Large-scale continuous farm AD exporting electricity to local micro-grid."
+  },
+  {
+    "id": "ev-valebio-2",
+    "plantId": "plant-valebio-4",
+    "type": "commissioning",
+    "title": "Food waste co-digestion environmental permit amendment",
+    "status": "missing",
+    "date": null,
+    "source": "Not provided / Not verified",
+    "details": "Existing plant is certified for farm manure; food waste pasteurization commissioning records not provided."
+  },
+  {
+    "id": "ev-valebio-3",
+    "plantId": "plant-valebio-4",
+    "type": "reference",
+    "title": "Estate farm manager testimonial",
+    "status": "pending",
+    "date": "2024-12-05",
+    "source": "Under review by Vale Biomass legal verification team",
+    "details": "Client testimonial drafted; awaiting final client sign-off."
+  }
+]

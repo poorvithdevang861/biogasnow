@@ -1,0 +1,476 @@
+{
+  "profiles": [
+    {
+      "id": "waste-restaurant-1",
+      "role": "waste_provider",
+      "roleLabel": "Waste Provider",
+      "name": "Green Fork Bistro",
+      "location": "Bristol Central",
+      "description": "City centre restaurant generating 120–180 kg/day of separated pre-consumer and post-consumer food scraps with limited on-site storage."
+    },
+    {
+      "id": "waste-kitchen-2",
+      "role": "waste_provider",
+      "roleLabel": "Waste Provider",
+      "name": "St. Jude Community Kitchen",
+      "location": "Bath & North East Somerset",
+      "description": "Charity community kitchen preparing 300 meals daily with variable vegetable peelings and plate scrapings."
+    },
+    {
+      "id": "consumer-household-1",
+      "role": "consumer",
+      "roleLabel": "Biogas Consumer",
+      "name": "Oakfield Eco-Terrace",
+      "location": "Bristol East",
+      "description": "Four-bedroom residential property seeking reliable local micro-biogas offtake for cooking gas and space heating."
+    },
+    {
+      "id": "consumer-hotel-2",
+      "role": "consumer",
+      "roleLabel": "Biogas Consumer",
+      "name": "Somerset Meadow Inn",
+      "location": "Mendip District, Somerset",
+      "description": "24-room boutique hotel and dining room requiring continuous high-temperature water heating and kitchen fuel."
+    },
+    {
+      "id": "plant-apex-1",
+      "role": "plant_provider",
+      "roleLabel": "Plant Provider",
+      "name": "Apex BioGen Engineering",
+      "location": "South West & Midlands",
+      "description": "Turnkey anaerobic digestion systems, containerized modular reactors, and full-lifecycle operation and maintenance contracts."
+    },
+    {
+      "id": "plant-circular-2",
+      "role": "plant_provider",
+      "roleLabel": "Plant Provider",
+      "name": "Circular Gas Systems",
+      "location": "Wales & West",
+      "description": "Modular digesters for commercial food processors and farm cooperatives with basic self-operating support."
+    },
+    {
+      "id": "plant-terra-3",
+      "role": "plant_provider",
+      "roleLabel": "Plant Provider",
+      "name": "TerraFirma BioPower",
+      "location": "South West England",
+      "description": "Decentralized micro-digesters for commercial hospitality and community sites."
+    },
+    {
+      "id": "plant-valebio-4",
+      "role": "plant_provider",
+      "roleLabel": "Plant Provider",
+      "name": "Vale Biomass & Energy",
+      "location": "Somerset & Gloucestershire",
+      "description": "Agricultural and multi-feedstock farm-scale anaerobic digestion facility developers."
+    }
+  ],
+  "wasteProfiles": [
+    {
+      "profileId": "waste-restaurant-1",
+      "wasteType": "Food waste (commercial kitchen)",
+      "quantityRange": "120-180 kg/day",
+      "frequency": "Daily collection",
+      "intendedUse": "Local digestion & cooking gas offtake",
+      "siteConstraints": "Rear alleyway access only; limited bin storage for 48 hours"
+    },
+    {
+      "profileId": "waste-kitchen-2",
+      "wasteType": "Mixed organic & vegetable scraps",
+      "quantityRange": "40-60 kg/day",
+      "frequency": "3 times weekly",
+      "intendedUse": "not sure",
+      "siteConstraints": "not sure"
+    }
+  ],
+  "plants": [
+    {
+      "id": "plant-apex-1",
+      "organisation": "Apex BioGen Engineering",
+      "services": [
+        "Feasibility study & feedstock characterization",
+        "Turnkey containerized digester build",
+        "Civil & ground works integration",
+        "Full ongoing O&M contract",
+        "Commissioning and Gas Safe sign-off"
+      ],
+      "supportedFeedstock": [
+        "Food waste (commercial kitchen)",
+        "Brewery spent grain & trub",
+        "Agricultural slurry & manure"
+      ],
+      "capacityMin": 50,
+      "capacityMax": 1000,
+      "capacityUnit": "kg/day",
+      "scale": "medium",
+      "serviceArea": [
+        "Bristol",
+        "Bath",
+        "South Gloucestershire",
+        "North Somerset",
+        "Midlands"
+      ],
+      "omOffering": "Comprehensive 24/7 preventative maintenance with remote telemetry and bi-monthly biological testing.",
+      "warranty": "5-year structural vessel warranty and 2-year electro-mechanical warranty."
+    },
+    {
+      "id": "plant-circular-2",
+      "organisation": "Circular Gas Systems",
+      "services": [
+        "Modular containerized digester supply",
+        "Basic on-site plumbing connection",
+        "Operator training handbook"
+      ],
+      "supportedFeedstock": [
+        "Food waste (commercial kitchen)",
+        "Mixed organic & vegetable scraps"
+      ],
+      "capacityMin": 20,
+      "capacityMax": 250,
+      "capacityUnit": "kg/day",
+      "scale": "small",
+      "serviceArea": [
+        "Wales",
+        "Bristol",
+        "Gloucestershire"
+      ],
+      "omOffering": "Annual mechanical check-up; daily feedstock feeding and pH monitoring managed by customer.",
+      "warranty": "2-year manufacturer component warranty (vessel unverified)."
+    },
+    {
+      "id": "plant-terra-3",
+      "organisation": "TerraFirma BioPower",
+      "services": [
+        "Decentralized micro-digester unit manufacturing",
+        "Standard delivery & basic siting"
+      ],
+      "supportedFeedstock": [
+        "Food waste (commercial kitchen)",
+        "Household food waste"
+      ],
+      "capacityMin": 10,
+      "capacityMax": 100,
+      "capacityUnit": "kg/day",
+      "scale": "small",
+      "serviceArea": [
+        "South West England",
+        "Bristol",
+        "Bath"
+      ],
+      "omOffering": "Not provided / Not verified",
+      "warranty": "1-year limited parts only"
+    },
+    {
+      "id": "plant-valebio-4",
+      "organisation": "Vale Biomass & Energy",
+      "services": [
+        "Large-scale continuous stirred-tank reactors (CSTR)",
+        "Biomethane purification and compression skids"
+      ],
+      "supportedFeedstock": [
+        "Agricultural slurry & manure",
+        "Crop silage & grass clippings",
+        "Food waste (commercial kitchen)"
+      ],
+      "capacityMin": 500,
+      "capacityMax": 10000,
+      "capacityUnit": "kg/day",
+      "scale": "large",
+      "serviceArea": [
+        "Somerset",
+        "Gloucestershire",
+        "Wiltshire"
+      ],
+      "omOffering": "Scheduled quarterly visits; emergency unscheduled call-out subject to standard commercial day rates.",
+      "warranty": "Not provided / Not verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-apex-1",
+      "plantId": "plant-apex-1",
+      "type": "project example",
+      "title": "150 kg/day kitchen waste digester at Queen Square Dining Hall",
+      "status": "provided",
+      "date": "2024-08-15",
+      "source": "Independent Case Study Report #CS-2024-04 (Apex BioGen)",
+      "details": "Operational continuously for 18 months, displacing 65% of kitchen cooking gas needs with zero odor complaints."
+    },
+    {
+      "id": "ev-apex-2",
+      "plantId": "plant-apex-1",
+      "type": "commissioning",
+      "title": "Third-party pressure, flame arrestor, and methane safety certificate",
+      "status": "provided",
+      "date": "2024-09-10",
+      "source": "Gas Safe Inspection UK Certification #GS-88219-B",
+      "details": "Passed all methane leak tests, flare safety valves, and automatic shut-off triggers under full 1.2 bar operating pressure."
+    },
+    {
+      "id": "ev-apex-3",
+      "plantId": "plant-apex-1",
+      "type": "reference",
+      "title": "Director of Sustainability, Bristol Regional Hospitality Group",
+      "status": "provided",
+      "date": "2025-01-20",
+      "source": "Verified Client Reference Letter & Billing Statements",
+      "details": "Confirmed 98.4% uptime and prompt quarterly servicing response."
+    },
+    {
+      "id": "ev-circular-1",
+      "plantId": "plant-circular-2",
+      "type": "project example",
+      "title": "80 kg/day modular unit installed at Newport Artisan Brewery",
+      "status": "provided",
+      "date": "2024-11-04",
+      "source": "Circular Gas Field Commissioning Log #CGS-2024-NPT",
+      "details": "Processes grain trub and taproom kitchen waste for supplemental hot water heating."
+    },
+    {
+      "id": "ev-circular-2",
+      "plantId": "plant-circular-2",
+      "type": "commissioning",
+      "title": "Digestate biological stability and volatile fatty acid certification",
+      "status": "pending",
+      "date": "2025-03-01",
+      "source": "Soil Association & Environment Agency review underway",
+      "details": "Application submitted for unrestricted agricultural spreading approval; initial screening accepted."
+    },
+    {
+      "id": "ev-circular-3",
+      "plantId": "plant-circular-2",
+      "type": "reference",
+      "title": "Commercial multi-year reference client",
+      "status": "missing",
+      "date": null,
+      "source": "Not provided / Not verified",
+      "details": "No independent customer reference has been filed for longer than 6 months of continuous operation."
+    },
+    {
+      "id": "ev-terra-1",
+      "plantId": "plant-terra-3",
+      "type": "project example",
+      "title": "Demonstration prototype at South West Farm Energy Fair",
+      "status": "pending",
+      "date": "2024-05-18",
+      "source": "Trade show exhibitor directory",
+      "details": "Field demonstration unit operated under supervised conditions; not a permanent commercial deployment."
+    },
+    {
+      "id": "ev-terra-2",
+      "plantId": "plant-terra-3",
+      "type": "commissioning",
+      "title": "Formal pressure vessel and anaerobic safety sign-off",
+      "status": "missing",
+      "date": null,
+      "source": "Not provided / Not verified",
+      "details": "No third-party engineering sign-off submitted. Self-installation kit only."
+    },
+    {
+      "id": "ev-terra-3",
+      "plantId": "plant-terra-3",
+      "type": "reference",
+      "title": "Independent operational facility reference",
+      "status": "missing",
+      "date": null,
+      "source": "Not provided / Not verified",
+      "details": "No external operational references provided to date."
+    },
+    {
+      "id": "ev-valebio-1",
+      "plantId": "plant-valebio-4",
+      "type": "project example",
+      "title": "2-tonne daily slurry and vegetable waste digester at Chew Magna",
+      "status": "provided",
+      "date": "2023-06-12",
+      "source": "Farm Energy Network Case Reference #FEN-401",
+      "details": "Large-scale continuous farm AD exporting electricity to local micro-grid."
+    },
+    {
+      "id": "ev-valebio-2",
+      "plantId": "plant-valebio-4",
+      "type": "commissioning",
+      "title": "Food waste co-digestion environmental permit amendment",
+      "status": "missing",
+      "date": null,
+      "source": "Not provided / Not verified",
+      "details": "Existing plant is certified for farm manure; food waste pasteurization commissioning records not provided."
+    },
+    {
+      "id": "ev-valebio-3",
+      "plantId": "plant-valebio-4",
+      "type": "reference",
+      "title": "Estate farm manager testimonial",
+      "status": "pending",
+      "date": "2024-12-05",
+      "source": "Under review by Vale Biomass legal verification team",
+      "details": "Client testimonial drafted; awaiting final client sign-off."
+    }
+  ],
+  "assumptions": [
+    {
+      "wasteType": "Food waste (commercial kitchen)",
+      "category": "High Energy Organic",
+      "yieldMin": 80,
+      "yieldMax": 120,
+      "unit": "m³ biogas / fresh tonne",
+      "methaneConcentration": "58% - 65% CH4",
+      "source": "WRAP UK / Defra Organic Waste Conversion Benchmark (Illustrative prototype data)",
+      "date": "2024-10",
+      "caveat": "Assumes low physical contamination (<3% non-organics) and balanced volatile solids. Higher oil/fats content increases yield toward the upper bound but requires mesophilic temperature stability."
+    },
+    {
+      "wasteType": "Mixed organic & vegetable scraps",
+      "category": "Medium Moisture Organic",
+      "yieldMin": 45,
+      "yieldMax": 70,
+      "unit": "m³ biogas / fresh tonne",
+      "methaneConcentration": "52% - 58% CH4",
+      "source": "International Energy Agency (IEA) Bioenergy Task 37 Table 4.2 (Illustrative prototype data)",
+      "date": "2024-04",
+      "caveat": "High inherent water content reduces biogas yield per fresh tonne. Requires mechanical maceration to prevent fibrous floating crust in smaller digesters."
+    },
+    {
+      "wasteType": "Brewery spent grain & trub",
+      "category": "High Protein/Starch By-product",
+      "yieldMin": 90,
+      "yieldMax": 140,
+      "unit": "m³ biogas / fresh tonne",
+      "methaneConcentration": "55% - 62% CH4",
+      "source": "European Biomass Industry Association (EUBIA) Feedstock Guide (Illustrative prototype data)",
+      "date": "2024-01",
+      "caveat": "Prone to rapid acidification (VFA accumulation) if fed without buffering. Co-digestion with alkaline manure or pH control chemicals is strongly recommended."
+    },
+    {
+      "wasteType": "Agricultural slurry & manure",
+      "category": "Liquid Inoculant / Base",
+      "yieldMin": 20,
+      "yieldMax": 35,
+      "unit": "m³ biogas / fresh tonne",
+      "methaneConcentration": "50% - 55% CH4",
+      "source": "Anaerobic Digestion and Bioresources Association (ADBA) Feedstock Metric (Illustrative prototype data)",
+      "date": "2023-11",
+      "caveat": "Relatively low energy density due to 88-92% water content. Provides essential biological buffering, micronutrients, and liquid vehicle when co-digested with solid food waste."
+    }
+  ],
+  "enquiries": [
+    {
+      "id": "enq-1795257018346",
+      "fromProfile": "consumer-household-1",
+      "fromName": "Oakfield Eco-Terrace",
+      "toPlantIds": [
+        "plant-apex-1",
+        "plant-circular-2"
+      ],
+      "summary": {
+        "role": "consumer",
+        "intendedUse": "Cooking gas & domestic hot water",
+        "expectedDemand": "Medium (~4–8 m³/day)",
+        "chosenScale": "LARGE",
+        "siteFootprint": "Private garden terrace (~25 m² outdoor space)",
+        "continuityNeed": "Critical continuous supply (cannot tolerate complete winter outage)",
+        "location": "Bristol East"
+      },
+      "questions": "What is the expected gas pressure drop in January? Is secondary LPG backup necessary?",
+      "contactPreference": "Email with technical brochure and comparison notes",
+      "status": "pending_review",
+      "replies": [],
+      "createdAt": "2026-11-21T10:30:18.346Z"
+    },
+    {
+      "id": "enq-1795256869509",
+      "fromProfile": "waste-restaurant-1",
+      "fromName": "Green Fork Bistro",
+      "toPlantIds": [
+        "plant-apex-1",
+        "plant-circular-2",
+        "plant-valebio-4",
+        "plant-terra-3"
+      ],
+      "summary": {
+        "role": "waste_provider",
+        "wasteType": "Food waste (commercial kitchen)",
+        "quantityRange": "150 kg/day (Daily collection)",
+        "frequency": "Daily collection",
+        "location": "Bristol Central",
+        "estimatedBiogasRange": "10.2 – 20.8 m³/day",
+        "siteConstraints": "Rear alleyway access only; 48-hour bin storage capacity"
+      },
+      "questions": "Can a containerized digester be serviced from a narrow alleyway, or is off-site daily transport necessary?",
+      "contactPreference": "Email with technical feasibility summary",
+      "status": "pending_review",
+      "replies": [],
+      "createdAt": "2026-11-21T10:27:49.509Z"
+    },
+    {
+      "id": "enq-1795255111965",
+      "fromProfile": "consumer-household-1",
+      "fromName": "Oakfield Eco-Terrace",
+      "toPlantIds": [
+        "plant-apex-1",
+        "plant-terra-3"
+      ],
+      "summary": {
+        "role": "consumer",
+        "intendedUse": "Cooking gas & domestic hot water",
+        "expectedDemand": "Medium (~4–8 m³/day)",
+        "chosenScale": "SMALL",
+        "siteFootprint": "Private garden terrace (~25 m² outdoor space)",
+        "continuityNeed": "Critical continuous supply (cannot tolerate complete winter outage)",
+        "location": "Bristol East"
+      },
+      "questions": "What is the expected gas pressure drop in January? Is secondary LPG backup necessary?",
+      "contactPreference": "Email with technical brochure and comparison notes",
+      "status": "pending_review",
+      "replies": [],
+      "createdAt": "2026-11-21T09:58:31.965Z"
+    },
+    {
+      "id": "enq-1795254752683",
+      "fromProfile": "waste-restaurant-1",
+      "fromName": "Green Fork Bistro",
+      "toPlantIds": [
+        "plant-apex-1"
+      ],
+      "summary": {
+        "role": "waste_provider",
+        "wasteType": "Food waste (commercial kitchen)",
+        "quantityRange": "120–180 kg/day (Daily collection)",
+        "estimatedBiogasRange": "9.6 – 21.6 m³/day (57.6–129.6 kWh/day thermal)",
+        "location": "Bristol Central",
+        "siteConstraints": "Rear alleyway access only; 48-hour bin storage capacity"
+      },
+      "questions": "Can a containerized digester be serviced from a narrow alleyway, or is off-site daily transport necessary?",
+      "contactPreference": "Email with technical feasibility summary",
+      "status": "pending_review",
+      "replies": [],
+      "createdAt": "2026-11-21T09:52:32.683Z"
+    },
+    {
+      "id": "enq-demo-001",
+      "fromProfile": "waste-restaurant-1",
+      "fromName": "Green Fork Bistro",
+      "toPlantIds": [
+        "plant-apex-1"
+      ],
+      "summary": {
+        "role": "waste_provider",
+        "wasteType": "Food waste (commercial kitchen)",
+        "quantityRange": "120-180 kg/day",
+        "frequency": "Daily collection",
+        "location": "Bristol Central",
+        "estimatedBiogasRange": "9.6 - 21.6 m³/day (indicative)",
+        "siteConstraints": "Rear alleyway access only; limited bin storage for 48 hours"
+      },
+      "questions": "Can a containerized digester be serviced from a narrow alleyway, or is off-site daily transport necessary?",
+      "contactPreference": "Email with preliminary technical feasibility note",
+      "status": "pending_review",
+      "createdAt": "2026-11-20T10:15:00.000Z"
+    }
+  ],
+  "metadata": {
+    "initializedAt": "2026-11-21T09:40:01.400Z",
+    "version": "0.1.0",
+    "prototype": "illustrative"
+  }
+}

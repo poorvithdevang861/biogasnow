@@ -1,0 +1,66 @@
+[
+  {
+    "id": "waste-restaurant-1",
+    "role": "waste_provider",
+    "roleLabel": "Waste Provider",
+    "name": "Green Fork Bistro",
+    "location": "Bristol Central",
+    "description": "City centre restaurant generating 120–180 kg/day of separated pre-consumer and post-consumer food scraps with limited on-site storage."
+  },
+  {
+    "id": "waste-kitchen-2",
+    "role": "waste_provider",
+    "roleLabel": "Waste Provider",
+    "name": "St. Jude Community Kitchen",
+    "location": "Bath & North East Somerset",
+    "description": "Charity community kitchen preparing 300 meals daily with variable vegetable peelings and plate scrapings."
+  },
+  {
+    "id": "consumer-household-1",
+    "role": "consumer",
+    "roleLabel": "Biogas Consumer",
+    "name": "Oakfield Eco-Terrace",
+    "location": "Bristol East",
+    "description": "Four-bedroom residential property seeking reliable local micro-biogas offtake for cooking gas and space heating."
+  },
+  {
+    "id": "consumer-hotel-2",
+    "role": "consumer",
+    "roleLabel": "Biogas Consumer",
+    "name": "Somerset Meadow Inn",
+    "location": "Mendip District, Somerset",
+    "description": "24-room boutique hotel and dining room requiring continuous high-temperature water heating and kitchen fuel."
+  },
+  {
+    "id": "plant-apex-1",
+    "role": "plant_provider",
+    "roleLabel": "Plant Provider",
+    "name": "Apex BioGen Engineering",
+    "location": "South West & Midlands",
+    "description": "Turnkey anaerobic digestion systems, containerized modular reactors, and full-lifecycle operation and maintenance contracts."
+  },
+  {
+    "id": "plant-circular-2",
+    "role": "plant_provider",
+    "roleLabel": "Plant Provider",
+    "name": "Circular Gas Systems",
+    "location": "Wales & West",
+    "description": "Modular digesters for commercial food processors and farm cooperatives with basic self-operating support."
+  },
+  {
+    "id": "plant-terra-3",
+    "role": "plant_provider",
+    "roleLabel": "Plant Provider",
+    "name": "TerraFirma BioPower",
+    "location": "South West England",
+    "description": "Decentralized micro-digesters for commercial hospitality and community sites."
+  },
+  {
+    "id": "plant-valebio-4",
+    "role": "plant_provider",
+    "roleLabel": "Plant Provider",
+    "name": "Vale Biomass & Energy",
+    "location": "Somerset & Gloucestershire",
+    "description": "Agricultural and multi-feedstock farm-scale anaerobic digestion facility developers."
+  }
+]

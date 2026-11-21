@@ -1,0 +1,102 @@
+[
+  {
+    "id": "plant-apex-1",
+    "organisation": "Apex BioGen Engineering",
+    "services": [
+      "Feasibility study & feedstock characterization",
+      "Turnkey containerized digester build",
+      "Civil & ground works integration",
+      "Full ongoing O&M contract",
+      "Commissioning and Gas Safe sign-off"
+    ],
+    "supportedFeedstock": [
+      "Food waste (commercial kitchen)",
+      "Brewery spent grain & trub",
+      "Agricultural slurry & manure"
+    ],
+    "capacityMin": 50,
+    "capacityMax": 1000,
+    "capacityUnit": "kg/day",
+    "scale": "medium",
+    "serviceArea": [
+      "Bristol",
+      "Bath",
+      "South Gloucestershire",
+      "North Somerset",
+      "Midlands"
+    ],
+    "omOffering": "Comprehensive 24/7 preventative maintenance with remote telemetry and bi-monthly biological testing.",
+    "warranty": "5-year structural vessel warranty and 2-year electro-mechanical warranty."
+  },
+  {
+    "id": "plant-circular-2",
+    "organisation": "Circular Gas Systems",
+    "services": [
+      "Modular containerized digester supply",
+      "Basic on-site plumbing connection",
+      "Operator training handbook"
+    ],
+    "supportedFeedstock": [
+      "Food waste (commercial kitchen)",
+      "Mixed organic & vegetable scraps"
+    ],
+    "capacityMin": 20,
+    "capacityMax": 250,
+    "capacityUnit": "kg/day",
+    "scale": "small",
+    "serviceArea": [
+      "Wales",
+      "Bristol",
+      "Gloucestershire"
+    ],
+    "omOffering": "Annual mechanical check-up; daily feedstock feeding and pH monitoring managed by customer.",
+    "warranty": "2-year manufacturer component warranty (vessel unverified)."
+  },
+  {
+    "id": "plant-terra-3",
+    "organisation": "TerraFirma BioPower",
+    "services": [
+      "Decentralized micro-digester unit manufacturing",
+      "Standard delivery & basic siting"
+    ],
+    "supportedFeedstock": [
+      "Food waste (commercial kitchen)",
+      "Household food waste"
+    ],
+    "capacityMin": 10,
+    "capacityMax": 100,
+    "capacityUnit": "kg/day",
+    "scale": "small",
+    "serviceArea": [
+      "South West England",
+      "Bristol",
+      "Bath"
+    ],
+    "omOffering": "Not provided / Not verified",
+    "warranty": "1-year limited parts only"
+  },
+  {
+    "id": "plant-valebio-4",
+    "organisation": "Vale Biomass & Energy",
+    "services": [
+      "Large-scale continuous stirred-tank reactors (CSTR)",
+      "Biomethane purification and compression skids"
+    ],
+    "supportedFeedstock": [
+      "Agricultural slurry & manure",
+      "Crop silage & grass clippings",
+      "Food waste (commercial kitchen)"
+    ],
+    "capacityMin": 500,
+    "capacityMax": 10000,
+    "capacityUnit": "kg/day",
+    "scale": "large",
+    "serviceArea": [
+      "Somerset",
+      "Gloucestershire",
+      "Wiltshire"
+    ],
+    "omOffering": "Scheduled quarterly visits; emergency unscheduled call-out subject to standard commercial day rates.",
+    "warranty": "Not provided / Not verified"
+  }
+]

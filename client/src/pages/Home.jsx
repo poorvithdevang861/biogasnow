@@ -1,0 +1,211 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+  Leaf,
+  Flame,
+  Factory,
+  ArrowRight,
+  Check,
+  MapPin,
+  User,
+} from 'lucide-react';
+import { useProfile } from '../context/ProfileContext';
+
+export function Home() {
+  const { setProfileById } = useProfile();
+  const navigate = useNavigate();
+
+  const handleRoleSelect = (profileId, routePath) => {
+    setProfileById(profileId);
+    navigate(routePath);
+  };
+
+  return (
+    <div className="space-y-10 my-auto">
+      {/* Title directly above the profile cards (no top bar on landing page) */}
+      <section className="text-center space-y-4 max-w-2xl mx-auto">
+        <div className="inline-flex items-center gap-2 text-emerald-400 font-bold text-xs tracking-wider uppercase bg-emerald-950/40 px-3 py-1 rounded-full border border-emerald-800/80">
+          <Leaf size={15} className="stroke-[2.5]" aria-hidden="true" />
+          <span>Biogas Trust Platform</span>
+        </div>
+
+        <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-zinc-100 tracking-tight leading-[1.15]">
+          Select your role to begin
+        </h1>
+
+        <p className="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-xl mx-auto">
+          An evidence-based decision framework connecting organic waste producers, biogas consumers, and qualified plant providers.
+        </p>
+      </section>
+
+      {/* 3 Main Role Cards - Each wired to 1 canonical persona */}
+      <section className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Role 1: Waste Provider (Wired to Green Fork Bistro) */}
+          <div
+            onClick={() => handleRoleSelect('waste-restaurant-1', '/waste-provider')}
+            className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800 hover:border-emerald-600/80 transition-all flex flex-col justify-between cursor-pointer shadow-sm group"
+          >
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <Leaf size={28} className="text-emerald-400 stroke-[2.2]" aria-hidden="true" />
+                <span className="text-xs font-semibold text-emerald-300 bg-emerald-950/60 px-2.5 py-0.5 rounded-full border border-emerald-800">
+                  Waste Provider
+                </span>
+              </div>
+
+              <div>
+                <h2 className="text-lg font-bold text-zinc-100 group-hover:text-emerald-300 transition-colors">
+                  I have organic waste
+                </h2>
+                <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                  Evaluate commercial kitchen or household food waste, calculate realistic biogas yields, find nearby digester plants, and book drop-off slots.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-zinc-800 space-y-1.5 text-xs text-zinc-300">
+                <div className="flex items-center gap-1.5">
+                  <Check size={14} className="text-emerald-400 shrink-0" />
+                  <span>Documented yield assumptions with sources</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Check size={14} className="text-emerald-400 shrink-0" />
+                  <span>Nearby plant discovery & drop-off booking</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-6 space-y-3">
+              <button
+                type="button"
+                className="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-xs transition-colors"
+              >
+                <span>Enter as Waste Provider</span>
+                <ArrowRight size={14} aria-hidden="true" />
+              </button>
+
+              {/* Single Wired Persona Info */}
+              <div className="pt-2 border-t border-zinc-800/80 text-[11px] text-zinc-400 flex items-center justify-between">
+                <span className="text-zinc-500">Wired profile:</span>
+                <span className="font-medium text-zinc-300 flex items-center gap-1">
+                  <User size={11} className="text-emerald-400" />
+                  Green Fork Bistro (Bristol)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Role 2: Biogas Consumer (Wired to Oakfield Eco-Terrace) */}
+          <div
+            onClick={() => handleRoleSelect('consumer-household-1', '/consumer')}
+            className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800 hover:border-amber-600/80 transition-all flex flex-col justify-between cursor-pointer shadow-sm group"
+          >
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <Flame size={28} className="text-amber-400 stroke-[2.2]" aria-hidden="true" />
+                <span className="text-xs font-semibold text-amber-300 bg-amber-950/60 px-2.5 py-0.5 rounded-full border border-amber-800">
+                  Consumer
+                </span>
+              </div>
+
+              <div>
+                <h2 className="text-lg font-bold text-zinc-100 group-hover:text-amber-300 transition-colors">
+                  I want to use biogas
+                </h2>
+                <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                  Clarify cooking and thermal demand, choose a realistic digester scale (Small, Medium, Large), compare plant providers side-by-side, and request proposals.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-zinc-800 space-y-1.5 text-xs text-zinc-300">
+                <div className="flex items-center gap-1.5">
+                  <Check size={14} className="text-amber-400 shrink-0" />
+                  <span>Choose plant size without default lock-in</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Check size={14} className="text-amber-400 shrink-0" />
+                  <span>Side-by-side comparison with missing evidence flagged</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-6 space-y-3">
+              <button
+                type="button"
+                className="w-full inline-flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-500 text-white font-medium text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-xs transition-colors"
+              >
+                <span>Enter as Consumer</span>
+                <ArrowRight size={14} aria-hidden="true" />
+              </button>
+
+              {/* Single Wired Persona Info */}
+              <div className="pt-2 border-t border-zinc-800/80 text-[11px] text-zinc-400 flex items-center justify-between">
+                <span className="text-zinc-500">Wired profile:</span>
+                <span className="font-medium text-zinc-300 flex items-center gap-1">
+                  <User size={11} className="text-amber-400" />
+                  Oakfield Residence (Bristol)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Role 3: Biogas Plant Provider (Wired to Apex BioGen) */}
+          <div
+            onClick={() => handleRoleSelect('plant-apex-1', '/plant-provider')}
+            className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800 hover:border-teal-600/80 transition-all flex flex-col justify-between cursor-pointer shadow-sm group"
+          >
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <Factory size={28} className="text-teal-400 stroke-[2.2]" aria-hidden="true" />
+                <span className="text-xs font-semibold text-teal-300 bg-teal-950/60 px-2.5 py-0.5 rounded-full border border-teal-800">
+                  Plant Provider
+                </span>
+              </div>
+
+              <div>
+                <h2 className="text-lg font-bold text-zinc-100 group-hover:text-teal-300 transition-colors">
+                  I provide biogas plants
+                </h2>
+                <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                  Simple dashboard to review incoming project proposals and waste intake requests from local kitchens, businesses, and homes.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-zinc-800 space-y-1.5 text-xs text-zinc-300">
+                <div className="flex items-center gap-1.5">
+                  <Check size={14} className="text-teal-400 shrink-0" />
+                  <span>Incoming request triage & fast reply</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Check size={14} className="text-teal-400 shrink-0" />
+                  <span>Plant credentials & verification checklist</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-6 space-y-3">
+              <button
+                type="button"
+                className="w-full inline-flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-500 text-white font-medium text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-xs transition-colors"
+              >
+                <span>Enter as Plant Provider</span>
+                <ArrowRight size={14} aria-hidden="true" />
+              </button>
+
+              {/* Single Wired Persona Info */}
+              <div className="pt-2 border-t border-zinc-800/80 text-[11px] text-zinc-400 flex items-center justify-between">
+                <span className="text-zinc-500">Wired profile:</span>
+                <span className="font-medium text-zinc-300 flex items-center gap-1">
+                  <User size={11} className="text-teal-400" />
+                  Apex BioGen (South West)
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+export default Home;
