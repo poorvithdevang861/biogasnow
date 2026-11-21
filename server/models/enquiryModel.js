@@ -66,9 +66,21 @@ export function addEnquiryReply(id, replyText, fromPlantId) {
   return enquiry;
 }
 
+export function updateEnquiryStatus(id, status) {
+  const store = getStore();
+  const enquiry = (store.enquiries || []).find((e) => e.id === id);
+  if (!enquiry) return null;
+
+  enquiry.status = status;
+  enquiry.updatedAt = new Date().toISOString();
+  saveStore();
+  return enquiry;
+}
+
 export default {
   getAllEnquiries,
   getEnquiryById,
   createEnquiry,
   addEnquiryReply,
+  updateEnquiryStatus,
 };

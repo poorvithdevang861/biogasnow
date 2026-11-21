@@ -23,6 +23,7 @@ import { StatusBadge } from '../../components/StatusBadge';
 import { useProfile } from '../../context/ProfileContext';
 import { api } from '../../api/client';
 import { Modal } from '../../components/ui/Modal';
+import { ProviderDetailModal } from '../../components/ProviderDetailModal';
 import { tabContentVariants, motionTokens, buttonTapMotion } from '../../utils/motion';
 
 export function PlantDashboard() {
@@ -35,6 +36,12 @@ export function PlantDashboard() {
   const [evidenceList, setEvidenceList] = useState([]);
   const [enquiries, setEnquiries] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Public Preview Modal State
+  const [showPublicPreview, setShowPublicPreview] = useState(false);
+
+  // Inbox Status Filter
+  const [inboxStatusFilter, setInboxStatusFilter] = useState('all');
 
   // Quick Reply State
   const [activeReplyEnquiryId, setActiveReplyEnquiryId] = useState(null);
@@ -105,6 +112,15 @@ export function PlantDashboard() {
         loadPlantData();
       })
       .finally(() => setReplyLoading(false));
+  };
+
+  const handleUpdateStatus = async (enquiryId, newStatus) => {
+    try {
+      await api.patch(`/enquiries/${enquiryId}/status`, { status: newStatus });
+      loadPlantData();
+    } catch (err) {
+      console.error('Failed to update enquiry status:', err);
+    }
   };
 
   // Add new simulated evidence
@@ -207,8 +223,99 @@ export function PlantDashboard() {
 
   const completeness = calculateCompleteness();
 
+  const filteredEnquiries = enquiries.filter((enq) => {
+    if (inboxStatusFilter === 'all') return true;
+    if (inboxStatusFilter === 'pending') return enq.status === 'pending' || enq.status === 'pending_review';
+    if (inboxStatusFilter === 'answered') return enq.status === 'answered' || enq.status === 'contacted';
+    if (inboxStatusFilter === 'closed') return enq.status === 'closed';
+    return true;
+  });
+
   return (
     <div className="space-y-6">
+      {/* ======================================================== */}
+      {/* SCREEN 1: Provider Dashboard Overview Card               */}
+      {/* ======================================================== */}
+      <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 sm:p-7 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-5">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-teal-600 dark:text-teal-400 font-mono uppercase tracking-wider">
+                Plant Provider Portal
+              </span>
+              <StatusBadge status="verified" size="sm" label="Operating Provider" />
+            </div>
+            <h1 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+              Welcome back, {activeProfile.name}
+            </h1>
+            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
+              {plantData?.serviceArea?.join(', ') || 'South West'} · Capability showcase, verified document registry, and inbound request management.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2 self-start sm:self-auto">
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              type="button"
+              onClick={() => setShowPublicPreview(true)}
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700 shadow-xs transition-colors cursor-pointer"
+            >
+              <Eye size={14} className="stroke-[2]" />
+              <span>Preview Public Profile</span>
+            </motion.button>
+          </div>
+        </div>
+
+        {/* 4 Summary Metric Indicators with Completeness Meter */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-1.5">
+            <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+              <span>Profile Completeness</span>
+              <span className="text-teal-600 dark:text-teal-400 font-mono">{completeness.score}%</span>
+            </div>
+            <div className="h-2 w-full bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-teal-500 rounded-full transition-all duration-300"
+                style={{ width: `${completeness.score}%` }}
+              />
+            </div>
+            <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block pt-0.5">
+              {completeness.missing.length === 0 ? 'All criteria met' : `${completeness.missing.length} item(s) to verify`}
+            </span>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-1">
+            <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">
+              Total Inbound Requests
+            </span>
+            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100 font-mono block">
+              {enquiries.length} Requests
+            </span>
+            <span className="text-[11px] text-zinc-500 dark:text-zinc-400">From generators & consumers</span>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-1">
+            <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">
+              Pending Action
+            </span>
+            <span className="text-lg font-bold text-amber-600 dark:text-amber-400 font-mono block">
+              {enquiries.filter((e) => e.status !== 'answered' && e.status !== 'closed').length} Pending
+            </span>
+            <span className="text-[11px] text-zinc-500 dark:text-zinc-400">Awaiting technical review</span>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-1">
+            <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">
+              Verified Documents
+            </span>
+            <span className="text-lg font-bold text-emerald-600 dark:text-emerald-400 font-mono block">
+              {evidenceList.filter((e) => e.status === 'verified').length} / {evidenceList.length}
+            </span>
+            <span className="text-[11px] text-zinc-500 dark:text-zinc-400">Audited credentials on file</span>
+          </div>
+        </div>
+      </div>
+
       <AnimatePresence mode="wait">
         {/* ======================================================== */}
         {/* Tab 1: Requests Inbox (Client Proposals & Feedstock)     */}
@@ -234,21 +341,35 @@ export function PlantDashboard() {
                   </p>
                 </div>
 
-                <span className="text-xs font-semibold px-2.5 py-1 rounded bg-teal-50 dark:bg-teal-950/50 text-teal-800 dark:text-teal-300 border border-teal-200 dark:border-teal-800 self-start sm:self-auto">
-                  {enquiries.length} requests in inbox
-                </span>
+                {/* Status Filter Tabs */}
+                <div className="flex items-center gap-1.5 overflow-x-auto">
+                  {['all', 'pending', 'answered', 'closed'].map((filter) => (
+                    <button
+                      key={filter}
+                      type="button"
+                      onClick={() => setInboxStatusFilter(filter)}
+                      className={`capitalize text-xs px-2.5 py-1 rounded-lg border font-medium transition-colors cursor-pointer ${
+                        inboxStatusFilter === filter
+                          ? 'bg-teal-600 text-white border-teal-500'
+                          : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600'
+                      }`}
+                    >
+                      {filter}
+                    </button>
+                  ))}
+                </div>
               </div>
 
-              {enquiries.length === 0 ? (
+              {filteredEnquiries.length === 0 ? (
                 <div className="p-8 text-center bg-zinc-50 dark:bg-zinc-950/50 rounded-xl border border-zinc-200 dark:border-zinc-800 space-y-2 text-xs text-zinc-500 dark:text-zinc-400">
-                  <p>No new requests currently pending for {activeProfile.name}.</p>
+                  <p>No enquiries found matching filter "{inboxStatusFilter}".</p>
                   <p className="text-zinc-400 dark:text-zinc-500">
-                    Switch to a Waste Provider or Consumer profile to submit an enquiry, and it will appear here.
+                    Switch to another role to submit a simulated enquiry, and it will appear here.
                   </p>
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {enquiries.map((enq) => (
+                  {filteredEnquiries.map((enq) => (
                     <div
                       key={enq.id}
                       className="p-5 rounded-2xl bg-zinc-50/60 dark:bg-zinc-950/40 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-4 text-xs"
@@ -406,7 +527,38 @@ export function PlantDashboard() {
                           </div>
                         </div>
                       ) : (
-                        <div className="pt-2 flex justify-end">
+                        <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-zinc-100 dark:border-zinc-800">
+                          {/* Quick Status Toggle Actions */}
+                          <div className="flex items-center gap-1.5 text-[11px]">
+                            <span className="text-zinc-400 dark:text-zinc-500 font-semibold mr-1">Status:</span>
+                            {enq.status !== 'contacted' && (
+                              <button
+                                type="button"
+                                onClick={() => handleUpdateStatus(enq.id, 'contacted')}
+                                className="px-2 py-1 rounded bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 transition-colors cursor-pointer"
+                              >
+                                Mark Contacted
+                              </button>
+                            )}
+                            {enq.status !== 'closed' ? (
+                              <button
+                                type="button"
+                                onClick={() => handleUpdateStatus(enq.id, 'closed')}
+                                className="px-2 py-1 rounded bg-zinc-100 hover:bg-rose-50 dark:bg-zinc-800 dark:hover:bg-rose-950/40 text-zinc-700 hover:text-rose-700 dark:text-zinc-300 dark:hover:text-rose-300 border border-zinc-200 dark:border-zinc-700 hover:border-rose-300 dark:hover:border-rose-900 transition-colors cursor-pointer"
+                              >
+                                Mark Closed
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => handleUpdateStatus(enq.id, 'pending')}
+                                className="px-2 py-1 rounded bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-200 border border-amber-300 dark:border-amber-800 transition-colors cursor-pointer"
+                              >
+                                Re-open Request
+                              </button>
+                            )}
+                          </div>
+
                           <motion.button
                             whileTap={{ scale: 0.98 }}
                             type="button"
@@ -418,7 +570,7 @@ export function PlantDashboard() {
                                 }, our turnkey system can accommodate this setup. We would like to schedule a preliminary site visit to assess gas piping routing and outdoor foundation access.`
                               );
                             }}
-                            className="inline-flex items-center gap-1.5 bg-teal-600 hover:bg-teal-500 text-white font-medium text-xs px-3.5 py-1.5 rounded-lg transition-colors cursor-pointer"
+                            className="inline-flex items-center gap-1.5 bg-teal-600 hover:bg-teal-500 text-white font-medium text-xs px-3.5 py-1.5 rounded-lg transition-colors cursor-pointer shadow-xs"
                           >
                             <Send size={12} className="stroke-[2]" />
                             <span>Respond / Send Proposal</span>
@@ -829,6 +981,14 @@ export function PlantDashboard() {
           </div>
         </form>
       </Modal>
+
+      {/* Screen 5: Public Provider Profile Preview */}
+      <ProviderDetailModal
+        isOpen={showPublicPreview}
+        onClose={() => setShowPublicPreview(false)}
+        plant={plantData}
+        enquiryButtonLabel="Simulated Public Offtake Action"
+      />
     </div>
   );
 }

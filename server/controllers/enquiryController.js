@@ -69,9 +69,30 @@ export function replyToEnquiry(req, res) {
   });
 }
 
+export function updateStatus(req, res) {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  if (!status) {
+    return res.status(400).json({ error: 'Status is required' });
+  }
+
+  const updated = enquiryModel.updateEnquiryStatus(id, status);
+  if (!updated) {
+    return res.status(404).json({ error: 'Enquiry not found' });
+  }
+
+  res.json({
+    message: `Enquiry status updated to ${status}`,
+    data: updated,
+    illustrative: true,
+  });
+}
+
 export default {
   getEnquiries,
   getEnquiryById,
   createEnquiry,
   replyToEnquiry,
+  updateStatus,
 };

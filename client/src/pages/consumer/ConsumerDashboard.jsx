@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import {
   Flame,
   Scale,
@@ -12,12 +13,19 @@ import {
   AlertCircle,
   HelpCircle,
   Check,
+  Search,
+  Filter,
+  CheckCircle2,
+  Layers,
+  Wrench,
+  AlertTriangle,
 } from 'lucide-react';
 import { StatusBadge } from '../../components/StatusBadge';
 import { useProfile } from '../../context/ProfileContext';
 import { api } from '../../api/client';
 import { ConsumerWizard } from './ConsumerWizard';
 import { CompareTable } from '../../components/CompareTable';
+import { ProviderDetailModal } from '../../components/ProviderDetailModal';
 
 const SCALES = [
   {
@@ -68,12 +76,20 @@ export function ConsumerDashboard() {
   const { activeProfile } = useProfile();
   const [searchParams, setSearchParams] = useSearchParams();
   const activeTab = searchParams.get('tab') || 'sizing';
+  const shouldReduceMotion = useReducedMotion();
 
   const [plants, setPlants] = useState([]);
   const [enquiries, setEnquiries] = useState([]);
   const [selectedPlantIdsToCompare, setSelectedPlantIdsToCompare] = useState(['plant-apex-1', 'plant-terra-3']);
   const [comparisonData, setComparisonData] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // Search & Filter State
+  const [searchQuery, setSearchQuery] = useState('');
+  const [scaleFilter, setScaleFilter] = useState('all');
+
+  // Detail Modal State
+  const [selectedPlantDossier, setSelectedPlantDossier] = useState(null);
 
   const loadData = () => {
     setLoading(true);
@@ -99,7 +115,8 @@ export function ConsumerDashboard() {
 
   useEffect(() => {
     if (selectedPlantIdsToCompare.length >= 2) {
-      api.get(`/plants/compare?ids=${selectedPlantIdsToCompare.join(',')}`)
+      api
+        .get(`/plants/compare?ids=${selectedPlantIdsToCompare.join(',')}`)
         .then((res) => setComparisonData(res.data))
         .catch(() => setComparisonData(null));
     } else {
@@ -123,9 +140,126 @@ export function ConsumerDashboard() {
     setSearchParams({ tab: tabId });
   };
 
+  const filteredPlantsForSelection = useMemo(() => {
+    return plants.filter((plant) => {
+      const matchesSearch =
+        plant.organisation?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        plant.serviceArea?.some((area) => area.toLowerCase().includes(searchQuery.toLowerCase()));
+
+      const matchesScale = scaleFilter === 'all' || plant.scale?.toLowerCase() === scaleFilter.toLowerCase();
+      return matchesSearch && matchesScale;
+    });
+  }, [plants, searchQuery, scaleFilter]);
+
   return (
     <div className="space-y-6">
-      {/* Tab 1: Need & Sizing Wizard */}
+      {/* ======================================================== */}
+      {/* SCREEN 1: Consumer Dashboard Overview Card               */}
+      {/* ======================================================== */}
+      <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 sm:p-7 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-5">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-amber-600 dark:text-amber-400 font-mono uppercase tracking-wider">
+                Consumer Energy Portal
+              </span>
+              <StatusBadge status="verified" size="sm" label="Active Profile" />
+            </div>
+            <h1 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+              Welcome back, {activeProfile.name}
+            </h1>
+            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
+              {activeProfile.location || 'Bristol'} · Thermal energy and biogas demand sizing, provider comparison, and proposal dispatch.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2 self-start sm:self-auto">
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              type="button"
+              onClick={() => setTab('sizing')}
+              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold shadow-xs transition-colors cursor-pointer ${
+                activeTab === 'sizing'
+                  ? 'bg-amber-600 hover:bg-amber-500 text-white'
+                  : 'bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/40 dark:hover:bg-amber-900/50 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800'
+              }`}
+            >
+              <Flame size={14} className="stroke-[2.2]" />
+              <span>Explore Biogas Solutions</span>
+            </motion.button>
+          </div>
+        </div>
+
+        {/* 4 Summary Metric Indicators */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-1">
+            <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">
+              Estimated Energy Demand
+            </span>
+            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100 font-mono block">
+              12 – 18 m³/day
+            </span>
+            <span className="text-[11px] text-zinc-500 dark:text-zinc-400">Domestic cooking & space heating</span>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-1">
+            <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">
+              Target Plant Scales
+            </span>
+            <span className="text-lg font-bold text-amber-600 dark:text-amber-400 font-mono block">
+              Small & Medium
+            </span>
+            <span className="text-[11px] text-zinc-500 dark:text-zinc-400">Micro-skid or commercial turnkey</span>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-1">
+            <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">
+              Regional Providers
+            </span>
+            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100 font-mono block">
+              {plants.length} Providers
+            </span>
+            <span className="text-[11px] text-zinc-500 dark:text-zinc-400">Operating in your regional area</span>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-1">
+            <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">
+              Enquiries & Proposals
+            </span>
+            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100 font-mono block">
+              {enquiries.length} Active
+            </span>
+            <span className="text-[11px] text-zinc-500 dark:text-zinc-400">Proposals in My Proposals tab</span>
+          </div>
+        </div>
+
+        {/* Recommended Action Card */}
+        <div className="p-3.5 rounded-xl bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200/80 dark:border-amber-900/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2.5">
+            <CheckCircle2 size={16} className="text-amber-600 dark:text-amber-400 shrink-0" />
+            <div className="space-y-0.5">
+              <span className="font-bold text-amber-950 dark:text-amber-200 block">Recommended Action:</span>
+              <p className="text-zinc-600 dark:text-zinc-400 text-[11px]">
+                Compare providers side-by-side to review verified commissioning documents and winter continuity recommendations.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => setTab('compare')}
+              className="text-xs font-semibold text-amber-700 dark:text-amber-300 hover:underline"
+            >
+              Compare Providers Now →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ======================================================== */}
+      {/* Tab 1: Sizing & Need Wizard                              */}
+      {/* ======================================================== */}
       {activeTab === 'sizing' && (
         <ConsumerWizard
           onCancel={() => setTab('compare')}
@@ -140,7 +274,9 @@ export function ConsumerDashboard() {
         />
       )}
 
-      {/* Tab 2: Compare Providers */}
+      {/* ======================================================== */}
+      {/* Tab 2: Compare Providers (Screens 5 & 6)                 */}
+      {/* ======================================================== */}
       {activeTab === 'compare' && (
         <div className="space-y-6">
           <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 sm:p-8 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-6">
@@ -155,7 +291,7 @@ export function ConsumerDashboard() {
                 </p>
               </div>
 
-              {/* Plant selection chips */}
+              {/* Plant selector chips */}
               <div className="flex flex-wrap items-center gap-1.5">
                 <span className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 mr-1">Select plants:</span>
                 {plants.map((plant) => {
@@ -165,9 +301,9 @@ export function ConsumerDashboard() {
                       key={plant.id}
                       type="button"
                       onClick={() => togglePlantSelection(plant.id)}
-                      className={`text-xs px-2.5 py-1 rounded-lg border font-medium transition-colors ${
+                      className={`text-xs px-2.5 py-1 rounded-lg border font-medium transition-colors cursor-pointer ${
                         isSelected
-                          ? 'bg-amber-600 text-white border-amber-500'
+                          ? 'bg-amber-600 text-white border-amber-500 shadow-xs'
                           : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600'
                       }`}
                     >
@@ -198,7 +334,9 @@ export function ConsumerDashboard() {
         </div>
       )}
 
-      {/* Tab 3: Requests & Proposals */}
+      {/* ======================================================== */}
+      {/* Tab 3: Requests & Proposals (Screen 9 My Enquiries)      */}
+      {/* ======================================================== */}
       {activeTab === 'enquiries' && (
         <div className="space-y-6">
           <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 sm:p-8 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-6">
@@ -226,7 +364,7 @@ export function ConsumerDashboard() {
                 <button
                   type="button"
                   onClick={() => setTab('sizing')}
-                  className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-medium text-xs rounded-xl shadow-xs transition-colors"
+                  className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-medium text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
                 >
                   Start Offtake Sizing
                 </button>
@@ -250,21 +388,21 @@ export function ConsumerDashboard() {
 
                     <div className="grid sm:grid-cols-2 gap-3 text-zinc-700 dark:text-zinc-300">
                       <div>
-                        <span className="text-zinc-500 dark:text-zinc-400 block text-[11px]">Chosen Plant Scale:</span>
-                        <strong className="text-zinc-900 dark:text-zinc-200 capitalize">{enq.summary?.chosenScale || 'Assessment required'}</strong>
+                        <span className="text-zinc-500 dark:text-zinc-400 block text-[11px]">Demand Level:</span>
+                        <strong className="text-zinc-900 dark:text-zinc-200">{enq.summary?.demandLevel || 'Moderate domestic cooking'}</strong>
                       </div>
                       <div>
-                        <span className="text-zinc-500 dark:text-zinc-400 block text-[11px]">Contact Preference:</span>
-                        <span className="capitalize font-medium text-zinc-900 dark:text-zinc-200">{enq.contactPreference || 'Email'}</span>
+                        <span className="text-zinc-500 dark:text-zinc-400 block text-[11px]">Continuity Need:</span>
+                        <span className="font-medium text-zinc-900 dark:text-zinc-200">{enq.summary?.continuityNeed || 'Continuous hot water'}</span>
                       </div>
                     </div>
 
                     <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800">
-                      <span className="text-zinc-500 dark:text-zinc-400 block text-[11px]">Unresolved Questions:</span>
+                      <span className="text-zinc-500 dark:text-zinc-400 block text-[11px]">Questions & Constraints:</span>
                       <p className="text-zinc-700 dark:text-zinc-300 italic mt-0.5">"{enq.questions}"</p>
                     </div>
 
-                    {/* Plant Provider Simulated Replies */}
+                    {/* Replies from Providers */}
                     {enq.replies && enq.replies.length > 0 && (
                       <div className="pt-3 border-t border-zinc-200 dark:border-zinc-800 space-y-2">
                         <span className="font-bold text-amber-700 dark:text-amber-400 block text-[11px]">
@@ -276,10 +414,10 @@ export function ConsumerDashboard() {
                             className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/60 text-amber-950 dark:text-amber-100 space-y-1"
                           >
                             <div className="flex items-center justify-between text-[10px] text-amber-700 dark:text-amber-400 font-semibold">
-                              <span>{reply.authorName || 'Engineering Representative'}</span>
+                              <span>{reply.authorName || 'Provider Engineering Representative'}</span>
                               <span>{new Date(reply.createdAt).toLocaleDateString()}</span>
                             </div>
-                            <p className="text-xs leading-relaxed text-zinc-800 dark:text-zinc-200">{reply.message}</p>
+                            <p className="text-xs leading-relaxed text-zinc-800 dark:text-zinc-200">{reply.message || reply.text}</p>
                           </div>
                         ))}
                       </div>
@@ -297,17 +435,19 @@ export function ConsumerDashboard() {
         </div>
       )}
 
-      {/* Tab 4: Scale Guidance */}
+      {/* ======================================================== */}
+      {/* Tab 4: Plant Scales (Screen 4 Plant Scale Exploration)   */}
+      {/* ======================================================== */}
       {activeTab === 'scales' && (
         <div className="space-y-6">
           <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 sm:p-8 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-6">
             <div className="border-b border-zinc-100 dark:border-zinc-800 pb-4">
               <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                <Building2 size={18} className="text-amber-600 dark:text-amber-400" />
-                Anaerobic Digestion Plant Scale Guidance
+                <Layers size={18} className="text-amber-600 dark:text-amber-400" />
+                Anaerobic Digester Scale Pathways
               </h2>
               <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">
-                Understand the physical footprint, expected yields, and operational limitations across scales without biased sales promises.
+                Understand the physical differences, ground space, biological sensitivities, and maintenance obligations between small, medium, and large digesters.
               </p>
             </div>
 
@@ -315,42 +455,53 @@ export function ConsumerDashboard() {
               {SCALES.map((scale) => (
                 <div
                   key={scale.id}
-                  className="p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/50 flex flex-col justify-between space-y-4 text-xs"
+                  className="p-6 rounded-2xl bg-zinc-50/70 dark:bg-zinc-950/40 border border-zinc-200 dark:border-zinc-800 flex flex-col justify-between space-y-4 text-xs"
                 >
                   <div className="space-y-3">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 block">
-                      {scale.capacity}
-                    </span>
-                    <div>
-                      <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100">{scale.title}</h3>
-                      <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 block mt-0.5">
-                        {scale.biogasYield}
+                    <div className="space-y-1">
+                      <span className="text-[10px] uppercase font-bold text-amber-600 dark:text-amber-400 tracking-wider font-mono">
+                        Scale Pathway
                       </span>
+                      <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100">{scale.title}</h3>
                     </div>
 
-                    <div className="space-y-2 pt-2 border-t border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                      <div>
-                        <strong className="text-zinc-900 dark:text-zinc-100 block mb-0.5">Typical Suitability:</strong>
-                        <p>{scale.suitableFor}</p>
+                    <div className="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 space-y-1 font-mono">
+                      <div className="flex justify-between text-[11px]">
+                        <span className="text-zinc-500">Feedstock Capacity:</span>
+                        <strong className="text-zinc-800 dark:text-zinc-200">{scale.capacity}</strong>
                       </div>
+                      <div className="flex justify-between text-[11px]">
+                        <span className="text-zinc-500">Expected Yield:</span>
+                        <strong className="text-amber-600 dark:text-amber-400">{scale.biogasYield}</strong>
+                      </div>
+                    </div>
 
-                      <div>
-                        <strong className="text-zinc-900 dark:text-zinc-100 block mb-0.5">Core Equipment:</strong>
-                        <p>{scale.equipment}</p>
-                      </div>
+                    <div className="space-y-1">
+                      <span className="font-bold text-zinc-800 dark:text-zinc-200 block text-[11px]">Typical Applications:</span>
+                      <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{scale.suitableFor}</p>
+                    </div>
 
-                      <div>
-                        <strong className="text-zinc-900 dark:text-zinc-100 block mb-0.5">Key Limitation:</strong>
-                        <p className="text-rose-800 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 p-2.5 rounded-lg border border-rose-200 dark:border-rose-900/60">
-                          {scale.limitations}
-                        </p>
-                      </div>
+                    <div className="space-y-1">
+                      <span className="font-bold text-zinc-800 dark:text-zinc-200 block text-[11px]">Key Equipment:</span>
+                      <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{scale.equipment}</p>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/60 text-amber-900 dark:text-amber-200 space-y-1 text-[11px]">
+                      <span className="font-bold flex items-center gap-1">
+                        <AlertTriangle size={12} className="shrink-0" /> Biological Sensitivity:
+                      </span>
+                      <p className="leading-snug">{scale.limitations}</p>
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-amber-50 dark:bg-zinc-900 border border-amber-200 dark:border-amber-800/60 text-[11px] text-amber-900 dark:text-amber-200 font-medium">
-                    <HelpCircle size={13} className="text-amber-600 dark:text-amber-400 inline mr-1 -mt-0.5" />
-                    {scale.validationPrompt}
+                  <div className="pt-3 border-t border-zinc-200 dark:border-zinc-800">
+                    <button
+                      type="button"
+                      onClick={() => setTab('sizing')}
+                      className="w-full py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-semibold shadow-xs transition-colors cursor-pointer"
+                    >
+                      Assess Sizing for this Scale
+                    </button>
                   </div>
                 </div>
               ))}
@@ -358,6 +509,18 @@ export function ConsumerDashboard() {
           </div>
         </div>
       )}
+
+      {/* Full Provider Dossier & Evidence Modal */}
+      <ProviderDetailModal
+        isOpen={Boolean(selectedPlantDossier)}
+        onClose={() => setSelectedPlantDossier(null)}
+        plant={selectedPlantDossier}
+        enquiryButtonLabel="Request Offtake Proposal"
+        onSendEnquiry={(p) => {
+          setSelectedPlantDossier(null);
+          setTab('sizing');
+        }}
+      />
     </div>
   );
 }
