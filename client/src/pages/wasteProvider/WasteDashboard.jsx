@@ -28,7 +28,6 @@ import { useProfile } from '../../context/ProfileContext';
 import { api } from '../../api/client';
 import { WasteAssessmentWizard } from './WasteAssessmentWizard';
 import { ProviderDetailModal } from '../../components/ProviderDetailModal';
-import { buttonTapMotion } from '../../utils/motion';
 
 export function WasteDashboard() {
   const { activeProfile } = useProfile();
@@ -88,23 +87,23 @@ export function WasteDashboard() {
   }, [plants, searchQuery, scaleFilter]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-sans">
       {/* ======================================================== */}
       {/* SCREEN 1: Waste Generator Dashboard Overview Card        */}
       {/* ======================================================== */}
-      <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 sm:p-7 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-100 dark:border-zinc-800 pb-5">
+      <div className="bg-white rounded-2xl p-6 sm:p-7 border border-zinc-200 shadow-subtle space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-100 pb-5">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono uppercase tracking-wider">
+              <span className="text-xs font-bold text-forest-900 font-mono uppercase tracking-wider">
                 Waste Generator Portal
               </span>
               <StatusBadge status="verified" size="sm" label="Active Profile" />
             </div>
-            <h1 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+            <h1 className="text-xl sm:text-2xl font-bold text-zinc-900">
               Welcome back, {activeProfile.name}
             </h1>
-            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
+            <p className="text-xs sm:text-sm text-zinc-600">
               {activeProfile.location || 'Indiranagar, Bengaluru'} · Commercial kitchen organic waste evaluation and regional digester matching.
             </p>
           </div>
@@ -114,10 +113,10 @@ export function WasteDashboard() {
               whileTap={{ scale: 0.98 }}
               type="button"
               onClick={() => setTab('assessment')}
-              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold shadow-xs transition-colors cursor-pointer ${
+              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold shadow-subtle transition-colors cursor-pointer ${
                 activeTab === 'assessment'
-                  ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
-                  : 'bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
+                  ? 'bg-forest-900 hover:bg-forest-800 text-white'
+                  : 'bg-forest-50 hover:bg-forest-100 text-forest-900 border border-forest-200'
               }`}
             >
               <Sparkles size={14} className="stroke-[2.2]" />
@@ -128,54 +127,54 @@ export function WasteDashboard() {
 
         {/* 4 Summary Metric Indicators */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-          <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-1">
-            <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">
+          <div className="p-3.5 rounded-xl bg-zinc-50 border border-zinc-200 space-y-1">
+            <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">
               Daily Feedstock Volume
             </span>
-            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100 font-mono block">
+            <span className="text-lg font-bold text-zinc-900 font-mono block">
               ~150 kg/day
             </span>
-            <span className="text-[11px] text-zinc-500 dark:text-zinc-400">Commercial kitchen prep scraps</span>
+            <span className="text-[11px] text-zinc-500">Commercial kitchen prep scraps</span>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-1">
-            <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">
+          <div className="p-3.5 rounded-xl bg-zinc-50 border border-zinc-200 space-y-1">
+            <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">
               Indicative Biogas Yield
             </span>
-            <span className="text-lg font-bold text-emerald-600 dark:text-emerald-400 font-mono block">
+            <span className="text-lg font-bold text-forest-900 font-mono block">
               12 – 18 m³/day
             </span>
-            <span className="text-[11px] text-zinc-500 dark:text-zinc-400">~70 – 110 kWh thermal energy</span>
+            <span className="text-[11px] text-zinc-500">~70 – 110 kWh thermal energy</span>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-1">
-            <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">
+          <div className="p-3.5 rounded-xl bg-zinc-50 border border-zinc-200 space-y-1">
+            <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">
               Compatible AD Plants
             </span>
-            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100 font-mono block">
+            <span className="text-lg font-bold text-zinc-900 font-mono block">
               {plants.length} Regional
             </span>
-            <span className="text-[11px] text-zinc-500 dark:text-zinc-400">Accepting organic food waste</span>
+            <span className="text-[11px] text-zinc-500">Accepting organic food waste</span>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-1">
-            <span className="text-[10px] font-bold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">
+          <div className="p-3.5 rounded-xl bg-zinc-50 border border-zinc-200 space-y-1">
+            <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">
               Sent Enquiries / Bookings
             </span>
-            <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100 font-mono block">
+            <span className="text-lg font-bold text-zinc-900 font-mono block">
               {enquiries.length} Active
             </span>
-            <span className="text-[11px] text-zinc-500 dark:text-zinc-400">Track responses in My Bookings</span>
+            <span className="text-[11px] text-zinc-500">Track responses in My Bookings</span>
           </div>
         </div>
 
         {/* Recommended Next Steps Card */}
-        <div className="p-3.5 rounded-xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200/80 dark:border-emerald-900/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+        <div className="p-3.5 rounded-xl bg-forest-50/70 border border-forest-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2.5">
-            <CheckCircle2 size={16} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
+            <CheckCircle2 size={16} className="text-forest-800 shrink-0" />
             <div className="space-y-0.5">
-              <span className="font-bold text-emerald-950 dark:text-emerald-200 block">Recommended Action:</span>
-              <p className="text-zinc-600 dark:text-zinc-400 text-[11px]">
+              <span className="font-bold text-forest-950 block">Recommended Next Action:</span>
+              <p className="text-zinc-600 text-[11px]">
                 Complete your feedstock assessment to receive an indicative yield spread, then request a collection slot from local digesters.
               </p>
             </div>
@@ -185,7 +184,7 @@ export function WasteDashboard() {
             <button
               type="button"
               onClick={() => setTab('plants')}
-              className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 hover:underline"
+              className="text-xs font-semibold text-forest-900 hover:underline cursor-pointer"
             >
               Explore Nearby Plants →
             </button>
@@ -215,22 +214,22 @@ export function WasteDashboard() {
       {/* ======================================================== */}
       {activeTab === 'plants' && (
         <div className="space-y-6">
-          <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 sm:p-8 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-100 dark:border-zinc-800 pb-4">
+          <div className="bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-subtle space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-100 pb-4">
               <div>
-                <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                  <Building2 size={18} className="text-emerald-600 dark:text-emerald-400" />
+                <h2 className="text-base font-bold text-zinc-900 flex items-center gap-2">
+                  <Building2 size={18} className="text-forest-800" />
                   Regional Anaerobic Digestion Plants
                 </h2>
-                <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">
-                  Verified digester operators accepting commercial kitchen, food processing, and community organic waste.
+                <p className="text-xs text-zinc-600 mt-0.5">
+                  Verified digester operators accepting commercial kitchen, mandi, and community organic waste.
                 </p>
               </div>
 
               <button
                 type="button"
                 onClick={() => setTab('assessment')}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 dark:hover:text-emerald-300 transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-forest-900 hover:text-forest-800 transition-colors cursor-pointer"
               >
                 <span>Calculate Yield First</span>
                 <ArrowRight size={13} />
@@ -243,16 +242,16 @@ export function WasteDashboard() {
                 <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
                 <input
                   type="text"
-                  placeholder="Search by name, area, or feedstock..."
+                  placeholder="Search by name, city, or feedstock..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 text-xs"
+                  className="w-full pl-9 pr-3 py-2 rounded-xl border border-zinc-300 bg-white text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-forest-700/20 focus:border-forest-700 text-xs"
                 />
               </div>
 
               {/* Scale Filter Pills */}
               <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
-                <span className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400 mr-1 flex items-center gap-1">
+                <span className="text-[11px] font-semibold text-zinc-500 mr-1 flex items-center gap-1">
                   <Filter size={12} /> Scale:
                 </span>
                 {['all', 'small', 'medium', 'large'].map((scale) => (
@@ -262,8 +261,8 @@ export function WasteDashboard() {
                     onClick={() => setScaleFilter(scale)}
                     className={`capitalize text-xs px-2.5 py-1 rounded-lg border font-medium transition-colors cursor-pointer ${
                       scaleFilter === scale
-                        ? 'bg-emerald-600 text-white border-emerald-500'
-                        : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700 hover:border-zinc-300 dark:hover:border-zinc-600'
+                        ? 'bg-forest-900 text-white border-forest-800 shadow-subtle'
+                        : 'bg-zinc-100 text-zinc-700 border-zinc-200 hover:bg-zinc-200'
                     }`}
                   >
                     {scale === 'all' ? 'All Scales' : scale}
@@ -277,28 +276,28 @@ export function WasteDashboard() {
               {filteredPlants.map((plant) => (
                 <div
                   key={plant.id}
-                  className="p-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-950/40 space-y-4 text-xs flex flex-col justify-between hover:border-emerald-500/50 transition-colors"
+                  className="p-5 rounded-2xl border border-zinc-200 bg-zinc-50/60 space-y-4 text-xs flex flex-col justify-between hover:border-forest-700/60 transition-colors"
                 >
                   <div className="space-y-3">
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <h3 className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">{plant.organisation}</h3>
-                        <span className="text-[11px] text-zinc-500 dark:text-zinc-400 capitalize">
+                        <h3 className="font-bold text-zinc-900 text-sm">{plant.organisation}</h3>
+                        <span className="text-[11px] text-zinc-500 capitalize">
                           Scale: {plant.scale} · {plant.capacityMin}–{plant.capacityMax} {plant.capacityUnit}
                         </span>
                       </div>
-                      <span className="text-[11px] font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800 shrink-0">
+                      <span className="text-[11px] font-semibold text-forest-900 bg-forest-50 px-2 py-0.5 rounded border border-forest-200 shrink-0">
                         {plant.serviceArea?.slice(0, 2).join(', ')}
                       </span>
                     </div>
 
-                    <div className="space-y-1 text-zinc-700 dark:text-zinc-300 pt-1">
-                      <span className="text-zinc-500 dark:text-zinc-400 block text-[11px]">Accepted Feedstocks:</span>
+                    <div className="space-y-1 text-zinc-700 pt-1">
+                      <span className="text-zinc-500 block text-[11px]">Accepted Feedstocks:</span>
                       <div className="flex flex-wrap gap-1">
                         {plant.supportedFeedstock?.map((f) => (
                           <span
                             key={f}
-                            className="bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 px-1.5 py-0.5 rounded text-[10px] text-zinc-700 dark:text-zinc-300"
+                            className="bg-zinc-100 border border-zinc-200 px-1.5 py-0.5 rounded text-[10px] text-zinc-700"
                           >
                             {f.split('(')[0].trim()}
                           </span>
@@ -306,18 +305,18 @@ export function WasteDashboard() {
                       </div>
                     </div>
 
-                    <p className="text-zinc-600 dark:text-zinc-400 line-clamp-2 leading-relaxed">
+                    <p className="text-zinc-600 line-clamp-2 leading-relaxed">
                       {plant.omOffering}
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div className="pt-3 border-t border-zinc-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium text-[11px]">
-                        <ShieldCheck size={13} /> {plant.evidenceSummary?.provided || 2} verified
+                      <span className="inline-flex items-center gap-1 text-forest-900 font-medium text-[11px]">
+                        <ShieldCheck size={13} className="text-forest-800" /> {plant.evidenceSummary?.provided || 2} verified
                       </span>
                       {plant.evidenceSummary?.missing > 0 && (
-                        <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 font-medium text-[11px]">
+                        <span className="inline-flex items-center gap-1 text-rose-700 font-medium text-[11px]">
                           <AlertCircle size={13} /> {plant.evidenceSummary.missing} missing
                         </span>
                       )}
@@ -327,7 +326,7 @@ export function WasteDashboard() {
                       <button
                         type="button"
                         onClick={() => setSelectedPlantDossier(plant)}
-                        className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700 transition-colors cursor-pointer"
+                        className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-white hover:bg-zinc-100 text-zinc-800 border border-zinc-300 transition-colors cursor-pointer shadow-subtle"
                       >
                         Inspect Dossier
                       </button>
@@ -335,7 +334,7 @@ export function WasteDashboard() {
                       <button
                         type="button"
                         onClick={() => setTab('assessment')}
-                        className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition-colors cursor-pointer shadow-xs"
+                        className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-forest-900 hover:bg-forest-800 text-white transition-colors cursor-pointer shadow-subtle"
                       >
                         Book Slot
                       </button>
@@ -353,32 +352,32 @@ export function WasteDashboard() {
       {/* ======================================================== */}
       {activeTab === 'enquiries' && (
         <div className="space-y-6">
-          <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 sm:p-8 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-100 dark:border-zinc-800 pb-4">
+          <div className="bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-subtle space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-100 pb-4">
               <div>
-                <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                  <Clock size={18} className="text-emerald-600 dark:text-emerald-400" />
+                <h2 className="text-base font-bold text-zinc-900 flex items-center gap-2">
+                  <Clock size={18} className="text-forest-800" />
                   Sent Feedstock Requests & Status
                 </h2>
-                <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">
+                <p className="text-xs text-zinc-600 mt-0.5">
                   Track drop-off bookings and project connection enquiries forwarded to regional digesters.
                 </p>
               </div>
 
-              <span className="text-xs font-semibold px-2.5 py-1 rounded bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 self-start sm:self-auto">
+              <span className="text-xs font-semibold px-2.5 py-1 rounded bg-zinc-100 border border-zinc-200 text-zinc-700 self-start sm:self-auto">
                 {enquiries.length} total requests
               </span>
             </div>
 
             {enquiries.length === 0 ? (
-              <div className="p-8 text-center bg-zinc-50 dark:bg-zinc-950/50 rounded-xl border border-zinc-200 dark:border-zinc-800 space-y-3">
-                <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              <div className="p-8 text-center bg-zinc-50 rounded-xl border border-zinc-200 space-y-3">
+                <p className="text-xs text-zinc-500">
                   No feedstock requests sent yet. Complete the assessment wizard to connect with regional plants.
                 </p>
                 <button
                   type="button"
                   onClick={() => setTab('assessment')}
-                  className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs rounded-xl shadow-xs transition-colors cursor-pointer"
+                  className="px-4 py-2 bg-forest-900 hover:bg-forest-800 text-white font-medium text-xs rounded-xl shadow-subtle transition-colors cursor-pointer"
                 >
                   Start Assessment
                 </button>
@@ -388,56 +387,56 @@ export function WasteDashboard() {
                 {enquiries.map((enq) => (
                   <div
                     key={enq.id}
-                    className="p-5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-950/40 space-y-3 text-xs"
+                    className="p-5 rounded-xl border border-zinc-200 bg-zinc-50/60 space-y-3 text-xs"
                   >
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-200 dark:border-zinc-800 pb-2.5">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-200 pb-2.5">
                       <div className="space-y-0.5">
-                        <span className="font-bold text-zinc-900 dark:text-zinc-100 text-sm block">
+                        <span className="font-bold text-zinc-900 text-sm block">
                           {enq.summary?.wasteType || 'Feedstock Assessment'}
                         </span>
-                        <span className="text-[11px] text-zinc-400 dark:text-zinc-500 font-mono">Reference: {enq.id}</span>
+                        <span className="text-[11px] text-zinc-400 font-mono">Reference: {enq.id}</span>
                       </div>
                       <StatusBadge status={enq.status === 'answered' ? 'verified' : 'pending'} size="sm" />
                     </div>
 
-                    <div className="grid sm:grid-cols-2 gap-3 text-zinc-700 dark:text-zinc-300">
+                    <div className="grid sm:grid-cols-2 gap-3 text-zinc-700">
                       <div>
-                        <span className="text-zinc-500 dark:text-zinc-400 block text-[11px]">Estimated Daily Yield:</span>
-                        <strong className="text-zinc-900 dark:text-zinc-200">{enq.summary?.estimatedBiogasRange || 'Assessment required'}</strong>
+                        <span className="text-zinc-500 block text-[11px]">Estimated Daily Yield:</span>
+                        <strong className="text-zinc-900">{enq.summary?.estimatedBiogasRange || 'Assessment required'}</strong>
                       </div>
                       <div>
-                        <span className="text-zinc-500 dark:text-zinc-400 block text-[11px]">Transport / Contact:</span>
-                        <span className="capitalize font-medium text-zinc-900 dark:text-zinc-200">{enq.contactPreference || 'Email'}</span>
+                        <span className="text-zinc-500 block text-[11px]">Transport / Contact:</span>
+                        <span className="capitalize font-medium text-zinc-900">{enq.contactPreference || 'Email'}</span>
                       </div>
                     </div>
 
-                    <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800">
-                      <span className="text-zinc-500 dark:text-zinc-400 block text-[11px]">Unresolved Questions:</span>
-                      <p className="text-zinc-700 dark:text-zinc-300 italic mt-0.5">"{enq.questions}"</p>
+                    <div className="pt-2 border-t border-zinc-200">
+                      <span className="text-zinc-500 block text-[11px]">Unresolved Questions:</span>
+                      <p className="text-zinc-700 italic mt-0.5">"{enq.questions}"</p>
                     </div>
 
                     {/* Plant Provider Simulated Replies */}
                     {enq.replies && enq.replies.length > 0 && (
-                      <div className="pt-3 border-t border-zinc-200 dark:border-zinc-800 space-y-2">
-                        <span className="font-bold text-emerald-700 dark:text-emerald-400 block text-[11px]">
+                      <div className="pt-3 border-t border-zinc-200 space-y-2">
+                        <span className="font-bold text-forest-900 block text-[11px]">
                           Replies from Plant Provider:
                         </span>
                         {enq.replies.map((reply) => (
                           <div
                             key={reply.id}
-                            className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 text-emerald-950 dark:text-emerald-100 space-y-1"
+                            className="p-3 rounded-xl bg-forest-50 border border-forest-200 text-forest-950 space-y-1"
                           >
-                            <div className="flex items-center justify-between text-[10px] text-emerald-700 dark:text-emerald-400 font-semibold">
+                            <div className="flex items-center justify-between text-[10px] text-forest-900 font-semibold">
                               <span>{reply.authorName || 'Plant Engineering Representative'}</span>
                               <span>{new Date(reply.createdAt).toLocaleDateString()}</span>
                             </div>
-                            <p className="text-xs leading-relaxed text-zinc-800 dark:text-zinc-200">{reply.message || reply.text}</p>
+                            <p className="text-xs leading-relaxed text-zinc-800">{reply.message || reply.text}</p>
                           </div>
                         ))}
                       </div>
                     )}
 
-                    <div className="text-[10px] text-zinc-400 dark:text-zinc-500 flex justify-between pt-1">
+                    <div className="text-[10px] text-zinc-400 flex justify-between pt-1">
                       <span>Submitted on: {new Date(enq.createdAt).toLocaleDateString()}</span>
                       <span>Target Providers: {enq.toPlantIds?.length || 1} plant(s)</span>
                     </div>
@@ -454,45 +453,45 @@ export function WasteDashboard() {
       {/* ======================================================== */}
       {activeTab === 'impact' && (
         <div className="space-y-6">
-          <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 sm:p-8 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-6">
-            <div className="border-b border-zinc-100 dark:border-zinc-800 pb-4">
-              <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                <Leaf size={18} className="text-emerald-600 dark:text-emerald-400" />
+          <div className="bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-subtle space-y-6">
+            <div className="border-b border-zinc-100 pb-4">
+              <h2 className="text-base font-bold text-zinc-900 flex items-center gap-2">
+                <Leaf size={18} className="text-forest-800" />
                 Environmental Impact & Diversion Potential
               </h2>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">
+              <p className="text-xs text-zinc-600 mt-0.5">
                 Calculated sustainability outcomes when your organic waste is diverted from landfill to anaerobic digestion.
               </p>
             </div>
 
             <div className="grid sm:grid-cols-3 gap-4 text-xs">
-              <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 space-y-1">
-                <span className="text-[10px] font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-wider block">SDG 12 · Circularity</span>
-                <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100 block">100% Diverted</span>
-                <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">Zero organic waste to landfill; transformed into biological soil conditioner.</p>
+              <div className="p-4 rounded-xl bg-forest-50 border border-forest-200 space-y-1">
+                <span className="text-[10px] font-bold text-forest-900 uppercase tracking-wider block">SDG 12 · Circularity</span>
+                <span className="text-lg font-bold text-zinc-900 block font-mono">100% Diverted</span>
+                <p className="text-zinc-600 leading-relaxed text-[11px]">Zero organic waste to landfill; transformed into biological soil conditioner.</p>
               </div>
 
-              <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 space-y-1">
-                <span className="text-[10px] font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-wider block">SDG 13 · Climate Action</span>
-                <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100 block">~450 kg CO₂e / t</span>
-                <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">Avoided fugitive methane emissions compared to open disposal.</p>
+              <div className="p-4 rounded-xl bg-forest-50 border border-forest-200 space-y-1">
+                <span className="text-[10px] font-bold text-forest-900 uppercase tracking-wider block">SDG 13 · Climate Action</span>
+                <span className="text-lg font-bold text-zinc-900 block font-mono">~35 kg CO₂e / 100kg</span>
+                <p className="text-zinc-600 leading-relaxed text-[11px]">Avoided fugitive methane emissions compared to open disposal.</p>
               </div>
 
-              <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 space-y-1">
-                <span className="text-[10px] font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-wider block">SDG 7 · Clean Energy</span>
-                <span className="text-lg font-bold text-zinc-900 dark:text-zinc-100 block">~80–120 m³ gas</span>
-                <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">Displaces fossil LPG cylinders or grid electricity for heating.</p>
+              <div className="p-4 rounded-xl bg-forest-50 border border-forest-200 space-y-1">
+                <span className="text-[10px] font-bold text-forest-900 uppercase tracking-wider block">SDG 7 · Clean Energy</span>
+                <span className="text-lg font-bold text-zinc-900 block font-mono">~10–14 m³ gas</span>
+                <p className="text-zinc-600 leading-relaxed text-[11px]">Displaces fossil LPG cylinders or grid electricity for heating.</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-zinc-900 rounded-2xl p-6 sm:p-8 border border-zinc-200 dark:border-zinc-800 shadow-xs space-y-6">
-            <div className="border-b border-zinc-100 dark:border-zinc-800 pb-4">
-              <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-                <BookOpen size={18} className="text-emerald-600 dark:text-emerald-400" />
+          <div className="bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-subtle space-y-6">
+            <div className="border-b border-zinc-100 pb-4">
+              <h3 className="text-base font-bold text-zinc-900 flex items-center gap-2">
+                <BookOpen size={18} className="text-forest-800" />
                 Published Anaerobic Digestion Research Benchmarks
               </h3>
-              <p className="text-xs text-zinc-600 dark:text-zinc-400 mt-0.5">
+              <p className="text-xs text-zinc-600 mt-0.5">
                 Authoritative reference yield rates used to generate indicative output ranges without marketing bias.
               </p>
             </div>
@@ -501,16 +500,16 @@ export function WasteDashboard() {
               {assumptions.map((item) => (
                 <div
                   key={item.wasteType}
-                  className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/50 space-y-2 text-xs"
+                  className="p-4 rounded-xl border border-zinc-200 bg-zinc-50 space-y-2 text-xs"
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <h4 className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">{item.wasteType}</h4>
-                    <span className="text-[11px] font-semibold text-emerald-800 dark:text-emerald-300 bg-white dark:bg-zinc-900 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800 shrink-0">
+                    <h4 className="font-bold text-zinc-900 text-sm">{item.wasteType}</h4>
+                    <span className="text-[11px] font-semibold text-forest-900 bg-white px-2 py-0.5 rounded border border-forest-200 shrink-0">
                       {item.yieldMin} – {item.yieldMax} {item.unit.split('/')[0].trim()}
                     </span>
                   </div>
-                  <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">{item.caveat}</p>
-                  <div className="pt-2 border-t border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center justify-between text-[10px] text-zinc-400 dark:text-zinc-500 gap-2">
+                  <p className="text-zinc-600 leading-relaxed text-[11px]">{item.caveat}</p>
+                  <div className="pt-2 border-t border-zinc-200 flex flex-wrap items-center justify-between text-[10px] text-zinc-400 gap-2">
                     <span>Source: {item.source}</span>
                     <span>Date: {item.date}</span>
                   </div>

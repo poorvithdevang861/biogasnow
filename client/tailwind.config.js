@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -8,29 +7,49 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#FBFBFA',
+        background: '#FAFAF8',
         foreground: '#18181B',
+        forest: {
+          50: '#F0FDF4',
+          100: '#DCFCE7',
+          200: '#BBF7D0',
+          500: '#22C55E',
+          600: '#16A34A',
+          700: '#15803D',
+          800: '#166534',
+          900: '#14532D', // Deep Forest Green
+          950: '#052E16',
+          DEFAULT: '#14532D',
+        },
+        sage: {
+          50: '#F4F7F5',
+          100: '#E8F0EA',
+          200: '#D1E0D7',
+          500: '#52796F', // Muted Sage
+          600: '#3D5A53',
+          DEFAULT: '#52796F',
+        },
         primary: {
-          50: '#ECFDF5',
-          100: '#D1FAE5',
-          200: '#A7F3D0',
-          500: '#10B981',
-          600: '#059669', // Clean Emerald Primary
-          700: '#047857',
-          800: '#065F46',
-          DEFAULT: '#059669',
+          50: '#F0FDF4',
+          100: '#DCFCE7',
+          200: '#BBF7D0',
+          500: '#16A34A',
+          600: '#166534',
+          700: '#14532D', // Primary Forest Green
+          800: '#0F3D24',
+          DEFAULT: '#14532D',
         },
         accent: {
           50: '#FFFBEB',
           100: '#FEF3C7',
           500: '#F59E0B',
-          600: '#D97706', // Warm Amber
+          600: '#D97706', // Warm Amber for Consumer
           700: '#B45309',
           DEFAULT: '#D97706',
         },
         role: {
-          waste: '#059669',
-          'waste-light': '#ECFDF5',
+          waste: '#14532D',
+          'waste-light': '#F0FDF4',
           consumer: '#D97706',
           'consumer-light': '#FFFBEB',
           plant: '#0D9488',
@@ -39,7 +58,7 @@ export default {
         status: {
           verified: {
             bg: '#DCFCE7',
-            text: '#166534',
+            text: '#14532D',
             border: '#86EFAC',
           },
           pending: {
@@ -65,17 +84,18 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        heading: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['"Geist Sans"', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        heading: ['"Geist Sans"', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
       borderRadius: {
+        'xl': '0.75rem',
         '2xl': '1rem',
-        '3xl': '1.5rem',
+        '3xl': '1.25rem',
       },
       boxShadow: {
-        subtle: '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)',
-        card: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05)',
-        hover: '0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.05)',
+        subtle: '0 1px 2px 0 rgba(0, 0, 0, 0.04)',
+        card: '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)',
+        elevated: '0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05)',
       },
     },
   },

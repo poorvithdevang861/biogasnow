@@ -1,46 +1,57 @@
 import React from 'react';
 import {
   ShieldCheck,
-  AlertTriangle,
-  HelpCircle,
-  Info,
+  FileText,
   Clock,
   AlertCircle,
+  HelpCircle,
+  Info,
 } from 'lucide-react';
 
 /**
- * StatusBadge Component (Adaptive Light & Dark Theme)
- * Displays semantic status with both icon and text matching unslop guidelines.
+ * StatusBadge Component
+ * Semantic, accessible trust indicator combining icon, label, and high-contrast color.
+ * Does not rely solely on color for accessibility.
  */
 export function StatusBadge({
   status = 'illustrative',
   label,
-  size = 'md', // 'sm' | 'md' | 'lg'
+  size = 'md', // 'sm' | 'md'
   className = '',
 }) {
   const normalizedStatus = status?.toLowerCase() || 'illustrative';
 
   let config = {
-    bg: 'bg-zinc-100 dark:bg-zinc-800/80 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300',
+    bg: 'bg-zinc-100 border-zinc-200 text-zinc-700',
     icon: Info,
-    defaultLabel: 'Illustrative prototype data',
+    defaultLabel: 'Illustrative benchmark',
   };
 
   switch (normalizedStatus) {
     case 'verified':
     case 'provided':
       config = {
-        bg: 'bg-emerald-50 dark:bg-emerald-950/70 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300',
+        bg: 'bg-forest-50 border-forest-200 text-forest-900',
         icon: ShieldCheck,
-        defaultLabel: 'Verified / Provided',
+        defaultLabel: 'Verified / Audited',
+      };
+      break;
+
+    case 'self-reported':
+    case 'self_reported':
+      config = {
+        bg: 'bg-zinc-100 border-zinc-200 text-zinc-800',
+        icon: FileText,
+        defaultLabel: 'Self-reported claim',
       };
       break;
 
     case 'pending':
+    case 'pending_review':
       config = {
-        bg: 'bg-amber-50 dark:bg-amber-950/70 border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-300',
+        bg: 'bg-amber-50 border-amber-200 text-amber-900',
         icon: Clock,
-        defaultLabel: 'Pending verification',
+        defaultLabel: 'Pending audit',
       };
       break;
 
@@ -48,9 +59,9 @@ export function StatusBadge({
     case 'not provided':
     case 'not verified':
       config = {
-        bg: 'bg-rose-50 dark:bg-rose-950/70 border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300',
+        bg: 'bg-rose-50 border-rose-200 text-rose-900',
         icon: AlertCircle,
-        defaultLabel: 'Not provided / Not verified',
+        defaultLabel: 'Not provided / Missing',
       };
       break;
 
@@ -58,49 +69,32 @@ export function StatusBadge({
     case 'not sure':
     case 'assessment required':
       config = {
-        bg: 'bg-amber-100/70 dark:bg-amber-950/80 border-amber-300 dark:border-amber-700 text-amber-900 dark:text-amber-200',
+        bg: 'bg-amber-50/60 border-amber-200 text-amber-900',
         icon: HelpCircle,
         defaultLabel: 'Assessment required',
       };
       break;
 
-    case 'illustrative':
-    case 'sample':
     default:
       config = {
-        bg: 'bg-zinc-100 dark:bg-zinc-800/80 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300',
+        bg: 'bg-zinc-100 border-zinc-200 text-zinc-700',
         icon: Info,
-        defaultLabel: 'Illustrative prototype data',
+        defaultLabel: 'Illustrative benchmark',
       };
       break;
   }
 
-  const IconComponent = config.icon;
-  const displayLabel = label || config.defaultLabel;
-
-  const sizeClasses = {
-    sm: 'text-[11px] px-2 py-0.5 gap-1.5',
-    md: 'text-xs px-2.5 py-1 gap-1.5',
-    lg: 'text-xs sm:text-sm px-3 py-1.5 gap-2 font-medium',
-  };
-
-  const iconSizes = {
-    sm: 12,
-    md: 14,
-    lg: 16,
-  };
+  const Icon = config.icon;
+  const isSm = size === 'sm';
 
   return (
     <span
-      className={`inline-flex items-center font-medium border rounded-full ${config.bg} ${sizeClasses[size]} ${className}`}
-      role="status"
+      className={`inline-flex items-center gap-1.5 font-medium rounded-full border ${config.bg} ${
+        isSm ? 'px-2 py-0.5 text-[10px]' : 'px-2.5 py-0.5 text-xs'
+      } ${className}`}
     >
-      <IconComponent
-        size={iconSizes[size]}
-        aria-hidden="true"
-        className="shrink-0 stroke-[2.2]"
-      />
-      <span>{displayLabel}</span>
+      <Icon size={isSm ? 11 : 13} className="shrink-0 stroke-[2.2]" aria-hidden="true" />
+      <span>{label || config.defaultLabel}</span>
     </span>
   );
 }

@@ -46,7 +46,7 @@ export function Modal({
             animate={shouldReduceMotion ? { opacity: 1 } : modalVariants.backdrop.animate}
             exit={shouldReduceMotion ? { opacity: 0 } : modalVariants.backdrop.exit}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 dark:bg-black/75 backdrop-blur-xs"
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs"
             aria-hidden="true"
           />
 
@@ -58,19 +58,19 @@ export function Modal({
             initial={shouldReduceMotion ? { opacity: 1 } : modalVariants.dialog.initial}
             animate={shouldReduceMotion ? { opacity: 1 } : modalVariants.dialog.animate}
             exit={shouldReduceMotion ? { opacity: 0 } : modalVariants.dialog.exit}
-            className={`relative w-full ${maxWidth} bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-2xl z-10 my-auto text-zinc-900 dark:text-zinc-100 overflow-hidden ${className}`}
+            className={`relative w-full ${maxWidth} bg-white rounded-2xl border border-zinc-200 shadow-2xl z-10 my-auto text-zinc-900 overflow-hidden ${className}`}
           >
             {/* Header */}
             {(title || onClose) && (
-              <div className="flex items-start justify-between p-5 sm:p-6 border-b border-zinc-100 dark:border-zinc-800 gap-3">
+              <div className="flex items-start justify-between p-5 sm:p-6 border-b border-zinc-100 gap-3">
                 <div className="min-w-0">
                   {title && (
-                    <h3 id="modal-title" className="text-base sm:text-lg font-bold text-zinc-900 dark:text-zinc-100">
+                    <h3 id="modal-title" className="text-base sm:text-lg font-bold text-zinc-900">
                       {title}
                     </h3>
                   )}
                   {subtitle && (
-                    <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                    <p className="text-xs text-zinc-500 mt-0.5">
                       {subtitle}
                     </p>
                   )}
@@ -80,7 +80,7 @@ export function Modal({
                   <button
                     type="button"
                     onClick={onClose}
-                    className="p-1 rounded-lg text-zinc-400 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none focus:ring-2 focus:ring-zinc-400"
+                    className="p-1 rounded-lg text-zinc-400 hover:text-zinc-700:text-zinc-200 hover:bg-zinc-100:bg-zinc-800 transition-colors focus:outline-none focus:ring-2 focus:ring-zinc-400"
                     aria-label="Close dialog"
                   >
                     <X size={18} className="stroke-[2.2]" />

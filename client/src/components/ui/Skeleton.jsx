@@ -7,7 +7,7 @@ import React from 'react';
 export function Skeleton({ className = '', ...props }) {
   return (
     <div
-      className={`animate-pulse bg-zinc-200/80 dark:bg-zinc-800/80 rounded-lg ${className}`}
+      className={`animate-pulse bg-zinc-200/80 rounded-lg ${className}`}
       {...props}
     />
   );
