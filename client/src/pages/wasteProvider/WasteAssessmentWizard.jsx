@@ -22,6 +22,7 @@ import { useProfile } from '../../context/ProfileContext';
 import { StatusBadge } from '../../components/StatusBadge';
 import { EvidencePanel } from '../../components/EvidencePanel';
 import { RangeBar } from '../../components/RangeBar';
+import { tabContentVariants, buttonTapMotion } from '../../utils/motion';
 
 const STEPS = [
   { id: 1, title: 'What is needed' },
@@ -291,6 +292,14 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
       ) : (
         /* Wizard Steps Container */
         <div className="space-y-6 min-h-[340px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStep}
+              variants={shouldReduceMotion ? undefined : tabContentVariants}
+              initial={shouldReduceMotion ? false : 'initial'}
+              animate={shouldReduceMotion ? false : 'animate'}
+              exit={shouldReduceMotion ? false : 'exit'}
+            >
           {/* STEP 1: What is needed explainer */}
           {currentStep === 1 && (
             <div className="space-y-6 animate-in fade-in duration-200">
@@ -824,42 +833,47 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
               </div>
             </div>
           )}
+            </motion.div>
+          </AnimatePresence>
         </div>
       )}
 
       {/* Navigation Buttons Footer */}
       {!enquirySuccess && (
         <div className="flex items-center justify-between border-t border-zinc-200 dark:border-zinc-800 pt-5">
-          <button
+          <motion.button
+            whileTap={{ scale: 0.98 }}
             type="button"
             onClick={currentStep === 1 ? onCancel : prevStep}
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 px-3 py-2 rounded-xl transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 px-3 py-2 rounded-xl transition-colors cursor-pointer"
           >
             <ArrowLeft size={15} />
             <span>{currentStep === 1 ? 'Cancel Assessment' : 'Back'}</span>
-          </button>
+          </motion.button>
 
           <div className="flex items-center gap-3">
             {currentStep < 7 ? (
-              <button
+              <motion.button
+                whileTap={{ scale: 0.98 }}
                 type="button"
                 onClick={nextStep}
                 disabled={loading || (currentStep === 6 && selectedPlantIds.length === 0)}
-                className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:bg-zinc-200 dark:disabled:bg-zinc-800 disabled:text-zinc-400 dark:disabled:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors shadow-xs"
+                className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:bg-zinc-200 dark:disabled:bg-zinc-800 disabled:text-zinc-400 dark:disabled:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors shadow-xs cursor-pointer disabled:cursor-not-allowed"
               >
                 <span>{currentStep === 4 ? (loading ? 'Calculating...' : 'Calculate Indicative Range') : 'Continue'}</span>
                 <ArrowRight size={15} />
-              </button>
+              </motion.button>
             ) : (
-              <button
+              <motion.button
+                whileTap={{ scale: 0.98 }}
                 type="button"
                 onClick={handleSubmitEnquiry}
                 disabled={loading || selectedPlantIds.length === 0}
-                className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:bg-zinc-200 dark:disabled:bg-zinc-800 disabled:text-zinc-400 dark:disabled:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition-colors shadow-xs"
+                className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 disabled:bg-zinc-200 dark:disabled:bg-zinc-800 disabled:text-zinc-400 dark:disabled:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition-colors shadow-xs cursor-pointer disabled:cursor-not-allowed"
               >
                 <Send size={15} />
                 <span>{loading ? 'Submitting...' : 'Send Simulated Enquiry'}</span>
-              </button>
+              </motion.button>
             )}
           </div>
         </div>

@@ -66,7 +66,7 @@ export function RangeBar({
           <motion.div
             initial={shouldReduceMotion ? { width: '85%' } : { width: '0%' }}
             animate={{ width: '85%' }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className={`h-full rounded-full ${colorStyles.bar}`}
           />
         </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { ShieldCheck, AlertCircle, Clock, Building2, Check, X, Info } from 'lucide-react';
 import { StatusBadge } from './StatusBadge';
 
@@ -38,15 +39,16 @@ export function CompareTable({
                     <div className="flex items-start justify-between gap-2">
                       <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100 block">{plant.organisation}</span>
                       {onRemove && (
-                        <button
+                        <motion.button
+                          whileTap={{ scale: 0.95 }}
                           type="button"
                           onClick={() => onRemove(plant.id)}
-                          className="text-zinc-400 hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-300 p-0.5 rounded transition-colors"
+                          className="text-zinc-400 hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-300 p-0.5 rounded transition-colors cursor-pointer"
                           title="Remove from comparison"
                           aria-label={`Remove ${plant.organisation} from comparison`}
                         >
                           <X size={15} />
-                        </button>
+                        </motion.button>
                       )}
                     </div>
                     <div className="flex items-center gap-1.5">
@@ -56,18 +58,19 @@ export function CompareTable({
                     </div>
 
                     {onToggleSelect && (
-                      <button
+                      <motion.button
+                        whileTap={{ scale: 0.97 }}
                         type="button"
                         onClick={() => onToggleSelect(plant.id)}
-                        className={`w-full py-1.5 px-3 rounded-lg text-xs font-semibold border transition-colors flex items-center justify-center gap-1.5 ${
+                        className={`w-full py-1.5 px-3 rounded-lg text-xs font-semibold border transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                           isSelected
-                            ? 'bg-amber-600 text-white border-amber-500 hover:bg-amber-500'
+                            ? 'bg-amber-600 text-white border-amber-500 hover:bg-amber-500 shadow-xs'
                             : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border-zinc-200 dark:border-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-750'
                         }`}
                       >
                         {isSelected ? <Check size={13} className="stroke-[3]" /> : null}
                         <span>{isSelected ? 'Selected for Enquiry' : 'Select for Enquiry'}</span>
-                      </button>
+                      </motion.button>
                     )}
                   </div>
                 </th>

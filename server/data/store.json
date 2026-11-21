@@ -111,7 +111,9 @@
         "Midlands"
       ],
       "omOffering": "Comprehensive 24/7 preventative maintenance with remote telemetry and bi-monthly biological testing.",
-      "warranty": "5-year structural vessel warranty and 2-year electro-mechanical warranty."
+      "warranty": "5-year structural vessel warranty and 2-year electro-mechanical warranty.",
+      "continuityRisk": "",
+      "updatedAt": "2026-11-21T11:43:11.713Z"
     },
     {
       "id": "plant-circular-2",

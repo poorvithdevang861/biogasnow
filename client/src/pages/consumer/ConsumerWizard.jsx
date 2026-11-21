@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import {
   Flame,
   ArrowRight,
@@ -24,6 +24,8 @@ import {
 import { api } from '../../api/client';
 import { useProfile } from '../../context/ProfileContext';
 import { StatusBadge } from '../../components/StatusBadge';
+import { Modal } from '../../components/ui/Modal';
+import { cardHoverMotion, buttonTapMotion, tabContentVariants } from '../../utils/motion';
 import { CompareTable } from '../../components/CompareTable';
 
 const STEPS = [
@@ -338,6 +340,14 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
       ) : (
         /* Wizard Steps Container */
         <div className="space-y-6 min-h-[340px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStep}
+              variants={shouldReduceMotion ? undefined : tabContentVariants}
+              initial={shouldReduceMotion ? false : 'initial'}
+              animate={shouldReduceMotion ? false : 'animate'}
+              exit={shouldReduceMotion ? false : 'exit'}
+            >
           {/* STEP 1: Requirement Form */}
           {currentStep === 1 && (
             <div className="space-y-6 animate-in fade-in duration-200">
@@ -709,87 +719,78 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
               </div>
             </div>
           )}
+            </motion.div>
+          </AnimatePresence>
         </div>
       )}
 
       {/* Navigation Buttons Footer */}
       {!enquirySuccess && (
         <div className="flex items-center justify-between border-t border-zinc-200 dark:border-zinc-800 pt-5">
-          <button
+          <motion.button
+            whileTap={{ scale: 0.98 }}
             type="button"
             onClick={currentStep === 1 ? onCancel : () => setCurrentStep((prev) => Math.max(prev - 1, 1))}
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 px-3 py-2 rounded-xl transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200 px-3 py-2 rounded-xl transition-colors cursor-pointer"
           >
             <ArrowLeft size={15} />
             <span>{currentStep === 1 ? 'Cancel' : 'Back'}</span>
-          </button>
+          </motion.button>
 
           <div className="flex items-center gap-3">
             {currentStep === 3 ? (
-              <button
+              <motion.button
+                whileTap={{ scale: 0.98 }}
                 type="button"
                 onClick={() => fetchComparison(selectedPlantIdsToCompare)}
                 disabled={loading || selectedPlantIdsToCompare.length < 2}
-                className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-500 disabled:bg-zinc-200 dark:disabled:bg-zinc-800 disabled:text-zinc-400 dark:disabled:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors shadow-xs"
+                className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-500 disabled:bg-zinc-200 dark:disabled:bg-zinc-800 disabled:text-zinc-400 dark:disabled:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors shadow-xs cursor-pointer disabled:cursor-not-allowed"
               >
                 <span>{loading ? 'Comparing...' : `Compare ${selectedPlantIdsToCompare.length} Providers`}</span>
                 <ArrowRight size={15} />
-              </button>
+              </motion.button>
             ) : currentStep < 5 ? (
-              <button
+              <motion.button
+                whileTap={{ scale: 0.98 }}
                 type="button"
                 onClick={() => setCurrentStep((prev) => Math.min(prev + 1, 5))}
                 disabled={currentStep === 4 && selectedPlantIdsForEnquiry.length === 0}
-                className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-500 disabled:bg-zinc-200 dark:disabled:bg-zinc-800 disabled:text-zinc-400 dark:disabled:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors shadow-xs"
+                className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-500 disabled:bg-zinc-200 dark:disabled:bg-zinc-800 disabled:text-zinc-400 dark:disabled:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors shadow-xs cursor-pointer disabled:cursor-not-allowed"
               >
                 <span>Continue</span>
                 <ArrowRight size={15} />
-              </button>
+              </motion.button>
             ) : (
-              <button
+              <motion.button
+                whileTap={{ scale: 0.98 }}
                 type="button"
                 onClick={handleSubmitEnquiry}
                 disabled={loading || selectedPlantIdsForEnquiry.length === 0}
-                className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-500 disabled:bg-zinc-200 dark:disabled:bg-zinc-800 disabled:text-zinc-400 dark:disabled:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition-colors shadow-xs"
+                className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-500 disabled:bg-zinc-200 dark:disabled:bg-zinc-800 disabled:text-zinc-400 dark:disabled:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition-colors shadow-xs cursor-pointer disabled:cursor-not-allowed"
               >
                 <Send size={15} />
                 <span>{loading ? 'Submitting...' : 'Send Simulated Enquiry'}</span>
-              </button>
+              </motion.button>
             )}
           </div>
         </div>
       )}
 
       {/* Provider Detail Modal: Separating Claims from Evidence */}
-      {detailModalPlant && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-zinc-900 rounded-2xl max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto border border-zinc-200 dark:border-zinc-800 shadow-2xl text-zinc-900 dark:text-zinc-100">
-            <div className="flex items-start justify-between border-b border-zinc-100 dark:border-zinc-800 pb-4">
-              <div>
-                <span className="text-xs font-bold text-amber-800 dark:text-amber-400 uppercase tracking-wider bg-amber-50 dark:bg-amber-950/40 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800">
-                  Scale: {detailModalPlant.scale}
-                </span>
-                <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mt-1">{detailModalPlant.organisation}</h3>
-                <span className="text-xs text-zinc-500 dark:text-zinc-400">
-                  Coverage: {detailModalPlant.serviceArea.join(', ')}
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={() => setDetailModalPlant(null)}
-                className="text-zinc-400 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 p-1 rounded-lg transition-colors"
-                aria-label="Close modal"
-              >
-                <X size={20} />
-              </button>
-            </div>
-
+      <Modal
+        isOpen={Boolean(detailModalPlant)}
+        onClose={() => setDetailModalPlant(null)}
+        title={detailModalPlant?.organisation}
+        subtitle={detailModalPlant ? `Scale: ${detailModalPlant.scale} · Service Area: ${detailModalPlant.serviceArea?.join(', ')}` : ''}
+      >
+        {detailModalPlant && (
+          <div className="space-y-6 text-xs text-zinc-900 dark:text-zinc-100">
             {/* SEPARATING CLAIMS FROM EVIDENCE */}
             <div className="grid sm:grid-cols-2 gap-4">
               {/* Box 1: Stated Commercial Claims */}
-              <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-2 text-xs">
+              <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-2">
                 <div className="flex items-center gap-1.5 text-zinc-900 dark:text-zinc-200 font-bold border-b border-zinc-200 dark:border-zinc-800 pb-1.5">
-                  <FileText size={14} className="text-zinc-500 dark:text-zinc-400" />
+                  <FileText size={14} className="text-zinc-500 dark:text-zinc-400 stroke-[2]" />
                   <span>Stated Commercial Claims</span>
                 </div>
                 <div>
@@ -803,9 +804,9 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
               </div>
 
               {/* Box 2: Independent Evidence & Proof */}
-              <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/60 space-y-2 text-xs">
+              <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/60 space-y-2">
                 <div className="flex items-center gap-1.5 text-emerald-800 dark:text-emerald-300 font-bold border-b border-emerald-200 dark:border-emerald-900/60 pb-1.5">
-                  <ShieldCheck size={14} className="text-emerald-600 dark:text-emerald-400" />
+                  <ShieldCheck size={14} className="text-emerald-600 dark:text-emerald-400 stroke-[2]" />
                   <span>Documented Evidence</span>
                 </div>
                 <div className="space-y-1.5">
@@ -823,7 +824,7 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
             </div>
 
             {/* Operational Responsibilities */}
-            <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-3 text-xs">
+            <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-800 space-y-3">
               <span className="font-bold text-zinc-900 dark:text-zinc-200 block">Operational Responsibilities</span>
               <div className="grid sm:grid-cols-2 gap-3">
                 <div>
@@ -846,9 +847,9 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
             </div>
 
             {/* Supply Continuity & Winter Information */}
-            <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/80 space-y-2 text-xs text-amber-900 dark:text-amber-200">
+            <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/80 space-y-2 text-amber-900 dark:text-amber-200">
               <span className="font-bold block flex items-center gap-1.5">
-                <AlertTriangle size={14} className="text-amber-600 dark:text-amber-400" />
+                <AlertTriangle size={14} className="text-amber-600 dark:text-amber-400 stroke-[2]" />
                 Supply Continuity & Winter Information
               </span>
               <p><strong>Storage buffer:</strong> {detailModalPlant.supplyContinuity?.storageBufferHours}</p>
@@ -860,14 +861,14 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
               <button
                 type="button"
                 onClick={() => setDetailModalPlant(null)}
-                className="px-4 py-2 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700 rounded-xl text-xs font-semibold transition-colors"
+                className="px-4 py-2 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
               >
                 Close Provider View
               </button>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </Modal>
     </div>
   );
 }
