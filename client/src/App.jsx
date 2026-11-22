@@ -5,9 +5,9 @@ import { ProfileProvider } from './context/ProfileContext';
 import { Layout } from './components/Layout';
 import { Home } from './pages/Home';
 import { Help } from './pages/Help';
-import { WasteDashboard } from './pages/wasteProvider/WasteDashboard';
-import { ConsumerDashboard } from './pages/consumer/ConsumerDashboard';
-import { PlantDashboard } from './pages/plantProvider/PlantDashboard';
+import { WasteOnboarding } from './pages/wasteProvider/WasteOnboarding';
+import { ConsumerOnboarding } from './pages/consumer/ConsumerOnboarding';
+import { PlantOnboarding } from './pages/plantProvider/PlantOnboarding';
 
 export function App() {
   return (
@@ -18,9 +18,9 @@ export function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/help" element={<Help />} />
-              <Route path="/waste-provider" element={<WasteDashboard />} />
-              <Route path="/consumer" element={<ConsumerDashboard />} />
-              <Route path="/plant-provider" element={<PlantDashboard />} />
+              <Route path="/waste-provider" element={<WasteOnboarding />} />
+              <Route path="/consumer" element={<ConsumerOnboarding />} />
+              <Route path="/plant-provider" element={<PlantOnboarding />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Layout>

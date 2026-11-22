@@ -1,179 +1,118 @@
 import React from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { motion, useReducedMotion } from 'motion/react';
-import { ProfileSwitcher } from './ProfileSwitcher';
+import { Link, useLocation } from 'react-router-dom';
 import {
   Leaf,
   Flame,
   Factory,
-  HelpCircle,
-  Sparkles,
-  MapPin,
-  Clock,
-  Scale,
-  Layers,
-  Mail,
-  ShieldCheck,
-  FileText,
+  ArrowLeft,
 } from 'lucide-react';
-import { motionTokens } from '../utils/motion';
+import { ProfileSwitcher } from './ProfileSwitcher';
 
 export function Layout({ children }) {
   const location = useLocation();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const shouldReduceMotion = useReducedMotion();
   const isHome = location.pathname === '/';
 
-  // Understandable metaphors & workflow tabs per role
-  const getRoleNav = () => {
+  const getRoleHeader = () => {
     switch (location.pathname) {
       case '/waste-provider':
         return {
-          role: 'waste_provider',
-          roleLabel: 'Waste Generator',
-          roleIcon: Leaf,
-          roleBadgeClass: 'bg-zinc-100 border-zinc-200 text-zinc-800',
-          accentColor: 'text-zinc-900',
-          activeIndicatorBg: 'bg-forest-900',
-          defaultTab: 'assessment',
-          tabs: [
-            { id: 'assessment', label: 'Calculate yield', shortLabel: 'Yield', icon: Sparkles },
-            { id: 'plants', label: 'Nearby plants', shortLabel: 'Plants', icon: MapPin },
-            { id: 'enquiries', label: 'My bookings', shortLabel: 'Bookings', icon: Clock },
-            { id: 'impact', label: 'Green impact', shortLabel: 'Impact', icon: Leaf },
-          ],
+          title: 'Waste Generator Onboarding',
+          badge: 'Generator',
+          badgeClass: 'bg-forest-50 text-forest-900 border-forest-200',
+          icon: Leaf,
         };
       case '/consumer':
         return {
-          role: 'consumer',
-          roleLabel: 'Biogas Consumer',
-          roleIcon: Flame,
-          roleBadgeClass: 'bg-zinc-100 border-zinc-200 text-zinc-800',
-          accentColor: 'text-zinc-900',
-          activeIndicatorBg: 'bg-forest-900',
-          defaultTab: 'sizing',
-          tabs: [
-            { id: 'sizing', label: 'Calculate need', shortLabel: 'Need', icon: Flame },
-            { id: 'compare', label: 'Compare plants', shortLabel: 'Compare', icon: Scale },
-            { id: 'enquiries', label: 'My proposals', shortLabel: 'Proposals', icon: Clock },
-            { id: 'scales', label: 'Plant sizes', shortLabel: 'Sizes', icon: Layers },
-          ],
+          title: 'Biogas Consumer Sizing',
+          badge: 'Consumer',
+          badgeClass: 'bg-amber-50 text-amber-900 border-amber-200',
+          icon: Flame,
         };
       case '/plant-provider':
         return {
-          role: 'plant_provider',
-          roleLabel: 'Plant Provider',
-          roleIcon: Factory,
-          roleBadgeClass: 'bg-zinc-100 border-zinc-200 text-zinc-800',
-          accentColor: 'text-zinc-900',
-          activeIndicatorBg: 'bg-forest-900',
-          defaultTab: 'inbox',
-          tabs: [
-            { id: 'inbox', label: 'Client requests', shortLabel: 'Requests', icon: Mail },
-            { id: 'evidence', label: 'Certifications & specs', shortLabel: 'Specs', icon: ShieldCheck },
-            { id: 'profile', label: 'Plant profile', shortLabel: 'Profile', icon: Factory },
-          ],
+          title: 'Plant Operator Setup',
+          badge: 'Plant Operator',
+          badgeClass: 'bg-zinc-100 text-zinc-800 border-zinc-200',
+          icon: Factory,
         };
       case '/help':
         return {
-          role: 'help',
-          roleLabel: 'Assisted Entry',
-          roleIcon: HelpCircle,
-          roleBadgeClass: 'bg-zinc-100 border-zinc-200 text-zinc-800',
-          accentColor: 'text-zinc-900',
-          activeIndicatorBg: 'bg-forest-900',
-          defaultTab: 'checklist',
-          tabs: [
-            { id: 'checklist', label: 'Site checklist', shortLabel: 'Checklist', icon: FileText },
-          ],
+          title: 'Practical Help & Checklist',
+          badge: 'Guide',
+          badgeClass: 'bg-zinc-100 text-zinc-800 border-zinc-200',
+          icon: Leaf,
         };
       default:
         return null;
     }
   };
 
-  const nav = getRoleNav();
-  const currentTab = searchParams.get('tab') || nav?.defaultTab || '';
-
-  const handleTabChange = (tabId) => {
-    setSearchParams({ tab: tabId });
-  };
-
-  const RoleIcon = nav?.roleIcon;
+  const header = getRoleHeader();
+  const Icon = header?.icon;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAFAF8] text-zinc-900 transition-colors duration-150 relative font-sans">
-      {/* Top Navbar: ONLY shown when entering any profile (NOT on landing page) */}
+    <div className="min-h-screen flex flex-col bg-[#FAFAF8] text-zinc-900 font-sans">
+      {/* Top Navbar: ONLY shown when in a role workflow */}
       {!isHome && (
         <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200/80 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
-          <div className="max-w-[1100px] w-full mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-3">
-            {/* Left: Home link and Role Badge */}
-            <div className="flex items-center gap-2.5 shrink-0">
+          <div className="max-w-4xl w-full mx-auto px-4 sm:px-6 h-13 flex items-center justify-between gap-3">
+            {/* Left: Back to Home + Role Indicator */}
+            <div className="flex items-center gap-3">
               <Link
                 to="/"
-                className="flex items-center gap-2 group text-zinc-800 hover:text-forest-900 transition-colors py-1 focus:outline-none"
-                aria-label="Return to role selection"
-                title="Return to role selection"
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-500 hover:text-zinc-900 transition-colors py-1 px-2 -ml-2 rounded-lg hover:bg-zinc-100"
+                title="Return to Home"
               >
-                <Leaf size={16} className="text-forest-800 stroke-[1.5]" aria-hidden="true" />
-                <span className="font-medium text-sm sm:text-base tracking-tight text-zinc-900">
-                  Biogas Trust
-                </span>
+                <ArrowLeft size={14} className="stroke-[1.75]" />
+                <span className="hidden sm:inline">Overview</span>
               </Link>
 
-              {nav && (
-                <div className="hidden lg:flex items-center gap-1.5">
+              {header && (
+                <div className="flex items-center gap-2">
                   <span className="text-zinc-300">/</span>
-                  <span
-                    className={`inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full border ${nav.roleBadgeClass}`}
-                  >
-                    {RoleIcon && <RoleIcon size={13} className="stroke-[1.5]" />}
-                    <span>{nav.roleLabel}</span>
-                  </span>
+                  <div className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2 py-0.5 rounded-full border ${header.badgeClass}`}>
+                    {Icon && <Icon size={12} className="stroke-[2]" />}
+                    <span>{header.title}</span>
+                  </div>
                 </div>
               )}
             </div>
 
-            {/* Middle: Workflow Tabs with Motion Sliding Indicator */}
-            {nav && (
-              <nav
-                className="flex items-center gap-1 sm:gap-2 h-full text-xs font-medium shrink-0 relative"
-                aria-label="Workflow tabs"
-              >
-                {nav.tabs.map((tab) => {
-                  const Icon = tab.icon;
-                  const isActive = currentTab === tab.id;
-                  return (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      onClick={() => handleTabChange(tab.id)}
-                      className={`relative h-full flex items-center gap-1.5 px-2.5 sm:px-3 text-xs font-medium transition-colors cursor-pointer select-none ${
-                        isActive
-                          ? 'text-zinc-900 font-medium'
-                          : 'text-zinc-500 hover:text-zinc-800'
-                      }`}
-                    >
-                      <Icon size={14} className="shrink-0 stroke-[1.5]" />
-                      <span className="hidden sm:inline">{tab.label}</span>
-                      <span className="sm:hidden">{tab.shortLabel}</span>
+            {/* Right: Quick Role Links & Profile */}
+            <div className="flex items-center gap-2">
+              <div className="hidden sm:flex items-center gap-1.5 text-xs font-medium">
+                <Link
+                  to="/waste-provider"
+                  className={`px-2.5 py-1 rounded-lg transition-colors ${
+                    location.pathname === '/waste-provider'
+                      ? 'bg-zinc-900 text-white'
+                      : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
+                  }`}
+                >
+                  Generator
+                </Link>
+                <Link
+                  to="/consumer"
+                  className={`px-2.5 py-1 rounded-lg transition-colors ${
+                    location.pathname === '/consumer'
+                      ? 'bg-zinc-900 text-white'
+                      : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
+                  }`}
+                >
+                  Consumer
+                </Link>
+                <Link
+                  to="/plant-provider"
+                  className={`px-2.5 py-1 rounded-lg transition-colors ${
+                    location.pathname === '/plant-provider'
+                      ? 'bg-zinc-900 text-white'
+                      : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
+                  }`}
+                >
+                  Operator
+                </Link>
+              </div>
 
-                      {/* Smooth sliding bottom indicator */}
-                      {isActive && (
-                        <motion.div
-                          layoutId={shouldReduceMotion ? undefined : 'activeRoleTabIndicator'}
-                          className={`absolute inset-x-0 bottom-0 h-0.5 ${nav.activeIndicatorBg}`}
-                          transition={motionTokens.spring.snappy}
-                        />
-                      )}
-                    </button>
-                  );
-                })}
-              </nav>
-            )}
-
-            {/* Right: Unified Profile Switcher */}
-            <div className="flex items-center gap-2 shrink-0">
               <ProfileSwitcher />
             </div>
           </div>
@@ -182,7 +121,7 @@ export function Layout({ children }) {
 
       {/* Main Content Area */}
       <main
-        className={`flex-1 max-w-[1100px] w-full mx-auto px-4 sm:px-6 lg:px-8 ${
+        className={`flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 ${
           isHome ? 'py-8 sm:py-12 flex flex-col justify-center' : 'py-6 sm:py-8'
         }`}
       >
