@@ -93,7 +93,7 @@ export function StatusBadge({
         isSm ? 'px-2 py-0.5 text-[10px]' : 'px-2.5 py-0.5 text-xs'
       } ${className}`}
     >
-      <Icon size={isSm ? 11 : 13} className="shrink-0 stroke-[2.2]" aria-hidden="true" />
+      <Icon size={isSm ? 12 : 14} className="shrink-0 stroke-[1.5]" aria-hidden="true" />
       <span>{label || config.defaultLabel}</span>
     </span>
   );

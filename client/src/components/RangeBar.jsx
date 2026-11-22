@@ -1,85 +1,80 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { Gauge } from 'lucide-react';
 
-/**
- * RangeBar Component (Dual Theme: Light + Dark Unslop)
- * Renders an indicative min-to-max range bar with animated spread fill.
- */
 export function RangeBar({
   min = 0,
   max = 0,
   unit = 'm³/day',
-  label = 'Estimated Output Range',
+  label = 'Estimated output range',
   sublabel = 'Indicative biological spread based on documented feedstock benchmarks',
-  accentColor = 'emerald', // 'emerald' | 'orange' | 'teal'
+  accentColor = 'emerald',
   className = '',
 }) {
   const shouldReduceMotion = useReducedMotion();
 
   const colorStyles = {
     emerald: {
-      bar: 'bg-forest-800',
+      bar: 'bg-forest-900',
       track: 'bg-zinc-100',
-      pill: 'bg-forest-50 text-forest-950 border-forest-300',
-      text: 'text-forest-900',
+      pill: 'bg-zinc-100 text-zinc-800 border-zinc-200',
+      text: 'text-zinc-900',
     },
     orange: {
-      bar: 'bg-amber-500',
+      bar: 'bg-forest-900',
       track: 'bg-zinc-100',
-      pill: 'bg-amber-50 text-amber-800 border-amber-300',
-      text: 'text-amber-600',
+      pill: 'bg-zinc-100 text-zinc-800 border-zinc-200',
+      text: 'text-zinc-900',
     },
     teal: {
-      bar: 'bg-teal-500',
+      bar: 'bg-forest-900',
       track: 'bg-zinc-100',
-      pill: 'bg-teal-50 text-teal-800 border-teal-300',
-      text: 'text-teal-600',
+      pill: 'bg-zinc-100 text-zinc-800 border-zinc-200',
+      text: 'text-zinc-900',
     },
   }[accentColor] || colorStyles.emerald;
 
   const midpoint = Math.round(((min + max) / 2) * 10) / 10;
 
   return (
-    <div className={`space-y-3 p-4 sm:p-5 rounded-2xl bg-white border border-zinc-200 shadow-xs ${className}`}>
+    <div className={`space-y-3 p-4 sm:p-5 rounded-xl bg-white border border-zinc-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] font-sans ${className}`}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
-          <span className="text-[11px] font-bold text-zinc-500 uppercase tracking-wider block">
+          <span className="text-xs text-zinc-500 block">
             {label}
           </span>
-          <div className="flex items-baseline gap-2 mt-0.5">
-            <span className={`text-2xl sm:text-3xl font-extrabold tracking-tight font-mono tabular-nums ${colorStyles.text}`}>
+          <div className="flex items-baseline gap-1.5 mt-0.5">
+            <span className={`text-2xl sm:text-3xl font-medium tracking-tight tabular-nums ${colorStyles.text}`}>
               {min} – {max}
             </span>
-            <span className="text-xs sm:text-sm font-semibold text-zinc-500">{unit}</span>
+            <span className="text-xs text-zinc-500">{unit}</span>
           </div>
         </div>
 
-        <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${colorStyles.pill}`}>
-          Indicative Range
+        <span className={`text-xs px-2.5 py-0.5 rounded-full border ${colorStyles.pill}`}>
+          Indicative range
         </span>
       </div>
 
       {/* Visual Range Indicator Bar */}
-      <div className="space-y-1.5 pt-1">
-        <div className={`relative h-2.5 w-full rounded-full overflow-hidden ${colorStyles.track}`}>
+      <div className="space-y-1 pt-1">
+        <div className={`relative h-2 w-full rounded-full overflow-hidden ${colorStyles.track}`}>
           <motion.div
             initial={shouldReduceMotion ? { width: '85%' } : { width: '0%' }}
             animate={{ width: '85%' }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className={`h-full rounded-full ${colorStyles.bar}`}
           />
         </div>
 
-        <div className="flex justify-between items-center text-[10px] text-zinc-500 font-mono">
+        <div className="flex justify-between items-center text-[11px] text-zinc-400 tabular-nums">
           <span>Min: {min} {unit.split('/')[0]}</span>
-          <span className="text-zinc-400">Benchmark avg: ~{midpoint}</span>
+          <span>Benchmark avg: ~{midpoint}</span>
           <span>Max: {max} {unit.split('/')[0]}</span>
         </div>
       </div>
 
-      <p className="text-[11px] text-zinc-600 leading-normal border-t border-zinc-100 pt-2.5">
-        {sublabel}. Yield varies with operating temperature, retention time, and dilution.
+      <p className="text-[11px] text-zinc-500 leading-normal border-t border-zinc-100 pt-2">
+        {sublabel}. Yield varies with operating temperature, retention time, and moisture dilution.
       </p>
     </div>
   );

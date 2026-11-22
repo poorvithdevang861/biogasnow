@@ -235,7 +235,7 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-zinc-200 shadow-xs p-6 sm:p-8 space-y-7 w-full text-zinc-900">
+    <div className="bg-white rounded-xl border border-zinc-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-5 sm:p-6 space-y-6 w-full text-zinc-900 font-sans">
       {/* Top Header & Preset Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-100 pb-4">
         <div>

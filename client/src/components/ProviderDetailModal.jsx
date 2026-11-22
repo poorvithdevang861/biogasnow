@@ -12,22 +12,16 @@ import {
   CheckCircle2,
   Calendar,
   Send,
-  ExternalLink,
 } from 'lucide-react';
 import { Modal } from './ui/Modal';
 import { StatusBadge } from './StatusBadge';
 
-/**
- * ProviderDetailModal Component
- * Full-fidelity provider dossier cleanly separating commercial claims from documented evidence,
- * operational responsibilities, and supply continuity information.
- */
 export function ProviderDetailModal({
   isOpen,
   onClose,
   plant,
   onSendEnquiry,
-  enquiryButtonLabel = 'Send Connection Enquiry',
+  enquiryButtonLabel = 'Send connection enquiry',
 }) {
   if (!plant) return null;
 
@@ -36,68 +30,68 @@ export function ProviderDetailModal({
       isOpen={isOpen}
       onClose={onClose}
       title={plant.organisation}
-      subtitle={`Scale: ${plant.scale?.toUpperCase()} · Service Area: ${plant.serviceArea?.join(', ')}`}
+      subtitle={`Scale: ${plant.scale} · Service area: ${plant.serviceArea?.join(', ')}`}
     >
-      <div className="space-y-6 text-xs text-zinc-900 font-sans">
+      <div className="space-y-4 text-xs text-zinc-900 font-sans">
         {/* Top Metric Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 p-3.5 rounded-xl bg-zinc-50 border border-zinc-200">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 p-3 rounded-lg bg-zinc-50 border border-zinc-200/80">
           <div>
-            <span className="text-[10px] uppercase font-bold text-zinc-400 block tracking-wider">
-              Plant Scale
+            <span className="text-[11px] text-zinc-500 block">
+              Plant scale
             </span>
-            <span className="font-bold text-zinc-800 capitalize text-xs">
+            <span className="font-medium text-zinc-800 capitalize text-xs">
               {plant.scale}
             </span>
           </div>
           <div>
-            <span className="text-[10px] uppercase font-bold text-zinc-400 block tracking-wider">
-              Capacity Range
+            <span className="text-[11px] text-zinc-500 block">
+              Capacity range
             </span>
-            <span className="font-bold text-zinc-800 text-xs">
+            <span className="font-medium text-zinc-800 text-xs tabular-nums">
               {plant.capacityMin} – {plant.capacityMax} {plant.capacityUnit}
             </span>
           </div>
           <div>
-            <span className="text-[10px] uppercase font-bold text-zinc-400 block tracking-wider">
-              Service Area
+            <span className="text-[11px] text-zinc-500 block">
+              Service area
             </span>
-            <span className="font-bold text-zinc-800 text-xs truncate block">
+            <span className="font-medium text-zinc-800 text-xs truncate block">
               {plant.serviceArea?.join(', ')}
             </span>
           </div>
           <div>
-            <span className="text-[10px] uppercase font-bold text-zinc-400 block tracking-wider">
-              Profile Completeness
+            <span className="text-[11px] text-zinc-500 block">
+              Profile completeness
             </span>
-            <span className="font-bold text-forest-900 text-xs flex items-center gap-1">
-              <CheckCircle2 size={12} />
+            <span className="font-medium text-forest-900 text-xs flex items-center gap-1 tabular-nums">
+              <CheckCircle2 size={12} className="stroke-[1.5]" />
               {plant.completeness?.percentage || 85}%
             </span>
           </div>
         </div>
 
-        {/* SEPARATING CLAIMS FROM EVIDENCE */}
-        <div className="grid sm:grid-cols-2 gap-4">
+        {/* Claims vs Evidence */}
+        <div className="grid sm:grid-cols-2 gap-3">
           {/* Stated Commercial Claims */}
-          <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 space-y-3">
-            <div className="flex items-center justify-between border-b border-zinc-200 pb-2">
-              <div className="flex items-center gap-1.5 font-bold text-zinc-900">
-                <FileText size={15} className="text-zinc-500 stroke-[2]" />
-                <span>Stated Commercial Claims</span>
+          <div className="p-3.5 rounded-lg bg-zinc-50 border border-zinc-200/80 space-y-2">
+            <div className="flex items-center justify-between border-b border-zinc-200/80 pb-2">
+              <div className="flex items-center gap-1.5 font-medium text-zinc-900">
+                <FileText size={14} className="text-zinc-500 stroke-[1.5]" />
+                <span>Commercial claims</span>
               </div>
               <StatusBadge status="self-reported" size="sm" label="Self-reported" />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <div>
-                <span className="text-[11px] font-semibold text-zinc-500 block">O&M Offering:</span>
-                <p className="font-medium text-zinc-800 leading-relaxed text-xs">
+                <span className="text-[11px] text-zinc-500 block">O&M offering:</span>
+                <p className="text-zinc-800 leading-relaxed text-xs">
                   {plant.claims?.statedOmOffering || plant.omOffering || 'Comprehensive maintenance SLA.'}
                 </p>
               </div>
               <div>
-                <span className="text-[11px] font-semibold text-zinc-500 block">Stated Warranty:</span>
-                <p className="font-medium text-zinc-800 text-xs">
+                <span className="text-[11px] text-zinc-500 block">Stated warranty:</span>
+                <p className="text-zinc-800 text-xs">
                   {plant.claims?.statedWarranty || plant.warranty || 'Standard manufacturer warranty.'}
                 </p>
               </div>
@@ -105,32 +99,32 @@ export function ProviderDetailModal({
           </div>
 
           {/* Independently Verified Evidence */}
-          <div className="p-4 rounded-xl bg-forest-50/50 border border-forest-200 space-y-3">
-            <div className="flex items-center justify-between border-b border-forest-200 pb-2">
-              <div className="flex items-center gap-1.5 font-bold text-forest-950">
-                <ShieldCheck size={15} className="text-forest-800 stroke-[2.2]" />
-                <span>Verified Audit Evidence</span>
+          <div className="p-3.5 rounded-lg bg-zinc-50 border border-zinc-200/80 space-y-2">
+            <div className="flex items-center justify-between border-b border-zinc-200/80 pb-2">
+              <div className="flex items-center gap-1.5 font-medium text-zinc-900">
+                <ShieldCheck size={14} className="text-forest-900 stroke-[1.5]" />
+                <span>Audited evidence</span>
               </div>
               <StatusBadge status="verified" size="sm" label="Audited proofs" />
             </div>
 
-            <div className="space-y-2 text-xs">
+            <div className="space-y-1.5 text-xs">
               <div className="flex items-start gap-1.5">
-                <CheckCircle2 size={13} className="text-forest-800 shrink-0 mt-0.5" />
+                <CheckCircle2 size={13} className="text-forest-900 shrink-0 mt-0.5 stroke-[1.5]" />
                 <div>
-                  <strong className="text-forest-950 block">Safety Certification:</strong>
-                  <span className="text-forest-900/90 text-[11px]">
-                    {plant.verifiedEvidence?.safetyCert || 'PESO & CPCB Approved Sign-off #IN-88219'}
+                  <span className="text-zinc-700 block">Safety certification:</span>
+                  <span className="text-zinc-900 font-medium text-[11px]">
+                    {plant.verifiedEvidence?.safetyCert || 'PESO & CPCB Approved Sign-off'}
                   </span>
                 </div>
               </div>
 
               <div className="flex items-start gap-1.5">
-                <CheckCircle2 size={13} className="text-forest-800 shrink-0 mt-0.5" />
+                <CheckCircle2 size={13} className="text-forest-900 shrink-0 mt-0.5 stroke-[1.5]" />
                 <div>
-                  <strong className="text-forest-950 block">Case Study Reference:</strong>
-                  <span className="text-forest-900/90 text-[11px]">
-                    {plant.verifiedEvidence?.caseStudy || 'Documented operating client reference available.'}
+                  <span className="text-zinc-700 block">Case study reference:</span>
+                  <span className="text-zinc-900 font-medium text-[11px]">
+                    {plant.verifiedEvidence?.caseStudy || 'Operating client reference documented.'}
                   </span>
                 </div>
               </div>
@@ -139,55 +133,55 @@ export function ProviderDetailModal({
         </div>
 
         {/* Operational Responsibilities Breakdown */}
-        <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 space-y-2.5">
-          <div className="flex items-center gap-1.5 font-bold text-zinc-900 border-b border-zinc-200 pb-2">
-            <Wrench size={15} className="text-zinc-500 stroke-[2]" />
-            <span>Operational & Maintenance Responsibilities</span>
+        <div className="p-3.5 rounded-lg bg-zinc-50 border border-zinc-200/80 space-y-2">
+          <div className="flex items-center gap-1.5 font-medium text-zinc-900 border-b border-zinc-200/80 pb-1.5">
+            <Wrench size={14} className="text-zinc-500 stroke-[1.5]" />
+            <span>Operational responsibilities</span>
           </div>
-          <div className="grid sm:grid-cols-2 gap-4 text-xs">
+          <div className="grid sm:grid-cols-2 gap-3 text-xs">
             <div>
-              <span className="text-forest-900 font-bold block mb-1">Provider Responsibilities:</span>
+              <span className="text-zinc-800 font-medium block mb-1">Provider scope:</span>
               <ul className="space-y-1 text-zinc-600 text-[11px] list-disc list-inside">
                 <li>Quarterly mechanical inspection & gas blower service</li>
-                <li>H2S scrubber media replacement</li>
-                <li>24/7 telemetry monitoring & flare alarm checks</li>
+                <li>Scrubber media replacement</li>
+                <li>Telemetry monitoring & safety flare check</li>
               </ul>
             </div>
             <div>
-              <span className="text-amber-900 font-bold block mb-1">Customer Responsibilities:</span>
+              <span className="text-zinc-800 font-medium block mb-1">Customer scope:</span>
               <ul className="space-y-1 text-zinc-600 text-[11px] list-disc list-inside">
-                <li>Daily feedstock segregation (clean of plastic/bones)</li>
+                <li>Daily feedstock segregation at source</li>
                 <li>Daily input loading into macerator hopper</li>
-                <li>Weekly biological digestate removal for soil use</li>
+                <li>Weekly digestate extraction for soil use</li>
               </ul>
             </div>
           </div>
         </div>
 
-        {/* Winter Supply Continuity Risk Notice */}
-        <div className="p-3.5 rounded-xl bg-amber-50/70 border border-amber-200 text-xs space-y-1">
-          <div className="flex items-center gap-1.5 font-bold text-amber-900">
-            <AlertTriangle size={14} className="text-amber-700 shrink-0" />
-            <span>Winter Supply Continuity & Temperature Advisory</span>
+        {/* Winter Supply Continuity */}
+        <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200/80 text-xs space-y-0.5">
+          <div className="flex items-center gap-1.5 font-medium text-zinc-900">
+            <AlertTriangle size={13} className="text-zinc-500 shrink-0 stroke-[1.5]" />
+            <span>Winter supply continuity advisory</span>
           </div>
-          <p className="text-amber-950/80 leading-relaxed text-[11px]">
+          <p className="text-zinc-600 leading-relaxed text-[11px]">
             {plant.continuityRisk ||
-              'Mesophilic bacteria yield can decrease by 25%–40% when ambient temperature drops below 18°C. This provider supplies an insulated jacket and internal hot water recirculation coil to buffer winter yield dips.'}
+              'Digester bacteria activity drops when ambient temperature is below 18°C. This provider supplies an insulated jacket to buffer seasonal yield dips.'}
           </p>
         </div>
 
-        {/* Modal Action Footer */}
-        <div className="flex items-center justify-between pt-3 border-t border-zinc-200">
+        {/* Action Footer */}
+        <div className="flex items-center justify-between pt-2 border-t border-zinc-200/80">
           <span className="text-[11px] text-zinc-400">
-            Source: MNRE Registered Biogas Technology Provider
+            Ref: Registered Biogas Technology Provider
           </span>
           <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={onClose}
-              className="text-xs px-3.5 py-2 text-zinc-600 hover:text-zinc-900 transition-colors cursor-pointer"
+              className="text-xs px-3 py-1.5 text-zinc-500 hover:text-zinc-800 transition-colors cursor-pointer"
             >
-              Close Dossier
+              Close
             </button>
             {onSendEnquiry && (
               <button
@@ -196,9 +190,9 @@ export function ProviderDetailModal({
                   onClose();
                   onSendEnquiry(plant);
                 }}
-                className="inline-flex items-center gap-1.5 bg-forest-900 hover:bg-forest-800 text-white font-semibold text-xs px-4 py-2 rounded-xl transition-colors cursor-pointer shadow-subtle"
+                className="inline-flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-xs px-3.5 py-1.5 rounded-lg transition-colors cursor-pointer"
               >
-                <Send size={13} className="stroke-[2.2]" />
+                <Send size={12} className="stroke-[1.5]" />
                 <span>{enquiryButtonLabel}</span>
               </button>
             )}

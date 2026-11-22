@@ -3,13 +3,9 @@ import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { BookOpen, Calendar, Info, ShieldAlert, ChevronDown, ChevronUp } from 'lucide-react';
 import { StatusBadge } from './StatusBadge';
 
-/**
- * EvidencePanel Component (Dual Theme: Light + Dark Unslop)
- * Displays transparent assumptions, sources, dates, units, and caveats for any claim or yield range.
- */
 export function EvidencePanel({
   assumptions = {},
-  title = 'Documented Calculation Assumptions',
+  title = 'Documented calculation assumptions',
   compact = false,
   className = '',
 }) {
@@ -20,32 +16,31 @@ export function EvidencePanel({
     wasteType,
     yieldRange,
     methaneConcentration,
-    source = 'Research Benchmark Database',
+    source = 'Research benchmark database',
     date = '2024',
     caveat = 'Yield is subject to feedstock purity, volatile solids ratio, and digester operating temperature.',
   } = assumptions;
 
   return (
     <div
-      className={`bg-white rounded-2xl border border-zinc-200 p-4 sm:p-5 text-zinc-900 space-y-3 shadow-xs ${className}`}
+      className={`bg-white rounded-xl border border-zinc-200/90 p-4 sm:p-5 text-zinc-900 space-y-3 shadow-[0_1px_2px_rgba(0,0,0,0.03)] font-sans ${className}`}
     >
       <div className="flex items-center justify-between gap-2 border-b border-zinc-100 pb-2.5">
         <div className="flex items-center gap-2">
-          <BookOpen size={16} className="text-forest-900 shrink-0 stroke-[2]" aria-hidden="true" />
-          <h4 className="text-xs sm:text-sm font-bold text-zinc-900">{title}</h4>
+          <BookOpen size={16} className="text-forest-900 shrink-0 stroke-[1.5]" aria-hidden="true" />
+          <h4 className="text-xs sm:text-sm font-medium text-zinc-900">{title}</h4>
         </div>
         <div className="flex items-center gap-2">
           <StatusBadge status="illustrative" size="sm" label="Illustrative data" />
-          <motion.button
-            whileTap={{ scale: 0.95 }}
+          <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
-            className="text-zinc-500 hover:text-zinc-800:text-zinc-200 p-1 rounded-lg focus:outline-none focus:ring-1 focus:ring-forest-800 cursor-pointer"
+            className="text-zinc-500 hover:text-zinc-800 p-1 rounded-lg cursor-pointer"
             aria-expanded={isOpen}
             aria-label={isOpen ? 'Collapse evidence details' : 'Expand evidence details'}
           >
-            {isOpen ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
-          </motion.button>
+            {isOpen ? <ChevronUp size={14} className="stroke-[1.5]" /> : <ChevronDown size={14} className="stroke-[1.5]" />}
+          </button>
         </div>
       </div>
 
@@ -55,49 +50,49 @@ export function EvidencePanel({
             initial={shouldReduceMotion ? false : { opacity: 0, height: 0 }}
             animate={shouldReduceMotion ? false : { opacity: 1, height: 'auto' }}
             exit={shouldReduceMotion ? false : { opacity: 0, height: 0 }}
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
             className="space-y-3 text-xs leading-relaxed overflow-hidden"
           >
             {yieldRange && (
-              <div className="grid grid-cols-2 gap-2 p-2.5 rounded-xl bg-zinc-50 border border-zinc-200">
+              <div className="grid grid-cols-2 gap-2 p-2.5 rounded-lg bg-zinc-50 border border-zinc-200/80">
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-zinc-500 block tracking-wider font-mono">
-                    Baseline Conversion
+                  <span className="text-[11px] text-zinc-500 block">
+                    Baseline conversion
                   </span>
-                  <span className="font-semibold text-zinc-900 text-xs font-mono">{yieldRange}</span>
+                  <span className="font-medium text-zinc-900 text-xs tabular-nums">{yieldRange}</span>
                 </div>
                 {methaneConcentration && (
                   <div>
-                    <span className="text-[10px] uppercase font-bold text-zinc-500 block tracking-wider font-mono">
-                      CH4 Concentration
+                    <span className="text-[11px] text-zinc-500 block">
+                      CH₄ concentration
                     </span>
-                    <span className="font-semibold text-zinc-900 text-xs font-mono">{methaneConcentration}</span>
+                    <span className="font-medium text-zinc-900 text-xs tabular-nums">{methaneConcentration}</span>
                   </div>
                 )}
               </div>
             )}
 
-            <div className="space-y-1.5 text-zinc-600">
+            <div className="space-y-1 text-zinc-600">
               <div className="flex items-start gap-1.5">
-                <Info size={13} className="text-zinc-400 shrink-0 mt-0.5" aria-hidden="true" />
+                <Info size={13} className="text-zinc-400 shrink-0 mt-0.5 stroke-[1.5]" aria-hidden="true" />
                 <span>
-                  <strong className="text-zinc-800">Source:</strong> {source}
+                  <strong className="text-zinc-800 font-medium">Source:</strong> {source}
                 </span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Calendar size={13} className="text-zinc-400 shrink-0" aria-hidden="true" />
+                <Calendar size={13} className="text-zinc-400 shrink-0 stroke-[1.5]" aria-hidden="true" />
                 <span>
-                  <strong className="text-zinc-800">Reference Date:</strong> {date}
+                  <strong className="text-zinc-800 font-medium">Reference date:</strong> {date}
                 </span>
               </div>
             </div>
 
             {caveat && (
-              <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 flex items-start gap-2">
-                <ShieldAlert size={14} className="text-amber-600 shrink-0 mt-0.5" aria-hidden="true" />
-                <div>
-                  <span className="font-bold block mb-0.5 text-amber-950">Engineering Caveat</span>
-                  <p className="leading-normal">{caveat}</p>
+              <div className="p-2.5 rounded-lg bg-zinc-50 border border-zinc-200/80 text-[11px] text-zinc-700 flex items-start gap-2">
+                <ShieldAlert size={14} className="text-zinc-500 shrink-0 mt-0.5 stroke-[1.5]" aria-hidden="true" />
+                <div className="space-y-0.5">
+                  <span className="font-medium block text-zinc-900">Engineering caveat</span>
+                  <p className="leading-normal text-zinc-600">{caveat}</p>
                 </div>
               </div>
             )}
