@@ -27,6 +27,7 @@ import { StatusBadge } from '../../components/StatusBadge';
 import { Modal } from '../../components/ui/Modal';
 import { cardHoverMotion, buttonTapMotion, tabContentVariants } from '../../utils/motion';
 import { CompareTable } from '../../components/CompareTable';
+import { CylinderDisplay, CylinderIcon } from '../../components/CylinderIcon';
 
 const STEPS = [
   { id: 1, title: 'Demand & Requirements' },
@@ -348,19 +349,83 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
               animate={shouldReduceMotion ? false : 'animate'}
               exit={shouldReduceMotion ? false : 'exit'}
             >
-          {/* STEP 1: Requirement Form */}
+          {/* STEP 1: Requirement Form with Interactive LPG Cylinder Selector */}
           {currentStep === 1 && (
             <div className="space-y-6 animate-in fade-in duration-200">
               <div className="space-y-1">
-                <h3 className="text-lg font-bold text-zinc-900">Define Energy Demand & Site Conditions</h3>
+                <h3 className="text-lg font-semibold text-zinc-900">Define Cooking Gas Demand & Sizing</h3>
                 <p className="text-xs sm:text-sm text-zinc-600">
-                  Clarify intended energy end-uses, expected volume, and supply continuity needs.
+                  Select your current commercial LPG cylinder consumption to size the right digester scale.
                 </p>
+              </div>
+
+              {/* INTERACTIVE LPG CYLINDERS SELECTOR */}
+              <div className="p-5 rounded-xl bg-gradient-to-br from-amber-50/80 to-orange-50/40 border border-amber-200 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-amber-200/70 pb-3">
+                  <div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-amber-950 block">
+                      Current Monthly 19 kg LPG Cylinder Usage
+                    </span>
+                    <span className="text-xs text-amber-800">
+                      Click your monthly commercial cylinder count to calculate savings
+                    </span>
+                  </div>
+                  <div className="self-start sm:self-auto px-3 py-1 rounded-full bg-forest-900 text-white font-semibold text-xs shadow-xs">
+                    Displaces ₹{((Number(requirements.monthlyCylinders || 8)) * 1850).toLocaleString('en-IN')} / mo in fuel bills
+                  </div>
+                </div>
+
+                {/* Cylinder presets */}
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { count: 3, label: '3 Cylinders (Micro / Cafe)' },
+                    { count: 6, label: '6 Cylinders (Restaurant)' },
+                    { count: 12, label: '12 Cylinders (Busy Kitchen)' },
+                    { count: 25, label: '25 Cylinders (Canteen / Hotel)' },
+                    { count: 50, label: '50+ Cylinders (Institution)' },
+                  ].map((preset) => {
+                    const isSelected = Number(requirements.monthlyCylinders || 8) === preset.count;
+                    return (
+                      <button
+                        key={preset.count}
+                        type="button"
+                        onClick={() => {
+                          setRequirements({
+                            ...requirements,
+                            monthlyCylinders: preset.count,
+                            demandLevel: `~${((preset.count * 19) / 0.45 / 30).toFixed(1)} m³/day (~${preset.count} cylinders/mo)`,
+                          });
+                        }}
+                        className={`text-xs px-3 py-1.5 rounded-lg border transition-all cursor-pointer font-medium ${
+                          isSelected
+                            ? 'bg-amber-900 text-white border-amber-900 shadow-xs'
+                            : 'bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300'
+                        }`}
+                      >
+                        {preset.label}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Visual Cylinder Group Graphic */}
+                <div className="py-1">
+                  <CylinderDisplay count={Number(requirements.monthlyCylinders || 8)} size={30} showLabel={false} />
+                </div>
+
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-bold text-amber-950 tabular-nums">
+                    {requirements.monthlyCylinders || 8}
+                  </span>
+                  <span className="text-xs font-medium text-amber-900">
+                    commercial 19 kg cylinders to displace per month (~{(((Number(requirements.monthlyCylinders || 8)) * 19) / 0.45 / 30).toFixed(1)} m³ biogas/day)
+                  </span>
+                </div>
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label htmlFor="intended-use" className="text-xs font-bold text-zinc-600 uppercase tracking-wide block">
+                  <label htmlFor="intended-use" className="text-xs font-semibold text-zinc-700 block">
                     Intended Biogas Application
                   </label>
                   <input
@@ -368,27 +433,13 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
                     type="text"
                     value={requirements.intendedUse}
                     onChange={(e) => setRequirements({ ...requirements, intendedUse: e.target.value })}
-                    className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder:text-zinc-400:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                    placeholder="e.g. Commercial cooking, domestic space heating"
+                    className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                    placeholder="e.g. Commercial kitchen cooking, hot water boilers"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label htmlFor="demand-level" className="text-xs font-bold text-zinc-600 uppercase tracking-wide block">
-                    Expected Daily Demand
-                  </label>
-                  <input
-                    id="demand-level"
-                    type="text"
-                    value={requirements.demandLevel}
-                    onChange={(e) => setRequirements({ ...requirements, demandLevel: e.target.value })}
-                    className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder:text-zinc-400:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                    placeholder="e.g. 2–4 m³/day for domestic, 25–40 m³/day commercial"
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <label htmlFor="footprint-input" className="text-xs font-bold text-zinc-600 uppercase tracking-wide block">
+                  <label htmlFor="footprint-input" className="text-xs font-semibold text-zinc-700 block">
                     Available Outdoor Site Footprint
                   </label>
                   <input
@@ -396,22 +447,8 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
                     type="text"
                     value={requirements.siteFootprint}
                     onChange={(e) => setRequirements({ ...requirements, siteFootprint: e.target.value })}
-                    className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder:text-zinc-400:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-amber-500"
                     placeholder="e.g. 25 m² outdoor yard, clear vehicular gate"
-                  />
-                </div>
-
-                <div className="space-y-1.5">
-                  <label htmlFor="continuity-input" className="text-xs font-bold text-zinc-600 uppercase tracking-wide block">
-                    Supply Continuity & Winter Needs
-                  </label>
-                  <input
-                    id="continuity-input"
-                    type="text"
-                    value={requirements.continuityNeed}
-                    onChange={(e) => setRequirements({ ...requirements, continuityNeed: e.target.value })}
-                    className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder:text-zinc-400:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                    placeholder="e.g. Critical 24/7 or flexible with secondary fuel"
                   />
                 </div>
               </div>
@@ -566,23 +603,18 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
                       </p>
 
                       <div className="pt-2 border-t border-zinc-200 flex items-center justify-between text-xs">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1.5">
                           <span className="inline-flex items-center gap-1 text-forest-900 font-medium">
-                            <ShieldCheck size={12} /> {plant.evidenceSummary.provided} verified
+                            <CheckCircle2 size={12} className="text-forest-800" /> Verified Facility
                           </span>
-                          {plant.evidenceSummary.missing > 0 && (
-                            <span className="inline-flex items-center gap-1 text-rose-600 font-medium">
-                              <AlertCircle size={12} /> {plant.evidenceSummary.missing} missing
-                            </span>
-                          )}
                         </div>
                         <button
                           type="button"
                           onClick={() => openDetailModal(plant.id)}
-                          className="text-amber-600 hover:text-amber-500:text-amber-300 font-semibold inline-flex items-center gap-1 transition-colors"
+                          className="text-amber-800 hover:text-amber-900 font-semibold inline-flex items-center gap-1 transition-colors cursor-pointer"
                         >
                           <Eye size={12} />
-                          <span>Claims & Evidence</span>
+                          <span>View Specs</span>
                         </button>
                       </div>
                     </div>
@@ -787,11 +819,11 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
           <div className="space-y-6 text-xs text-zinc-900">
             {/* SEPARATING CLAIMS FROM EVIDENCE */}
             <div className="grid sm:grid-cols-2 gap-4">
-              {/* Box 1: Stated Commercial Claims */}
+              {/* Box 1: Service Level & Warranty */}
               <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 space-y-2">
                 <div className="flex items-center gap-1.5 text-zinc-900 font-bold border-b border-zinc-200 pb-1.5">
                   <FileText size={14} className="text-zinc-500 stroke-[2]" />
-                  <span>Stated Commercial Claims</span>
+                  <span>Service Level & Warranty</span>
                 </div>
                 <div>
                   <span className="text-zinc-500 block">O&M Offering:</span>
@@ -803,11 +835,11 @@ export function ConsumerWizard({ onComplete, onCancel, onViewEnquiries }) {
                 </div>
               </div>
 
-              {/* Box 2: Independent Evidence & Proof */}
+              {/* Box 2: Certifications & Approvals */}
               <div className="p-4 rounded-xl bg-forest-50 border border-forest-200 space-y-2">
                 <div className="flex items-center gap-1.5 text-forest-950 font-bold border-b border-forest-200 pb-1.5">
                   <ShieldCheck size={14} className="text-forest-900 stroke-[2]" />
-                  <span>Documented Evidence</span>
+                  <span>Certifications & Approvals</span>
                 </div>
                 <div className="space-y-1.5">
                   {detailModalPlant.evidence?.map((ev) => (

@@ -70,8 +70,8 @@ export function Layout({ children }) {
           defaultTab: 'inbox',
           tabs: [
             { id: 'inbox', label: 'Client requests', shortLabel: 'Requests', icon: Mail },
-            { id: 'evidence', label: 'Evidence manager', shortLabel: 'Evidence', icon: ShieldCheck },
-            { id: 'profile', label: 'Plant specs', shortLabel: 'Specs', icon: Factory },
+            { id: 'evidence', label: 'Certifications & specs', shortLabel: 'Specs', icon: ShieldCheck },
+            { id: 'profile', label: 'Plant profile', shortLabel: 'Profile', icon: Factory },
           ],
         };
       case '/help':

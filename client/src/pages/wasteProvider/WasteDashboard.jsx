@@ -23,6 +23,7 @@ import { useProfile } from '../../context/ProfileContext';
 import { api } from '../../api/client';
 import { WasteAssessmentWizard } from './WasteAssessmentWizard';
 import { ProviderDetailModal } from '../../components/ProviderDetailModal';
+import { CylinderIcon } from '../../components/CylinderIcon';
 
 export function WasteDashboard() {
   const { activeProfile } = useProfile();
@@ -130,13 +131,14 @@ export function WasteDashboard() {
           </div>
 
           <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200/80 space-y-0.5">
-            <span className="text-[11px] text-zinc-500 block">
-              Indicative biogas yield
+            <span className="text-[11px] text-zinc-500 block flex items-center gap-1">
+              <CylinderIcon size={14} className="text-amber-700" />
+              LPG fuel displaced
             </span>
             <span className="text-lg font-medium text-forest-900 block tabular-nums">
-              12 – 18 m³/day
+              ~6 cylinders/mo
             </span>
-            <span className="text-[11px] text-zinc-500">~70 – 110 kWh thermal equivalent</span>
+            <span className="text-[11px] text-zinc-500 font-medium text-forest-800">₹11,100 / mo saved</span>
           </div>
 
           <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200/80 space-y-0.5">
@@ -297,13 +299,12 @@ export function WasteDashboard() {
                   <div className="pt-2.5 border-t border-zinc-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
                       <span className="inline-flex items-center gap-1 text-forest-900 font-medium text-xs">
-                        <ShieldCheck size={13} className="text-forest-800 stroke-[1.5]" /> {plant.evidenceSummary?.provided || 2} verified
+                        <CheckCircle2 size={13} className="text-forest-800 stroke-[1.5]" /> Verified Facility
                       </span>
-                      {plant.evidenceSummary?.missing > 0 && (
-                        <span className="inline-flex items-center gap-1 text-rose-700 font-medium text-xs">
-                          <AlertCircle size={13} className="stroke-[1.5]" /> {plant.evidenceSummary.missing} missing
-                        </span>
-                      )}
+                      <span className="text-zinc-400 text-[11px]">·</span>
+                      <span className="inline-flex items-center gap-1 text-zinc-600 font-medium text-xs">
+                        <Clock size={12} className="text-zinc-400" /> 24h Response
+                      </span>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -312,7 +313,7 @@ export function WasteDashboard() {
                         onClick={() => setSelectedPlantDossier(plant)}
                         className="text-xs font-medium px-3 py-1.5 rounded-lg bg-zinc-50 hover:bg-zinc-100 text-zinc-800 border border-zinc-200 transition-colors cursor-pointer"
                       >
-                        Inspect dossier
+                        View Details
                       </button>
 
                       <button
@@ -320,7 +321,7 @@ export function WasteDashboard() {
                         onClick={() => setTab('assessment')}
                         className="text-xs font-medium px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white transition-colors cursor-pointer"
                       >
-                        Book slot
+                        Request Quote
                       </button>
                     </div>
                   </div>

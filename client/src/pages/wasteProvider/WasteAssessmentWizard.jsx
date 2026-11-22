@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import {
-  Leaf,
+  Flame,
   ArrowRight,
   ArrowLeft,
   CheckCircle2,
@@ -9,29 +9,31 @@ import {
   HelpCircle,
   Building2,
   Send,
-  Scale,
   Calendar,
-  Truck,
+  Layers,
   RotateCcw,
   ShieldCheck,
   Clock,
   Sparkles,
+  IndianRupee,
+  Utensils,
+  Droplets,
+  Truck,
+  MapPin,
 } from 'lucide-react';
 import { api } from '../../api/client';
 import { useProfile } from '../../context/ProfileContext';
 import { StatusBadge } from '../../components/StatusBadge';
-import { EvidencePanel } from '../../components/EvidencePanel';
-import { RangeBar } from '../../components/RangeBar';
+import { CylinderDisplay, CylinderIcon } from '../../components/CylinderIcon';
 import { tabContentVariants, buttonTapMotion } from '../../utils/motion';
 
 const STEPS = [
-  { id: 1, title: 'What is needed' },
-  { id: 2, title: 'Feedstock' },
-  { id: 3, title: 'Quantity' },
-  { id: 4, title: 'Site Constraints' },
-  { id: 5, title: 'Results & Evidence' },
-  { id: 6, title: 'Matched Plants' },
-  { id: 7, title: 'Review & Enquiry' },
+  { id: 1, title: 'Feedstock Type' },
+  { id: 2, title: 'Daily Volume' },
+  { id: 3, title: 'Location & Site' },
+  { id: 4, title: 'Fuel & Cost Savings' },
+  { id: 5, title: 'Matched Digesters' },
+  { id: 6, title: 'Review & Request' },
 ];
 
 export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries }) {
@@ -45,7 +47,7 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
   const [selectedPlantIds, setSelectedPlantIds] = useState([]);
   const [enquirySuccess, setEnquirySuccess] = useState(null);
 
-  // Form State with "not sure" support on every field
+  // Form State
   const [formData, setFormData] = useState({
     wasteType: 'Food waste (commercial kitchen)',
     wasteTypeNotSure: false,
@@ -54,47 +56,12 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
     frequency: 'Daily collection',
     frequencyNotSure: false,
     location: activeProfile.location || 'Indiranagar, Bengaluru',
-    siteConstraints: 'Rear service lane access only; 48-hour bin storage capacity',
+    siteConstraints: 'Rear service lane access; ground space for 2 bins',
     siteConstraintsNotSure: false,
     intendedUse: 'Displace commercial kitchen cooking gas',
-    questions: 'Can a containerized digester be serviced from a service lane, or is off-site daily transport necessary?',
-    contactPreference: 'Email with technical feasibility summary',
+    questions: 'We need daily bin collection or an on-site digester survey.',
+    contactPreference: 'Email with quotation and collection schedule',
   });
-
-  // Pre-fill sample datasets
-  const loadPreset = (presetType) => {
-    if (presetType === 'restaurant') {
-      setFormData({
-        wasteType: 'Food waste (commercial kitchen)',
-        wasteTypeNotSure: false,
-        quantityKg: '150',
-        quantityNotSure: false,
-        frequency: 'Daily collection',
-        frequencyNotSure: false,
-        location: 'Indiranagar, Bengaluru',
-        siteConstraints: 'Rear service lane access only; 48-hour bin storage capacity',
-        siteConstraintsNotSure: false,
-        intendedUse: 'Displace commercial kitchen cooking gas',
-        questions: 'Can a containerized digester be serviced from a service lane, or is off-site daily transport necessary?',
-        contactPreference: 'Email with technical feasibility summary',
-      });
-    } else if (presetType === 'uncertain') {
-      setFormData({
-        wasteType: 'not sure',
-        wasteTypeNotSure: true,
-        quantityKg: '',
-        quantityNotSure: true,
-        frequency: 'not sure',
-        frequencyNotSure: true,
-        location: activeProfile.location || 'Shivajinagar, Pune',
-        siteConstraints: 'not sure',
-        siteConstraintsNotSure: true,
-        intendedUse: 'not sure',
-        questions: 'We have variable kitchen scraps and need an on-site waste characterization audit.',
-        contactPreference: 'Phone callback to discuss measurement',
-      });
-    }
-  };
 
   // Run assessment via API
   const handleCalculate = async () => {
@@ -120,11 +87,10 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
 
       setAssessmentResult(assessRes);
       setMatchedPlants(matchRes.matches || []);
-      // Auto-select the first 1-2 top matching plants
       if (matchRes.matches && matchRes.matches.length > 0) {
         setSelectedPlantIds([matchRes.matches[0].id]);
       }
-      setCurrentStep(5);
+      setCurrentStep(4);
     } catch (err) {
       console.error('Assessment failed:', err);
     } finally {
@@ -132,7 +98,6 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
     }
   };
 
-  // Toggle plant selection for enquiry
   const togglePlantSelect = (plantId) => {
     if (selectedPlantIds.includes(plantId)) {
       setSelectedPlantIds(selectedPlantIds.filter((id) => id !== plantId));
@@ -141,13 +106,12 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
     }
   };
 
-  // Submit simulated enquiry
   const handleSubmitEnquiry = async () => {
     setLoading(true);
     try {
       const summaryPayload = {
         role: 'waste_provider',
-        wasteType: formData.wasteTypeNotSure ? 'Not sure / Assessment required' : formData.wasteType,
+        wasteType: formData.wasteTypeNotSure ? 'Not sure / Mixed stream' : formData.wasteType,
         quantityRange: formData.quantityNotSure ? 'Assessment required' : `${formData.quantityKg} kg/day (${formData.frequency})`,
         frequency: formData.frequencyNotSure ? 'Not sure' : formData.frequency,
         location: formData.location,
@@ -175,10 +139,10 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
   };
 
   const nextStep = () => {
-    if (currentStep === 4) {
+    if (currentStep === 3) {
       handleCalculate();
     } else {
-      setCurrentStep((prev) => Math.min(prev + 1, 7));
+      setCurrentStep((prev) => Math.min(prev + 1, STEPS.length));
     }
   };
 
@@ -186,84 +150,132 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
 
+  // Derive visual cylinder metrics from assessmentResult or fallback to daily waste calculation
+  const dailyKg = Number(formData.quantityKg) || 150;
+  const computedCylinders = assessmentResult?.lpgDisplacement?.max
+    ? Math.max(1, Math.round((assessmentResult.lpgDisplacement.max * 30) / 19))
+    : Math.max(1, Math.round((dailyKg * 0.12 * 30 * 0.45) / 19));
+  const computedSavings = (computedCylinders * 1850).toLocaleString('en-IN');
+  const computedGasM3 = assessmentResult?.dailyBiogas?.max
+    ? assessmentResult.dailyBiogas.max
+    : (dailyKg * 0.12).toFixed(1);
+  const burnerHours = (computedGasM3 / 2.6).toFixed(1);
+  const mealsCooked = Math.round(dailyKg * 3.5);
+  const compostKg = Math.round(dailyKg * 0.2);
+
   return (
     <div className="bg-white rounded-xl border border-zinc-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] p-5 sm:p-6 space-y-6 w-full text-zinc-900 font-sans">
-      {/* Top Header & Preset Bar */}
+      {/* Top Header & Fast Presets */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-100 pb-4">
         <div>
-          <span className="text-[11px] font-bold uppercase tracking-wider text-forest-950 bg-forest-50 px-2.5 py-0.5 rounded border border-forest-200">
-            Feedstock Decision Journey
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-forest-900 bg-forest-50 px-2 py-0.5 rounded border border-forest-200">
+            Feedstock Calculator
           </span>
-          <h2 className="text-xl sm:text-2xl font-bold text-zinc-900 mt-1">
-            Organic Feedstock Assessment & Matching
+          <h2 className="text-xl sm:text-2xl font-semibold text-zinc-900 mt-1">
+            Waste Assessment & Fuel Sizing
           </h2>
         </div>
 
-        {/* Quick Preload Presets */}
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-zinc-500 hidden sm:inline">Pre-fill test data:</span>
+        {/* Quick Fill Presets */}
+        <div className="flex items-center gap-1.5">
+          <span className="text-xs text-zinc-500 mr-1">Load sample:</span>
           <button
             type="button"
-            onClick={() => loadPreset('restaurant')}
-            className="text-xs px-2.5 py-1 rounded-lg border border-zinc-200 bg-zinc-100 hover:bg-zinc-200:bg-zinc-750 text-zinc-700 font-medium transition-colors"
+            onClick={() => {
+              setFormData({
+                wasteType: 'Food waste (commercial kitchen)',
+                wasteTypeNotSure: false,
+                quantityKg: '150',
+                quantityNotSure: false,
+                frequency: 'Daily collection',
+                frequencyNotSure: false,
+                location: 'Indiranagar, Bengaluru',
+                siteConstraints: 'Rear service lane access; ground space for 2 bins',
+                siteConstraintsNotSure: false,
+                intendedUse: 'Displace commercial kitchen cooking gas',
+                questions: 'We need daily bin collection or an on-site digester survey.',
+                contactPreference: 'Email with quotation and collection schedule',
+              });
+            }}
+            className="text-xs px-2.5 py-1 rounded-lg border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-700 font-medium transition-colors cursor-pointer"
           >
-            Restaurant (150 kg/day)
+            Restaurant (150 kg)
           </button>
           <button
             type="button"
-            onClick={() => loadPreset('uncertain')}
-            className="text-xs px-2.5 py-1 rounded-lg border border-amber-300 bg-amber-50 hover:bg-amber-100:bg-amber-900/50 text-amber-800 font-medium transition-colors"
+            onClick={() => {
+              setFormData({
+                wasteType: 'Mixed organic & vegetable scraps',
+                wasteTypeNotSure: false,
+                quantityKg: '400',
+                quantityNotSure: false,
+                frequency: 'Daily collection',
+                frequencyNotSure: false,
+                location: 'Shivajinagar, Pune',
+                siteConstraints: 'Wide gate loading dock; continuous access',
+                siteConstraintsNotSure: false,
+                intendedUse: 'Replace boiler LPG fuel',
+                questions: 'Can you provide containerized tanks with telemetry?',
+                contactPreference: 'Phone callback with engineer',
+              });
+            }}
+            className="text-xs px-2.5 py-1 rounded-lg border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-zinc-700 font-medium transition-colors cursor-pointer"
           >
-            "Not sure" Stream
+            Canteen (400 kg)
           </button>
         </div>
       </div>
 
-      {/* Animated Step Progress Bar */}
+      {/* Step Indicator Bar */}
       <div className="space-y-2">
-        <div className="flex justify-between items-center text-xs font-semibold text-zinc-700">
-          <span>Step {currentStep} of {STEPS.length}: {STEPS[currentStep - 1].title}</span>
-          <span className="text-zinc-500 font-normal">Illustrative demo workflow</span>
+        <div className="flex justify-between items-center text-xs font-medium text-zinc-700">
+          <span>
+            Step {currentStep} of {STEPS.length}: <strong className="text-zinc-900">{STEPS[currentStep - 1].title}</strong>
+          </span>
+          <span className="text-zinc-400">Interactive Assessment</span>
         </div>
         <div className="h-1.5 w-full bg-zinc-100 rounded-full overflow-hidden">
           <motion.div
             initial={false}
             animate={{ width: `${(currentStep / STEPS.length) * 100}%` }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.25, ease: 'easeOut' }}
-            className="h-full bg-forest-800 rounded-full"
+            className="h-full bg-forest-900 rounded-full"
           />
         </div>
       </div>
 
-      {/* Confirmation View after Enquiry Submission */}
+      {/* SUCCESS CONFIRMATION VIEW */}
       {enquirySuccess ? (
         <div className="space-y-6 text-center py-6">
-          <CheckCircle2 size={42} className="text-forest-900 mx-auto stroke-[2.2]" aria-hidden="true" />
+          <div className="w-14 h-14 rounded-full bg-forest-50 border border-forest-200 flex items-center justify-center mx-auto text-forest-900">
+            <CheckCircle2 size={32} className="stroke-[2.2]" />
+          </div>
 
           <div className="space-y-2 max-w-md mx-auto">
-            <StatusBadge status="verified" label="Simulated Enquiry Recorded" size="md" />
-            <h3 className="text-2xl font-bold text-zinc-900">Enquiry Forwarded to Plant Inbox</h3>
-            <p className="text-sm text-zinc-600 leading-relaxed">
-              Your structured project summary has been registered in the demo data store under reference ID{' '}
-              <strong className="font-mono text-zinc-900 bg-zinc-100 border border-zinc-200 px-1.5 py-0.5 rounded">{enquirySuccess.id}</strong>.
+            <h3 className="text-2xl font-semibold text-zinc-900">Request Sent to Plant Operators</h3>
+            <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+              Your feedstock profile has been forwarded directly to the selected digester operator. Reference ID:{' '}
+              <strong className="font-mono text-zinc-900 bg-zinc-100 border border-zinc-200 px-1.5 py-0.5 rounded">
+                {enquirySuccess.id}
+              </strong>
             </p>
           </div>
 
           <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 text-left max-w-md mx-auto text-xs space-y-2">
-            <span className="font-bold text-zinc-900 block">Forwarded to Selected Providers:</span>
+            <span className="font-semibold text-zinc-900 block">Recipients Notified:</span>
             <ul className="space-y-1.5 text-zinc-600">
               {matchedPlants
                 .filter((p) => selectedPlantIds.includes(p.id))
                 .map((p) => (
-                  <li key={p.id} className="flex items-center gap-1.5">
+                  <li key={p.id} className="flex items-center gap-1.5 font-medium text-zinc-800">
                     <Building2 size={13} className="text-forest-900 shrink-0" />
-                    <span>{p.organisation} ({p.serviceArea.slice(0, 2).join(', ')})</span>
+                    <span>{p.organisation} ({p.serviceArea?.slice(0, 2).join(', ')})</span>
                   </li>
                 ))}
             </ul>
           </div>
 
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
+          <div className="pt-3 flex flex-wrap items-center justify-center gap-3">
             <button
               type="button"
               onClick={() => {
@@ -272,9 +284,9 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                 if (onViewEnquiries) onViewEnquiries();
                 else if (onComplete) onComplete();
               }}
-              className="inline-flex items-center gap-1.5 bg-forest-900 hover:bg-forest-800 text-white font-medium text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors shadow-xs"
+              className="inline-flex items-center gap-1.5 bg-forest-900 hover:bg-forest-800 text-white font-medium text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors shadow-xs cursor-pointer"
             >
-              <span>View in Sent Enquiries</span>
+              <span>View in Sent Requests</span>
               <ArrowRight size={15} />
             </button>
             <button
@@ -283,14 +295,14 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
                 setEnquirySuccess(null);
                 setCurrentStep(1);
               }}
-              className="px-4 py-2 text-xs sm:text-sm text-zinc-500 hover:text-zinc-800:text-zinc-200 font-medium transition-colors"
+              className="px-4 py-2 text-xs sm:text-sm text-zinc-600 hover:text-zinc-900 font-medium transition-colors cursor-pointer"
             >
-              Start Another Assessment
+              Start New Assessment
             </button>
           </div>
         </div>
       ) : (
-        /* Wizard Steps Container */
+        /* WIZARD FORM STEPS */
         <div className="space-y-6 min-h-[340px]">
           <AnimatePresence mode="wait">
             <motion.div
@@ -300,580 +312,528 @@ export function WasteAssessmentWizard({ onComplete, onCancel, onViewEnquiries })
               animate={shouldReduceMotion ? false : 'animate'}
               exit={shouldReduceMotion ? false : 'exit'}
             >
-          {/* STEP 1: What is needed explainer */}
-          {currentStep === 1 && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-              <div className="space-y-1">
-                <h3 className="text-lg font-bold text-zinc-900">What information is needed to assess biogas potential?</h3>
-                <p className="text-xs sm:text-sm text-zinc-600">
-                  Anaerobic digestion relies on organic matter purity and physical consistency. Here is what we collect:
-                </p>
-              </div>
-
-              <div className="grid sm:grid-cols-3 gap-4">
-                <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 space-y-2">
-                  <span className="text-xs font-bold text-forest-900 font-mono tracking-wider">Step 01</span>
-                  <h4 className="text-sm font-bold text-zinc-900">Feedstock Type</h4>
-                  <p className="text-xs text-zinc-600 leading-relaxed">
-                    Pre-consumer prep scraps, plate waste, spent grains, or slurries have different volatile solids and gas yields.
-                  </p>
-                </div>
-                <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 space-y-2">
-                  <span className="text-xs font-bold text-forest-900 font-mono tracking-wider">Step 02</span>
-                  <h4 className="text-sm font-bold text-zinc-900">Mass & Rhythm</h4>
-                  <p className="text-xs text-zinc-600 leading-relaxed">
-                    Kilograms per day or standard wheelie bin counts. Consistent feeding prevents biological shock to the bacteria.
-                  </p>
-                </div>
-                <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 space-y-2">
-                  <span className="text-xs font-bold text-forest-900 font-mono tracking-wider">Step 03</span>
-                  <h4 className="text-sm font-bold text-zinc-900">Site Space & Access</h4>
-                  <p className="text-xs text-zinc-600 leading-relaxed">
-                    Tanker road access, outdoor footprint for containerized modules, and physical bin staging space.
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-start gap-2.5">
-                <HelpCircle size={16} className="text-amber-600 shrink-0 mt-0.5" />
-                <div className="leading-relaxed">
-                  <span className="font-bold block mb-0.5 text-amber-950">Don't have exact metrics?</span>
-                  Every screen has an <strong>"I'm not sure"</strong> option. The platform will flag missing metrics as "Assessment required" and explain the necessary survey steps instead of guessing.
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 2: Feedstock Type */}
-          {currentStep === 2 && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-              <div className="space-y-1">
-                <h3 className="text-lg font-bold text-zinc-900">What type of organic waste do you produce?</h3>
-                <p className="text-xs sm:text-sm text-zinc-600">
-                  Select the primary organic stream generated on site.
-                </p>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-3.5">
-                {[
-                  {
-                    title: 'Food waste (commercial kitchen)',
-                    sub: 'Commercial kitchen prep, cooked leftovers, high energy content.',
-                    category: 'High Energy (80–120 m³/t)',
-                  },
-                  {
-                    title: 'Mixed organic & vegetable scraps',
-                    sub: 'Greengrocer scrap, peelings, lower fats, high moisture.',
-                    category: 'Medium Moisture (45–70 m³/t)',
-                  },
-                  {
-                    title: 'Brewery spent grain & trub',
-                    sub: 'Spent barley/malt, high protein, prone to rapid acidification.',
-                    category: 'High Protein (90–140 m³/t)',
-                  },
-                  {
-                    title: 'Agricultural slurry & manure',
-                    sub: 'Farm slurry or manure. High liquid buffering, lower gas yield.',
-                    category: 'Liquid Base (20–35 m³/t)',
-                  },
-                ].map((item) => (
-                  <button
-                    key={item.title}
-                    type="button"
-                    onClick={() => setFormData({ ...formData, wasteType: item.title, wasteTypeNotSure: false })}
-                    className={`p-4 rounded-xl border text-left transition-all ${
-                      !formData.wasteTypeNotSure && formData.wasteType === item.title
-                        ? 'border-forest-800 bg-forest-50 ring-1 ring-forest-800/40 text-emerald-900'
-                        : 'border-zinc-200 hover:border-zinc-300:border-zinc-700 bg-zinc-50/60 text-zinc-800'
-                    }`}
-                  >
-                    <div className="flex justify-between items-start gap-2">
-                      <span className="text-sm font-bold text-zinc-900">{item.title}</span>
-                      <span className="text-[10px] font-semibold text-forest-950 bg-forest-50 px-2 py-0.5 rounded border border-forest-200 shrink-0">
-                        {item.category}
-                      </span>
-                    </div>
-                    <p className="text-xs text-zinc-600 mt-1.5 leading-relaxed">{item.sub}</p>
-                  </button>
-                ))}
-              </div>
-
-              {/* Not Sure Toggle */}
-              <div className="p-4 rounded-xl border border-dashed border-amber-300 bg-amber-50 flex items-center justify-between gap-4">
-                <div className="text-xs">
-                  <span className="font-bold text-zinc-800 block">I am not sure of the exact waste classification</span>
-                  <span className="text-zinc-600">Our stream is mixed, uncharacterized, or seasonal.</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setFormData({ ...formData, wasteTypeNotSure: !formData.wasteTypeNotSure })}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
-                    formData.wasteTypeNotSure
-                      ? 'bg-amber-600 text-white border-amber-500'
-                      : 'bg-zinc-100 text-zinc-700 border-zinc-200 hover:border-zinc-300:border-zinc-600'
-                  }`}
-                >
-                  {formData.wasteTypeNotSure ? 'Selected: Not sure' : "I'm not sure"}
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 3: Quantity & Frequency */}
-          {currentStep === 3 && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-              <div className="space-y-1">
-                <h3 className="text-lg font-bold text-zinc-900">How much organic waste is generated?</h3>
-                <p className="text-xs sm:text-sm text-zinc-600">
-                  Provide an estimated daily kilogram weight or pick a typical container preset.
-                </p>
-              </div>
-
-              {!formData.quantityNotSure && (
-                <div className="space-y-4 p-5 rounded-xl bg-zinc-50 border border-zinc-200">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <label htmlFor="quantity-input" className="text-xs font-bold text-zinc-600 uppercase tracking-wide">
-                      Estimated Daily Weight (kg/day)
-                    </label>
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-xs text-zinc-500">Presets:</span>
-                      {[
-                        { label: '1x 120L Bin (~50kg)', kg: '50' },
-                        { label: '3x 120L Bins (~150kg)', kg: '150' },
-                        { label: '1 Tonne Skid (~1000kg)', kg: '1000' },
-                      ].map((preset) => (
-                        <button
-                          key={preset.label}
-                          type="button"
-                          onClick={() => setFormData({ ...formData, quantityKg: preset.kg })}
-                          className="text-[11px] px-2 py-0.5 rounded bg-zinc-100 border border-zinc-200 hover:border-zinc-300:border-zinc-600 text-zinc-700 font-medium transition-colors"
-                        >
-                          {preset.label}
-                        </button>
-                      ))}
-                    </div>
+              {/* ======================================================== */}
+              {/* STEP 1: Feedstock Selection                              */}
+              {/* ======================================================== */}
+              {currentStep === 1 && (
+                <div className="space-y-4">
+                  <div className="space-y-1">
+                    <h3 className="text-base font-semibold text-zinc-900">
+                      What type of organic waste do you produce?
+                    </h3>
+                    <p className="text-xs text-zinc-600">
+                      Select your primary organic waste stream to determine accurate gas yield rates.
+                    </p>
                   </div>
 
-                  <div className="flex items-center gap-3">
-                    <input
-                      id="quantity-input"
-                      type="number"
-                      min="1"
-                      max="20000"
-                      value={formData.quantityKg}
-                      onChange={(e) => setFormData({ ...formData, quantityKg: e.target.value })}
-                      className="w-36 text-lg font-bold px-3 py-2 rounded-xl bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-2 focus:ring-forest-800"
-                    />
-                    <span className="text-sm font-semibold text-zinc-700">kg per day (fresh weight)</span>
-                  </div>
-
-                  <div className="pt-3 border-t border-zinc-200 space-y-2">
-                    <label className="text-xs font-bold text-zinc-600 uppercase tracking-wide block">
-                      Collection / Generation Frequency
-                    </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                      {['Daily collection', '3x per week', 'Weekly batch', 'Seasonal harvest'].map((freq) => (
-                        <button
-                          key={freq}
-                          type="button"
-                          onClick={() => setFormData({ ...formData, frequency: freq, frequencyNotSure: false })}
-                          className={`text-xs py-2 px-2.5 rounded-lg border font-medium text-center transition-colors ${
-                            formData.frequency === freq && !formData.frequencyNotSure
-                              ? 'bg-forest-900 text-white border-forest-800'
-                              : 'bg-zinc-100 text-zinc-700 border-zinc-200 hover:border-zinc-300:border-zinc-600'
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {[
+                      {
+                        title: 'Food waste (commercial kitchen)',
+                        desc: 'Kitchen prep, cooked leftovers, table scraps. High calorific yield.',
+                        yieldLabel: 'High Yield: ~100 m³ / tonne',
+                      },
+                      {
+                        title: 'Mixed organic & vegetable scraps',
+                        desc: 'Greengrocer scrap, peelings, fruit pulp. High moisture content.',
+                        yieldLabel: 'Standard Yield: ~60 m³ / tonne',
+                      },
+                      {
+                        title: 'Brewery spent grain & trub',
+                        desc: 'Spent barley/malt, brewery residues. High protein density.',
+                        yieldLabel: 'High Protein: ~110 m³ / tonne',
+                      },
+                      {
+                        title: 'Agricultural slurry & manure',
+                        desc: 'Dairy or livestock manure. Excellent biological buffering.',
+                        yieldLabel: 'Liquid Base: ~30 m³ / tonne',
+                      },
+                    ].map((item) => {
+                      const isSelected = !formData.wasteTypeNotSure && formData.wasteType === item.title;
+                      return (
+                        <div
+                          key={item.title}
+                          onClick={() => setFormData({ ...formData, wasteType: item.title, wasteTypeNotSure: false })}
+                          className={`p-4 rounded-xl border text-left transition-all cursor-pointer space-y-1.5 ${
+                            isSelected
+                              ? 'border-forest-900 bg-forest-50/60 shadow-xs'
+                              : 'border-zinc-200 bg-white hover:border-zinc-300'
                           }`}
                         >
-                          {freq}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Not Sure Toggle */}
-              <div className="p-4 rounded-xl border border-dashed border-amber-300 bg-amber-50 flex items-center justify-between gap-4">
-                <div className="text-xs">
-                  <span className="font-bold text-zinc-800 block">I am not sure of our exact kilograms</span>
-                  <span className="text-zinc-600">We do not currently weigh our waste containers.</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setFormData({ ...formData, quantityNotSure: !formData.quantityNotSure })}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
-                    formData.quantityNotSure
-                      ? 'bg-amber-600 text-white border-amber-500'
-                      : 'bg-zinc-100 text-zinc-700 border-zinc-200 hover:border-zinc-300:border-zinc-600'
-                  }`}
-                >
-                  {formData.quantityNotSure ? 'Selected: Not sure' : "I'm not sure"}
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 4: Site Constraints */}
-          {currentStep === 4 && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-              <div className="space-y-1">
-                <h3 className="text-lg font-bold text-zinc-900">Physical Site Layout & Location</h3>
-                <p className="text-xs sm:text-sm text-zinc-600">
-                  Where is the feedstock located, and are there physical access restrictions?
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                <div className="space-y-1.5">
-                  <label htmlFor="location-input" className="text-xs font-bold text-zinc-600 uppercase tracking-wide block">
-                    Location / Postal District
-                  </label>
-                  <input
-                    id="location-input"
-                    type="text"
-                    value={formData.location}
-                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    className="w-full text-sm px-3.5 py-2.5 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder:text-zinc-400:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-forest-800"
-                    placeholder="e.g. Bengaluru Central, Pune, Vadodara"
-                  />
-                </div>
-
-                {!formData.siteConstraintsNotSure && (
-                  <div className="space-y-1.5">
-                    <label htmlFor="constraints-input" className="text-xs font-bold text-zinc-600 uppercase tracking-wide block">
-                      Physical Access & Footprint Notes
-                    </label>
-                    <textarea
-                      id="constraints-input"
-                      rows="3"
-                      value={formData.siteConstraints}
-                      onChange={(e) => setFormData({ ...formData, siteConstraints: e.target.value })}
-                      className="w-full text-sm p-3 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder:text-zinc-400:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-forest-800"
-                      placeholder="e.g. Rear alleyway only, no heavy truck turnaround, ground space for 2 bins"
-                    />
-                  </div>
-                )}
-
-                {/* Not Sure Toggle */}
-                <div className="p-4 rounded-xl border border-dashed border-amber-300 bg-amber-50 flex items-center justify-between gap-4">
-                  <div className="text-xs">
-                    <span className="font-bold text-zinc-800 block">I am not sure of physical site constraints</span>
-                    <span className="text-zinc-600">A physical survey will be needed to verify footprints and gate widths.</span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setFormData({ ...formData, siteConstraintsNotSure: !formData.siteConstraintsNotSure })}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
-                      formData.siteConstraintsNotSure
-                        ? 'bg-amber-600 text-white border-amber-500'
-                        : 'bg-zinc-100 text-zinc-700 border-zinc-200 hover:border-zinc-300:border-zinc-600'
-                    }`}
-                  >
-                    {formData.siteConstraintsNotSure ? 'Selected: Not sure' : "I'm not sure"}
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 5: Results & Evidence Panel */}
-          {currentStep === 5 && assessmentResult && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-              {assessmentResult.status === 'assessment_required' ? (
-                /* Assessment Required State */
-                <div className="space-y-5">
-                  <div className="p-5 rounded-xl bg-zinc-50 border border-zinc-200/90 space-y-3">
-                    <div className="flex items-center gap-2">
-                      <StatusBadge status="notsure" label="Assessment Required" size="lg" />
-                    </div>
-                    <div className="space-y-1">
-                      <h3 className="text-xl font-bold text-amber-950">{assessmentResult.headline}</h3>
-                      <p className="text-xs sm:text-sm text-zinc-700 leading-relaxed">
-                        {assessmentResult.explanation}
-                      </p>
-                    </div>
-
-                    <div className="space-y-2 pt-2 border-t border-amber-200">
-                      <span className="text-xs font-bold text-zinc-800 block">Uncertain or Unspecified Metrics:</span>
-                      <ul className="space-y-1 text-xs text-amber-800">
-                        {assessmentResult.uncertainFields?.map((field) => (
-                          <li key={field} className="flex items-center gap-1.5">
-                            <AlertCircle size={13} className="text-amber-600" />
-                            <span>{field}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="p-3.5 rounded-xl bg-white border border-amber-200 text-xs text-zinc-700 space-y-1">
-                      <span className="font-bold text-zinc-900 block">Next Steps:</span>
-                      <p>{assessmentResult.recommendation}</p>
-                    </div>
+                          <div className="flex items-start justify-between gap-2">
+                            <span className="text-xs font-semibold text-zinc-900">{item.title}</span>
+                            <span className="text-[10px] font-medium text-forest-900 bg-forest-50 px-2 py-0.5 rounded border border-forest-200 shrink-0">
+                              {item.yieldLabel}
+                            </span>
+                          </div>
+                          <p className="text-xs text-zinc-600 leading-relaxed">{item.desc}</p>
+                        </div>
+                      );
+                    })}
                   </div>
 
-                  <p className="text-xs text-zinc-500">
-                    You can still proceed to view regional plant providers who conduct physical site audits and feedstock sampling in your area.
-                  </p>
-                </div>
-              ) : (
-                /* Valid Calculation Range Output */
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between">
+                  {/* Not sure toggle */}
+                  <div className="p-3.5 rounded-xl border border-zinc-200 bg-zinc-50 flex items-center justify-between gap-3 text-xs">
                     <div>
-                      <span className="text-xs text-zinc-500 font-medium">Assessed Stream:</span>
-                      <h3 className="text-lg font-bold text-zinc-900">{assessmentResult.wasteType}</h3>
+                      <span className="font-semibold text-zinc-900 block">Mixed or variable waste stream?</span>
+                      <span className="text-zinc-500">Select if you generate multiple unseparated organic types.</span>
                     </div>
-                    <StatusBadge status="verified" label="Evidence-Based Range" size="sm" />
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {/* Range Output Bars */}
-                    <div className="space-y-4">
-                      <RangeBar
-                        min={assessmentResult.dailyBiogas.min}
-                        max={assessmentResult.dailyBiogas.max}
-                        unit={assessmentResult.dailyBiogas.unit}
-                        label="Daily Biogas Production"
-                        sublabel={`For ${assessmentResult.inputSummary.dailyKgRange} (${assessmentResult.inputSummary.frequency})`}
-                        accentColor="emerald"
-                      />
-
-                      <RangeBar
-                        min={assessmentResult.thermalEnergy.min}
-                        max={assessmentResult.thermalEnergy.max}
-                        unit={assessmentResult.thermalEnergy.unit}
-                        label="Thermal Energy Displacement"
-                        sublabel="Gross calorific equivalent for boiler or kitchen burner displacement"
-                        accentColor="teal"
-                      />
-                    </div>
-
-                    {/* Evidence Panel beside range */}
-                    <div>
-                      <EvidencePanel
-                        assumptions={assessmentResult.assumptions}
-                        title="WRAP / ADBA Research Benchmark"
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* STEP 6: Matched Plant Providers */}
-          {currentStep === 6 && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div>
-                  <h3 className="text-lg font-bold text-zinc-900">Matching Regional Plant Providers</h3>
-                  <p className="text-xs sm:text-sm text-zinc-600">
-                    Filtered by feedstock compatibility ({formData.wasteTypeNotSure ? 'Unclassified' : formData.wasteType}) and regional service area ({formData.location}).
-                  </p>
-                </div>
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-forest-50 text-forest-950 border border-forest-200">
-                  {matchedPlants.length} matches found
-                </span>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4">
-                {matchedPlants.map((plant) => {
-                  const isSelected = selectedPlantIds.includes(plant.id);
-                  return (
-                    <div
-                      key={plant.id}
-                      onClick={() => togglePlantSelect(plant.id)}
-                      className={`p-4 rounded-xl border transition-all cursor-pointer space-y-3 ${
-                        isSelected
-                          ? 'border-forest-800 bg-forest-50 ring-1 ring-forest-800/40 text-emerald-950'
-                          : 'border-zinc-200 hover:border-zinc-300:border-zinc-700 bg-zinc-50/60 text-zinc-800'
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, wasteTypeNotSure: !formData.wasteTypeNotSure })}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer ${
+                        formData.wasteTypeNotSure
+                          ? 'bg-forest-900 text-white border-forest-900'
+                          : 'bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300'
                       }`}
                     >
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <h4 className="text-sm font-bold text-zinc-900">{plant.organisation}</h4>
-                          <span className="text-[11px] text-zinc-500 capitalize">
-                            Scale: {plant.scale} · {plant.capacityMin}–{plant.capacityMax} {plant.capacityUnit}
-                          </span>
-                        </div>
-                        <input
-                          type="checkbox"
-                          checked={isSelected}
-                          onChange={() => {}} // Handled by div click
-                          className="w-4 h-4 rounded text-forest-800 focus:ring-forest-800 mt-1 cursor-pointer bg-white border-zinc-300"
-                        />
-                      </div>
-
-                      <div className="space-y-1 text-xs text-zinc-600">
-                        {plant.matchReasons?.map((reason, idx) => (
-                          <div key={idx} className="flex items-center gap-1.5 text-[11px] text-forest-900">
-                            <CheckCircle2 size={12} className="shrink-0" />
-                            <span>{reason}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="pt-2 border-t border-zinc-200 flex items-center justify-between text-[11px]">
-                        <div className="flex items-center gap-2">
-                          <span className="inline-flex items-center gap-1 text-forest-900 font-medium">
-                            <ShieldCheck size={11} /> {plant.evidenceSummary.provided} verified
-                          </span>
-                          {plant.evidenceSummary.missing > 0 && (
-                            <span className="inline-flex items-center gap-1 text-rose-600 font-medium">
-                              <AlertCircle size={11} /> {plant.evidenceSummary.missing} missing
-                            </span>
-                          )}
-                        </div>
-                        <span className="text-zinc-400">
-                          {isSelected ? 'Selected' : 'Click to select'}
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {selectedPlantIds.length === 0 && (
-                <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-center gap-2">
-                  <AlertCircle size={15} className="shrink-0" />
-                  <span>Please select at least one plant provider to receive your enquiry.</span>
+                      {formData.wasteTypeNotSure ? 'Selected: Mixed stream' : "I'm not sure"}
+                    </button>
+                  </div>
                 </div>
               )}
-            </div>
-          )}
 
-          {/* STEP 7: Project Summary & Enquiry Review */}
-          {currentStep === 7 && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-              <div className="space-y-1">
-                <h3 className="text-lg font-bold text-zinc-900">Review Project Summary</h3>
-                <p className="text-xs sm:text-sm text-zinc-600">
-                  Always review your specifications and assumptions before sending a simulated enquiry.
-                </p>
-              </div>
+              {/* ======================================================== */}
+              {/* STEP 2: Daily Mass & Frequency                           */}
+              {/* ======================================================== */}
+              {currentStep === 2 && (
+                <div className="space-y-4">
+                  <div className="space-y-1">
+                    <h3 className="text-base font-semibold text-zinc-900">
+                      How much organic waste is generated daily?
+                    </h3>
+                    <p className="text-xs text-zinc-600">
+                      Click a quick preset or type your estimated daily kilograms.
+                    </p>
+                  </div>
 
-              {/* Review Summary Card */}
-              <div className="p-5 rounded-xl bg-zinc-50 border border-zinc-200 space-y-4 text-xs">
-                <div className="flex items-center justify-between border-b border-zinc-200 pb-2">
-                  <span className="font-bold text-zinc-900">Enquiry Summary</span>
-                  <StatusBadge status="illustrative" size="sm" label="Simulated enquiry" />
+                  {!formData.quantityNotSure && (
+                    <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 space-y-4">
+                      {/* Presets */}
+                      <div className="space-y-1.5">
+                        <label className="text-xs font-medium text-zinc-700 block">
+                          Typical commercial presets:
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                          {[
+                            { label: 'Small Cafe (~50 kg)', kg: '50' },
+                            { label: 'Restaurant (~150 kg)', kg: '150' },
+                            { label: 'Dining Hall (~300 kg)', kg: '300' },
+                            { label: 'Bulk Canteen (~500 kg)', kg: '500' },
+                            { label: 'Commercial (~1000 kg)', kg: '1000' },
+                          ].map((p) => {
+                            const isSelected = formData.quantityKg === p.kg;
+                            return (
+                              <button
+                                key={p.kg}
+                                type="button"
+                                onClick={() => setFormData({ ...formData, quantityKg: p.kg })}
+                                className={`text-xs px-3 py-1.5 rounded-lg border transition-all cursor-pointer font-medium ${
+                                  isSelected
+                                    ? 'bg-forest-900 text-white border-forest-900 shadow-xs'
+                                    : 'bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300'
+                                }`}
+                              >
+                                {p.label}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Input Field */}
+                      <div className="space-y-1.5 pt-1">
+                        <label htmlFor="quantity-input" className="text-xs font-medium text-zinc-700 block">
+                          Weight in kilograms:
+                        </label>
+                        <div className="relative max-w-xs">
+                          <input
+                            id="quantity-input"
+                            type="number"
+                            min="10"
+                            max="10000"
+                            value={formData.quantityKg}
+                            onChange={(e) => setFormData({ ...formData, quantityKg: e.target.value })}
+                            className="w-full text-base font-semibold px-3 py-2 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                          />
+                          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-zinc-500">
+                            kg / day
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Collection Rhythm */}
+                      <div className="space-y-1.5 pt-1">
+                        <label className="text-xs font-medium text-zinc-700 block">
+                          Collection or feeding rhythm:
+                        </label>
+                        <div className="flex gap-2">
+                          {['Daily collection', 'Alternate days', 'Weekly pickup'].map((freq) => (
+                            <button
+                              key={freq}
+                              type="button"
+                              onClick={() => setFormData({ ...formData, frequency: freq })}
+                              className={`text-xs px-3 py-1.5 rounded-lg border transition-colors cursor-pointer ${
+                                formData.frequency === freq
+                                  ? 'bg-zinc-900 text-white border-zinc-900 font-medium'
+                                  : 'bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300'
+                              }`}
+                            >
+                              {freq}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Not sure toggle */}
+                  <div className="p-3.5 rounded-xl border border-zinc-200 bg-zinc-50 flex items-center justify-between gap-3 text-xs">
+                    <div>
+                      <span className="font-semibold text-zinc-900 block">Unsure of exact daily kilograms?</span>
+                      <span className="text-zinc-500">We will arrange an on-site scrap characterization survey.</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, quantityNotSure: !formData.quantityNotSure })}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer ${
+                        formData.quantityNotSure
+                          ? 'bg-forest-900 text-white border-forest-900'
+                          : 'bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300'
+                      }`}
+                    >
+                      {formData.quantityNotSure ? 'Selected: Needs survey' : "I'm not sure"}
+                    </button>
+                  </div>
                 </div>
+              )}
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  <div>
-                    <span className="text-zinc-500 block">Sender Persona:</span>
-                    <strong className="text-zinc-900">{activeProfile.name}</strong>
+              {/* ======================================================== */}
+              {/* STEP 3: Location & Site Constraints                      */}
+              {/* ======================================================== */}
+              {currentStep === 3 && (
+                <div className="space-y-4">
+                  <div className="space-y-1">
+                    <h3 className="text-base font-semibold text-zinc-900">
+                      Where is your kitchen or site located?
+                    </h3>
+                    <p className="text-xs text-zinc-600">
+                      Used to match digesters with active service routes in your neighborhood.
+                    </p>
                   </div>
-                  <div>
-                    <span className="text-zinc-500 block">Location:</span>
-                    <strong className="text-zinc-900">{formData.location}</strong>
-                  </div>
-                  <div>
-                    <span className="text-zinc-500 block">Feedstock Type:</span>
-                    <strong className="text-zinc-900">{formData.wasteTypeNotSure ? 'Assessment Required' : formData.wasteType}</strong>
-                  </div>
-                  <div>
-                    <span className="text-zinc-500 block">Daily Volume:</span>
-                    <strong className="text-zinc-900">
-                      {formData.quantityNotSure ? 'Assessment Required' : `${formData.quantityKg} kg/day (${formData.frequency})`}
-                    </strong>
+
+                  <div className="space-y-4">
+                    <div className="space-y-1.5">
+                      <label htmlFor="location-input" className="text-xs font-medium text-zinc-700 block">
+                        City / Neighborhood / Postal Area
+                      </label>
+                      <div className="relative">
+                        <MapPin size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+                        <input
+                          id="location-input"
+                          type="text"
+                          value={formData.location}
+                          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                          className="w-full text-xs sm:text-sm pl-9 pr-3 py-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                          placeholder="e.g. Indiranagar, Bengaluru or Kothrud, Pune"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label htmlFor="constraints-input" className="text-xs font-medium text-zinc-700 block">
+                        Vehicle access & storage space:
+                      </label>
+                      <input
+                        id="constraints-input"
+                        type="text"
+                        value={formData.siteConstraints}
+                        onChange={(e) => setFormData({ ...formData, siteConstraints: e.target.value })}
+                        className="w-full text-xs sm:text-sm px-3 py-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                        placeholder="e.g. Rear service lane access; ground space for 2 bins"
+                      />
+                    </div>
                   </div>
                 </div>
+              )}
 
-                <div className="pt-2 border-t border-zinc-200">
-                  <span className="text-zinc-500 block">Estimated Biogas Output:</span>
-                  <strong className="text-sm font-bold text-forest-900">
-                    {assessmentResult?.dailyBiogas
-                      ? `${assessmentResult.dailyBiogas.min} – ${assessmentResult.dailyBiogas.max} m³/day (${assessmentResult.thermalEnergy.min}–${assessmentResult.thermalEnergy.max} kWh/day thermal)`
-                      : 'Assessment required (on-site audit required)'}
-                  </strong>
-                </div>
+              {/* ======================================================== */}
+              {/* STEP 4: RESULTS WITH VISUAL CYLINDERS (PRACTICAL!)       */}
+              {/* ======================================================== */}
+              {currentStep === 4 && (
+                <div className="space-y-5">
+                  <div className="space-y-1">
+                    <span className="text-xs font-semibold text-forest-900 uppercase tracking-wider">
+                      Assessment Outcome
+                    </span>
+                    <h3 className="text-lg font-semibold text-zinc-900">
+                      Calculated Fuel & Monthly Savings
+                    </h3>
+                    <p className="text-xs text-zinc-600">
+                      Based on {formData.quantityNotSure ? 'baseline benchmark' : `${formData.quantityKg} kg/day`} of {formData.wasteType}.
+                    </p>
+                  </div>
 
-                <div className="pt-2 border-t border-zinc-200">
-                  <span className="text-zinc-500 block">Selected Recipient Providers:</span>
-                  <div className="flex flex-wrap gap-1.5 mt-1">
-                    {matchedPlants
-                      .filter((p) => selectedPlantIds.includes(p.id))
-                      .map((p) => (
-                        <span key={p.id} className="px-2 py-0.5 rounded bg-zinc-100 border border-zinc-200 text-zinc-800 font-medium">
-                          {p.organisation}
+                  {/* FEATURED VISUAL: LPG CYLINDERS SAVED */}
+                  <div className="p-5 rounded-xl bg-gradient-to-br from-amber-50/80 to-orange-50/40 border border-amber-200 space-y-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-amber-200/70 pb-3">
+                      <div>
+                        <span className="text-xs font-bold uppercase tracking-wider text-amber-950 block">
+                          Commercial LPG Cylinders Replaced
                         </span>
-                      ))}
+                        <span className="text-xs text-amber-800">
+                          Displaces 19 kg commercial gas cylinders every month
+                        </span>
+                      </div>
+                      <div className="self-start sm:self-auto px-3 py-1 rounded-full bg-forest-900 text-white font-semibold text-xs shadow-xs">
+                        ₹{computedSavings} / month fuel saved
+                      </div>
+                    </div>
+
+                    {/* PHYSICAL CYLINDERS DISPLAY */}
+                    <div className="py-2">
+                      <CylinderDisplay count={computedCylinders} size={32} showLabel={false} />
+                    </div>
+
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl font-bold text-amber-950 tabular-nums">
+                        {computedCylinders}
+                      </span>
+                      <span className="text-xs font-medium text-amber-900">
+                        commercial 19 kg cylinders displaced per month
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 3 Practical Metric Cards with Icons */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {/* Metric 1: Clean Cooking Gas */}
+                    <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200/90 space-y-1">
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-zinc-700">
+                        <Flame size={15} className="text-forest-800 stroke-[2]" />
+                        <span>Biogas Output</span>
+                      </div>
+                      <span className="text-2xl font-bold text-zinc-900 block tabular-nums">
+                        {computedGasM3} <span className="text-xs font-normal text-zinc-500">m³ / day</span>
+                      </span>
+                      <span className="text-[11px] text-zinc-500 block">
+                        ~{burnerHours} continuous cooking burner hours
+                      </span>
+                    </div>
+
+                    {/* Metric 2: Hot Meals Cooked */}
+                    <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200/90 space-y-1">
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-zinc-700">
+                        <Utensils size={15} className="text-forest-800 stroke-[2]" />
+                        <span>Hot Meals Cooked</span>
+                      </div>
+                      <span className="text-2xl font-bold text-zinc-900 block tabular-nums">
+                        {mealsCooked}
+                      </span>
+                      <span className="text-[11px] text-zinc-500 block">
+                        meals cooked daily on clean blue flame
+                      </span>
+                    </div>
+
+                    {/* Metric 3: Organic Fertilizer */}
+                    <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200/90 space-y-1">
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-zinc-700">
+                        <Droplets size={15} className="text-forest-800 stroke-[2]" />
+                        <span>Bio-Fertilizer</span>
+                      </div>
+                      <span className="text-2xl font-bold text-zinc-900 block tabular-nums">
+                        {compostKg} <span className="text-xs font-normal text-zinc-500">kg / day</span>
+                      </span>
+                      <span className="text-[11px] text-zinc-500 block">
+                        nutrient-rich soil replenishment
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
-              {/* Questions & Contact Preference */}
-              <div className="space-y-4">
-                <div className="space-y-1.5">
-                  <label htmlFor="questions-input" className="text-xs font-bold text-zinc-600 uppercase tracking-wide block">
-                    Unresolved Questions & Site Specifics
-                  </label>
-                  <textarea
-                    id="questions-input"
-                    rows="3"
-                    value={formData.questions}
-                    onChange={(e) => setFormData({ ...formData, questions: e.target.value })}
-                    className="w-full text-xs sm:text-sm p-3 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder:text-zinc-400:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-forest-800"
-                    placeholder="Enter any questions regarding delivery access, container lease, or grid connection..."
-                  />
-                </div>
+              {/* ======================================================== */}
+              {/* STEP 5: Matched Digester Operators (NO EVIDENCE JARGON)  */}
+              {/* ======================================================== */}
+              {currentStep === 5 && (
+                <div className="space-y-4">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <h3 className="text-base font-semibold text-zinc-900">
+                        Matching Local Digester Operators
+                      </h3>
+                      <p className="text-xs text-zinc-600">
+                        Operators accepting {formData.wasteType} in {formData.location}.
+                      </p>
+                    </div>
+                    <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-forest-50 text-forest-900 border border-forest-200">
+                      {matchedPlants.length} nearby operators
+                    </span>
+                  </div>
 
-                <div className="space-y-1.5">
-                  <label htmlFor="pref-input" className="text-xs font-bold text-zinc-600 uppercase tracking-wide block">
-                    Preferred Follow-Up Method
-                  </label>
-                  <input
-                    id="pref-input"
-                    type="text"
-                    value={formData.contactPreference}
-                    onChange={(e) => setFormData({ ...formData, contactPreference: e.target.value })}
-                    className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-xl bg-white border border-zinc-300 text-zinc-900 placeholder:text-zinc-400:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-forest-800"
-                  />
+                  <div className="space-y-3">
+                    {matchedPlants.map((plant) => {
+                      const isSelected = selectedPlantIds.includes(plant.id);
+                      return (
+                        <div
+                          key={plant.id}
+                          onClick={() => togglePlantSelect(plant.id)}
+                          className={`p-4 rounded-xl border transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
+                            isSelected
+                              ? 'border-forest-900 bg-forest-50/50 shadow-xs'
+                              : 'border-zinc-200 bg-white hover:border-zinc-300'
+                          }`}
+                        >
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2">
+                              <h4 className="font-semibold text-zinc-900 text-sm">
+                                {plant.organisation}
+                              </h4>
+                              <span className="text-[11px] font-medium bg-forest-100/70 text-forest-900 px-2 py-0.5 rounded border border-forest-200">
+                                Verified Operator
+                              </span>
+                            </div>
+                            <p className="text-xs text-zinc-600 leading-relaxed max-w-lg">
+                              Capacity: {plant.capacityMin}–{plant.capacityMax} {plant.capacityUnit} · Service: {plant.serviceArea?.slice(0, 3).join(', ')}
+                            </p>
+                            <span className="text-[11px] text-zinc-500 block">
+                              Terms: {plant.omOffering}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
+                            <button
+                              type="button"
+                              className={`text-xs px-3.5 py-1.5 rounded-lg font-medium border transition-colors cursor-pointer ${
+                                isSelected
+                                  ? 'bg-forest-900 text-white border-forest-900'
+                                  : 'bg-zinc-50 text-zinc-700 border-zinc-200'
+                              }`}
+                            >
+                              {isSelected ? 'Selected' : 'Select'}
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            </div>
-          )}
+              )}
+
+              {/* ======================================================== */}
+              {/* STEP 6: Review & Send Request                            */}
+              {/* ======================================================== */}
+              {currentStep === 6 && (
+                <div className="space-y-5">
+                  <div className="space-y-1">
+                    <h3 className="text-base font-semibold text-zinc-900">
+                      Confirm & Send Collection Request
+                    </h3>
+                    <p className="text-xs text-zinc-600">
+                      Review your feedstock profile before sending to the selected operators.
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 space-y-3 text-xs">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 border-b border-zinc-200/80 pb-3">
+                      <div>
+                        <span className="text-[11px] text-zinc-500 block">Waste stream:</span>
+                        <span className="font-semibold text-zinc-900">{formData.wasteType}</span>
+                      </div>
+                      <div>
+                        <span className="text-[11px] text-zinc-500 block">Daily mass:</span>
+                        <span className="font-semibold text-zinc-900">{formData.quantityKg} kg / day</span>
+                      </div>
+                      <div>
+                        <span className="text-[11px] text-zinc-500 block">Location:</span>
+                        <span className="font-semibold text-zinc-900">{formData.location}</span>
+                      </div>
+                      <div>
+                        <span className="text-[11px] text-zinc-500 block">LPG displaced:</span>
+                        <span className="font-semibold text-forest-900">~{computedCylinders} cylinders / mo</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label htmlFor="questions-input" className="text-xs font-medium text-zinc-700 block">
+                        Specific questions or logistics notes:
+                      </label>
+                      <textarea
+                        id="questions-input"
+                        rows="2"
+                        value={formData.questions}
+                        onChange={(e) => setFormData({ ...formData, questions: e.target.value })}
+                        className="w-full text-xs p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                        placeholder="e.g. Can you supply 120L sealable bins? What is the pickup timing?"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5 pt-1">
+                      <label htmlFor="contact-pref" className="text-xs font-medium text-zinc-700 block">
+                        Preferred contact method:
+                      </label>
+                      <input
+                        id="contact-pref"
+                        type="text"
+                        value={formData.contactPreference}
+                        onChange={(e) => setFormData({ ...formData, contactPreference: e.target.value })}
+                        className="w-full text-xs px-3 py-2 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                        placeholder="e.g. Email with quote or WhatsApp call"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>
       )}
 
-      {/* Navigation Buttons Footer */}
+      {/* FOOTER BUTTONS: Navigation */}
       {!enquirySuccess && (
-        <div className="flex items-center justify-between border-t border-zinc-200 pt-5">
-          <motion.button
-            whileTap={{ scale: 0.98 }}
-            type="button"
-            onClick={currentStep === 1 ? onCancel : prevStep}
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-zinc-500 hover:text-zinc-800:text-zinc-200 px-3 py-2 rounded-xl transition-colors cursor-pointer"
-          >
-            <ArrowLeft size={15} />
-            <span>{currentStep === 1 ? 'Cancel Assessment' : 'Back'}</span>
-          </motion.button>
-
-          <div className="flex items-center gap-3">
-            {currentStep < 7 ? (
-              <motion.button
-                whileTap={{ scale: 0.98 }}
+        <div className="flex items-center justify-between pt-4 border-t border-zinc-100 text-xs">
+          <div>
+            {currentStep > 1 ? (
+              <button
                 type="button"
-                onClick={nextStep}
-                disabled={loading || (currentStep === 6 && selectedPlantIds.length === 0)}
-                className="inline-flex items-center gap-2 bg-forest-900 hover:bg-forest-800 disabled:bg-zinc-200:bg-zinc-800 disabled:text-zinc-400:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors shadow-xs cursor-pointer disabled:cursor-not-allowed"
+                onClick={prevStep}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-700 font-medium transition-colors cursor-pointer"
               >
-                <span>{currentStep === 4 ? (loading ? 'Calculating...' : 'Calculate Indicative Range') : 'Continue'}</span>
-                <ArrowRight size={15} />
-              </motion.button>
+                <ArrowLeft size={13} />
+                <span>Back</span>
+              </button>
             ) : (
-              <motion.button
-                whileTap={{ scale: 0.98 }}
+              <button
                 type="button"
-                onClick={handleSubmitEnquiry}
-                disabled={loading || selectedPlantIds.length === 0}
-                className="inline-flex items-center gap-2 bg-forest-900 hover:bg-forest-800 disabled:bg-zinc-200:bg-zinc-800 disabled:text-zinc-400:text-zinc-600 text-white font-semibold text-xs sm:text-sm px-6 py-2.5 rounded-xl transition-colors shadow-xs cursor-pointer disabled:cursor-not-allowed"
+                onClick={onCancel}
+                className="text-xs text-zinc-500 hover:text-zinc-800 transition-colors cursor-pointer"
               >
-                <Send size={15} />
-                <span>{loading ? 'Submitting...' : 'Send Simulated Enquiry'}</span>
-              </motion.button>
+                Cancel
+              </button>
+            )}
+          </div>
+
+          <div className="flex items-center gap-2">
+            {currentStep === STEPS.length ? (
+              <button
+                type="button"
+                disabled={loading || selectedPlantIds.length === 0}
+                onClick={handleSubmitEnquiry}
+                className="inline-flex items-center gap-1.5 bg-forest-900 hover:bg-forest-800 disabled:opacity-50 text-white font-medium text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer shadow-xs"
+              >
+                <Send size={13} />
+                <span>{loading ? 'Sending Request...' : 'Send Request to Operators'}</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                disabled={loading}
+                onClick={nextStep}
+                className="inline-flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer"
+              >
+                <span>{currentStep === 3 ? 'Calculate Fuel Output' : 'Next Step'}</span>
+                <ArrowRight size={13} />
+              </button>
             )}
           </div>
         </div>

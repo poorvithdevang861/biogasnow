@@ -142,10 +142,10 @@ export function CompareTable({
             ))}
           </tr>
 
-          {/* SECTION HEADER: VERIFIED EVIDENCE */}
+          {/* SECTION HEADER: OPERATIONAL CERTIFICATIONS */}
           <tr className="bg-zinc-50 border-y border-zinc-200/80">
-            <td colSpan={plants.length + 1} className="px-4 py-2 font-medium text-zinc-900 text-xs">
-              Documented & audited evidence
+            <td colSpan={plants.length + 1} className="px-4 py-2 font-semibold text-zinc-900 text-xs">
+              Operational Certifications & Track Record
             </td>
           </tr>
 

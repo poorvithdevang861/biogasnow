@@ -25,6 +25,7 @@ import { useProfile } from '../../context/ProfileContext';
 import { api } from '../../api/client';
 import { ConsumerWizard } from './ConsumerWizard';
 import { CompareTable } from '../../components/CompareTable';
+import { CylinderIcon } from '../../components/CylinderIcon';
 import { ProviderDetailModal } from '../../components/ProviderDetailModal';
 
 const SCALES = [
@@ -175,13 +176,14 @@ export function ConsumerDashboard() {
         {/* 4 Summary Metric Indicators */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
           <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200/80 space-y-0.5">
-            <span className="text-[11px] text-zinc-500 block">
-              Estimated energy demand
+            <span className="text-[11px] text-zinc-500 block flex items-center gap-1">
+              <CylinderIcon size={14} className="text-amber-700" />
+              LPG fuel displacement
             </span>
-            <span className="text-lg font-medium text-zinc-900 block tabular-nums">
-              12 – 18 m³/day
+            <span className="text-lg font-medium text-forest-900 block tabular-nums">
+              ~6 cylinders/mo
             </span>
-            <span className="text-[11px] text-zinc-500">Commercial cooking & heating</span>
+            <span className="text-[11px] text-zinc-500 font-medium text-forest-800">₹11,100 / mo saved</span>
           </div>
 
           <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200/80 space-y-0.5">
@@ -261,7 +263,7 @@ export function ConsumerDashboard() {
                   Side-by-side provider comparison
                 </h2>
                 <p className="text-xs text-zinc-500 mt-0.5">
-                  Select 2 to 3 providers to inspect capacities, warranties, and verified documents with missing files flagged.
+                  Select 2 to 3 providers to compare equipment sizing, warranties, and operational specifications side-by-side.
                 </p>
               </div>
 

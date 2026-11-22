@@ -243,7 +243,7 @@ export function PlantDashboard() {
               Plant provider operations hub
             </h1>
             <p className="text-xs sm:text-sm text-zinc-600">
-              Capability showcase, compliance evidence registry, and inbound request management.
+              Manage inbound client requests, update plant specifications, and log operating installations.
             </p>
           </div>
 
@@ -299,12 +299,12 @@ export function PlantDashboard() {
 
           <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200/80 space-y-0.5">
             <span className="text-[11px] text-zinc-500 block">
-              Verified documents
+              Certifications & track record
             </span>
             <span className="text-lg font-medium text-zinc-900 block tabular-nums">
               {evidenceList.filter((e) => e.status === 'verified').length} / {evidenceList.length}
             </span>
-            <span className="text-[11px] text-zinc-500">Audited credentials on file</span>
+            <span className="text-[11px] text-zinc-500">Active records on file</span>
           </div>
         </div>
       </div>
@@ -507,7 +507,7 @@ export function PlantDashboard() {
           </div>
         )}
 
-        {/* Tab 2: Evidence Manager */}
+        {/* Tab 2: Certifications & Projects */}
         {activeTab === 'evidence' && (
           <div className="space-y-4">
             <div className="bg-white rounded-xl p-5 border border-zinc-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)] space-y-4">
@@ -515,7 +515,7 @@ export function PlantDashboard() {
                 <div>
                   <h2 className="text-base font-medium text-zinc-900 flex items-center gap-2">
                     <ShieldCheck size={16} className="text-forest-900 stroke-[1.5]" />
-                    Engineering credentials & evidence
+                    Engineering certifications & projects
                   </h2>
                   <p className="text-xs text-zinc-500 mt-0.5">
                     Manage third-party commissioning sign-offs, customer references, and safety permits.
@@ -528,26 +528,26 @@ export function PlantDashboard() {
                   className="inline-flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-xs px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
                 >
                   <Plus size={14} className="stroke-[1.5]" />
-                  <span>Add evidence document</span>
+                  <span>Add certification / project</span>
                 </button>
               </div>
 
-              {/* Evidence Counts */}
+              {/* Counts */}
               <div className="grid grid-cols-3 gap-3 text-xs">
                 <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200/80">
-                  <span className="text-[11px] text-zinc-500 block">Verified documents</span>
+                  <span className="text-[11px] text-zinc-500 block">Active certifications</span>
                   <span className="text-lg font-medium text-forest-900 block tabular-nums mt-0.5">
                     {evidenceList.filter((e) => e.status === 'verified').length}
                   </span>
                 </div>
                 <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200/80">
-                  <span className="text-[11px] text-zinc-500 block">Pending review</span>
+                  <span className="text-[11px] text-zinc-500 block">Pending verification</span>
                   <span className="text-lg font-medium text-zinc-900 block tabular-nums mt-0.5">
                     {evidenceList.filter((e) => e.status === 'pending').length}
                   </span>
                 </div>
                 <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200/80">
-                  <span className="text-[11px] text-zinc-500 block">Total documents</span>
+                  <span className="text-[11px] text-zinc-500 block">Total records</span>
                   <span className="text-lg font-medium text-zinc-900 block tabular-nums mt-0.5">
                     {evidenceList.length}
                   </span>

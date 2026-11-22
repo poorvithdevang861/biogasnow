@@ -72,25 +72,25 @@ export function ProviderDetailModal({
 
         {/* Claims vs Evidence */}
         <div className="grid sm:grid-cols-2 gap-3">
-          {/* Stated Commercial Claims */}
+          {/* Service Terms & Warranty */}
           <div className="p-3.5 rounded-lg bg-zinc-50 border border-zinc-200/80 space-y-2">
             <div className="flex items-center justify-between border-b border-zinc-200/80 pb-2">
               <div className="flex items-center gap-1.5 font-medium text-zinc-900">
                 <FileText size={14} className="text-zinc-500 stroke-[1.5]" />
-                <span>Commercial claims</span>
+                <span>Service terms & SLA</span>
               </div>
-              <StatusBadge status="self-reported" size="sm" label="Self-reported" />
+              <StatusBadge status="self-reported" size="sm" label="Standard terms" />
             </div>
 
             <div className="space-y-1.5">
               <div>
-                <span className="text-[11px] text-zinc-500 block">O&M offering:</span>
+                <span className="text-[11px] text-zinc-500 block">O&M agreement:</span>
                 <p className="text-zinc-800 leading-relaxed text-xs">
                   {plant.claims?.statedOmOffering || plant.omOffering || 'Comprehensive maintenance SLA.'}
                 </p>
               </div>
               <div>
-                <span className="text-[11px] text-zinc-500 block">Stated warranty:</span>
+                <span className="text-[11px] text-zinc-500 block">Hardware warranty:</span>
                 <p className="text-zinc-800 text-xs">
                   {plant.claims?.statedWarranty || plant.warranty || 'Standard manufacturer warranty.'}
                 </p>
@@ -98,14 +98,14 @@ export function ProviderDetailModal({
             </div>
           </div>
 
-          {/* Independently Verified Evidence */}
+          {/* Certifications & Approvals */}
           <div className="p-3.5 rounded-lg bg-zinc-50 border border-zinc-200/80 space-y-2">
             <div className="flex items-center justify-between border-b border-zinc-200/80 pb-2">
               <div className="flex items-center gap-1.5 font-medium text-zinc-900">
                 <ShieldCheck size={14} className="text-forest-900 stroke-[1.5]" />
-                <span>Audited evidence</span>
+                <span>Certifications & track record</span>
               </div>
-              <StatusBadge status="verified" size="sm" label="Audited proofs" />
+              <StatusBadge status="verified" size="sm" label="Verified" />
             </div>
 
             <div className="space-y-1.5 text-xs">
