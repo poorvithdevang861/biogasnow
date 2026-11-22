@@ -1,0 +1,105 @@
+[
+  {
+    "id": "plant-apex-1",
+    "organisation": "UrjaVeda BioEnergy Tech",
+    "services": [
+      "Feasibility study & feedstock characterization",
+      "Turnkey containerized digester build",
+      "Civil & ground works integration",
+      "Full ongoing O&M contract",
+      "Commissioning & CPCB/PESO safety sign-off"
+    ],
+    "supportedFeedstock": [
+      "Food waste (commercial kitchen)",
+      "Mandi vegetable & fruit discards",
+      "Cattle dung & dairy slurry"
+    ],
+    "capacityMin": 50,
+    "capacityMax": 1000,
+    "capacityUnit": "kg/day",
+    "scale": "medium",
+    "serviceArea": [
+      "Bengaluru",
+      "Vadodara",
+      "Pune",
+      "Ahmedabad",
+      "Mumbai MMR"
+    ],
+    "omOffering": "Comprehensive 24/7 preventative maintenance with IoT telemetry and bi-monthly biological volatile fatty acid testing.",
+    "warranty": "5-year structural vessel warranty and 2-year electro-mechanical warranty."
+  },
+  {
+    "id": "plant-circular-2",
+    "organisation": "Prakriti CleanGas Systems",
+    "services": [
+      "Modular containerized digester supply",
+      "Basic on-site biogas burner plumbing connection",
+      "Operator training handbook & SOPs"
+    ],
+    "supportedFeedstock": [
+      "Food waste (commercial kitchen)",
+      "Mixed organic & vegetable scraps"
+    ],
+    "capacityMin": 20,
+    "capacityMax": 250,
+    "capacityUnit": "kg/day",
+    "scale": "small",
+    "serviceArea": [
+      "Bengaluru",
+      "Coimbatore",
+      "Mysuru",
+      "Chennai"
+    ],
+    "omOffering": "Annual mechanical check-up; daily feedstock feeding and pH monitoring managed by customer.",
+    "warranty": "2-year manufacturer component warranty (vessel unverified)."
+  },
+  {
+    "id": "plant-terra-3",
+    "organisation": "Bhoomi Shakti BioPower",
+    "services": [
+      "Decentralized micro-digester unit manufacturing",
+      "Standard delivery & basic siting"
+    ],
+    "supportedFeedstock": [
+      "Food waste (commercial kitchen)",
+      "Household food waste"
+    ],
+    "capacityMin": 10,
+    "capacityMax": 100,
+    "capacityUnit": "kg/day",
+    "scale": "small",
+    "serviceArea": [
+      "Indore",
+      "Bhopal",
+      "Ujjain",
+      "Central India"
+    ],
+    "omOffering": "Not provided / Not verified",
+    "warranty": "1-year limited parts only"
+  },
+  {
+    "id": "plant-valebio-4",
+    "organisation": "Kisan Urja BioRefineries",
+    "services": [
+      "Large-scale continuous stirred-tank reactors (CSTR)",
+      "Biomethane purification and Bio-CNG bottling skids"
+    ],
+    "supportedFeedstock": [
+      "Agricultural slurry & cattle manure",
+      "Sugarcane press-mud & mandi waste",
+      "Food waste (commercial kitchen)"
+    ],
+    "capacityMin": 500,
+    "capacityMax": 10000,
+    "capacityUnit": "kg/day",
+    "scale": "large",
+    "serviceArea": [
+      "Nashik",
+      "Pune Rural",
+      "Surat",
+      "Aurangabad"
+    ],
+    "omOffering": "Scheduled quarterly visits; emergency unscheduled call-out subject to standard commercial day rates.",
+    "warranty": "Not provided / Not verified"
+  }
+]

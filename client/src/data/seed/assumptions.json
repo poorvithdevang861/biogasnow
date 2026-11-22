@@ -1,0 +1,46 @@
+[
+  {
+    "wasteType": "Food waste (commercial kitchen)",
+    "category": "High Energy Organic",
+    "yieldMin": 80,
+    "yieldMax": 120,
+    "unit": "m³ biogas / fresh tonne",
+    "methaneConcentration": "58% - 65% CH4",
+    "source": "WRAP UK / Defra Organic Waste Conversion Benchmark (Illustrative prototype data)",
+    "date": "2024-10",
+    "caveat": "Assumes low physical contamination (<3% non-organics) and balanced volatile solids. Higher oil/fats content increases yield toward the upper bound but requires mesophilic temperature stability."
+  },
+  {
+    "wasteType": "Mixed organic & vegetable scraps",
+    "category": "Medium Moisture Organic",
+    "yieldMin": 45,
+    "yieldMax": 70,
+    "unit": "m³ biogas / fresh tonne",
+    "methaneConcentration": "52% - 58% CH4",
+    "source": "International Energy Agency (IEA) Bioenergy Task 37 Table 4.2 (Illustrative prototype data)",
+    "date": "2024-04",
+    "caveat": "High inherent water content reduces biogas yield per fresh tonne. Requires mechanical maceration to prevent fibrous floating crust in smaller digesters."
+  },
+  {
+    "wasteType": "Brewery spent grain & trub",
+    "category": "High Protein/Starch By-product",
+    "yieldMin": 90,
+    "yieldMax": 140,
+    "unit": "m³ biogas / fresh tonne",
+    "methaneConcentration": "55% - 62% CH4",
+    "source": "European Biomass Industry Association (EUBIA) Feedstock Guide (Illustrative prototype data)",
+    "date": "2024-01",
+    "caveat": "Prone to rapid acidification (VFA accumulation) if fed without buffering. Co-digestion with alkaline manure or pH control chemicals is strongly recommended."
+  },
+  {
+    "wasteType": "Agricultural slurry & manure",
+    "category": "Liquid Inoculant / Base",
+    "yieldMin": 20,
+    "yieldMax": 35,
+    "unit": "m³ biogas / fresh tonne",
+    "methaneConcentration": "50% - 55% CH4",
+    "source": "Anaerobic Digestion and Bioresources Association (ADBA) Feedstock Metric (Illustrative prototype data)",
+    "date": "2023-11",
+    "caveat": "Relatively low energy density due to 88-92% water content. Provides essential biological buffering, micronutrients, and liquid vehicle when co-digested with solid food waste."
+  }
+]
