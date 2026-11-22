@@ -70,7 +70,14 @@ export function CylinderIcon({ size = 28, className = 'text-rose-600', filled = 
  * Visual Cylinder Group Display
  * Shows a stack or row of cylinders with count and savings badges
  */
-export function CylinderDisplay({ count = 1, showLabel = true, size = 26, maxIcons = 8 }) {
+export function CylinderDisplay({
+  count = 1,
+  showLabel = true,
+  size = 26,
+  maxIcons = 8,
+  cylinderClassName = 'text-forest-900',
+  badgeClassName = 'bg-forest-50 text-forest-900 border-forest-200',
+}) {
   const num = Math.max(1, Math.round(Number(count) || 1));
   const visibleIcons = Math.min(num, maxIcons);
   const remaining = num - visibleIcons;
@@ -81,14 +88,14 @@ export function CylinderDisplay({ count = 1, showLabel = true, size = 26, maxIco
         {Array.from({ length: visibleIcons }).map((_, idx) => (
           <div
             key={idx}
-            className="transition-transform hover:-translate-y-1 duration-150"
+            className="transition-transform hover:-translate-y-0.5 duration-150"
             title={`LPG Cylinder #${idx + 1}`}
           >
-            <CylinderIcon size={size} className="text-amber-700" filled />
+            <CylinderIcon size={size} className={cylinderClassName} filled />
           </div>
         ))}
         {remaining > 0 && (
-          <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-200 self-center">
+          <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border self-center ${badgeClassName}`}>
             +{remaining} more
           </span>
         )}

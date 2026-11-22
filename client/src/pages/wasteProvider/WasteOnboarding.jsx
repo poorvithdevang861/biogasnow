@@ -166,10 +166,7 @@ export function WasteOnboarding() {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-200/80 pb-4">
         <div>
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-forest-900 bg-forest-50 px-2 py-0.5 rounded border border-forest-200">
-            Waste Generator Onboarding
-          </span>
-          <h1 className="text-xl sm:text-2xl font-semibold text-zinc-900 mt-1">
+          <h1 className="text-xl sm:text-2xl font-semibold text-zinc-900">
             Turn your daily food scraps into cooking fuel
           </h1>
           <p className="text-xs text-zinc-500 mt-0.5">
@@ -491,13 +488,13 @@ export function WasteOnboarding() {
                   </div>
 
                   {/* VISUAL COMMERCIAL CYLINDERS CARD */}
-                  <div className="p-5 rounded-xl bg-gradient-to-br from-amber-50/80 to-orange-50/40 border border-amber-200 space-y-4">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-amber-200/70 pb-3">
+                  <div className="p-5 rounded-xl bg-forest-50/40 border border-forest-200/80 space-y-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-forest-200/60 pb-3">
                       <div>
-                        <span className="text-xs font-bold uppercase tracking-wider text-amber-950 block">
+                        <span className="text-xs font-bold uppercase tracking-wider text-forest-950 block">
                           Commercial LPG Cylinders Replaced
                         </span>
-                        <span className="text-xs text-amber-800">
+                        <span className="text-xs text-forest-800">
                           Replaces standard 19 kg commercial gas cylinders every month
                         </span>
                       </div>
@@ -508,14 +505,14 @@ export function WasteOnboarding() {
 
                     {/* PHYSICAL CYLINDERS DISPLAY */}
                     <div className="py-2">
-                      <CylinderDisplay count={computedCylinders} size={32} showLabel={false} />
+                      <CylinderDisplay count={computedCylinders} size={32} showLabel={false} cylinderClassName="text-forest-900" />
                     </div>
 
                     <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-bold text-amber-950 tabular-nums">
+                      <span className="text-3xl font-bold text-forest-950 tabular-nums">
                         {computedCylinders}
                       </span>
-                      <span className="text-xs font-medium text-amber-900">
+                      <span className="text-xs font-medium text-forest-900">
                         commercial 19 kg cylinders displaced per month
                       </span>
                     </div>

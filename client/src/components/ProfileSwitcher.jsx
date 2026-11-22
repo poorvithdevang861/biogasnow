@@ -79,16 +79,16 @@ export function ProfileSwitcher() {
         className="flex items-center gap-2 bg-white hover:bg-zinc-50 border border-zinc-200/90 rounded-lg px-2.5 py-1.5 transition-colors duration-150 focus:outline-none focus:ring-1 focus:ring-forest-900 shadow-[0_1px_2px_rgba(0,0,0,0.03)] cursor-pointer"
         title={`Active: ${activeProfile.name} (${roleConfig.roleTitle})`}
       >
-        <div className={`w-5 h-5 rounded ${roleConfig.badgeClass} border flex items-center justify-center shrink-0`}>
-          <RoleIcon size={12} className="stroke-[1.5]" />
+        <div className={`w-6 h-6 rounded-md bg-forest-50 text-forest-900 border border-forest-200/80 flex items-center justify-center shrink-0`}>
+          <RoleIcon size={12} className="stroke-[1.75]" />
         </div>
 
         <div className="hidden sm:flex flex-col text-left leading-none max-w-[130px]">
-          <span className="text-[10px] text-zinc-500 capitalize truncate">
-            {roleConfig.roleTitle}
-          </span>
-          <span className="text-xs font-medium text-zinc-900 truncate mt-0.5">
+          <span className="text-xs font-medium text-zinc-900 truncate">
             {activeProfile.name}
+          </span>
+          <span className="text-[10px] text-zinc-500 truncate mt-0.5">
+            {activeProfile.location || 'Active Account'}
           </span>
         </div>
 

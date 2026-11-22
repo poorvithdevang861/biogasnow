@@ -118,10 +118,7 @@ export function PlantOnboarding() {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-200/80 pb-4">
         <div>
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-800 bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200">
-            Plant Operator Portal
-          </span>
-          <h1 className="text-xl sm:text-2xl font-semibold text-zinc-900 mt-1">
+          <h1 className="text-xl sm:text-2xl font-semibold text-zinc-900">
             {profileData.organisation}
           </h1>
           <p className="text-xs text-zinc-500 mt-0.5">
@@ -130,14 +127,14 @@ export function PlantOnboarding() {
         </div>
 
         {/* View Switcher Pills */}
-        <div className="flex items-center gap-1.5 self-start sm:self-auto bg-zinc-100 p-1 rounded-xl border border-zinc-200 text-xs">
+        <div className="flex items-center gap-1.5 self-start sm:self-auto bg-zinc-100/80 p-0.5 rounded-lg border border-zinc-200/60 text-xs">
           <button
             type="button"
             onClick={() => setActiveView('inbox')}
-            className={`px-3 py-1.5 rounded-lg font-medium transition-colors cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-md font-medium transition-colors cursor-pointer flex items-center gap-1.5 ${
               activeView === 'inbox'
-                ? 'bg-white text-zinc-900 shadow-xs'
-                : 'text-zinc-600 hover:text-zinc-900'
+                ? 'bg-forest-900 text-white shadow-xs'
+                : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/50'
             }`}
           >
             <Mail size={13} />
@@ -146,10 +143,10 @@ export function PlantOnboarding() {
           <button
             type="button"
             onClick={() => setActiveView('profile')}
-            className={`px-3 py-1.5 rounded-lg font-medium transition-colors cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-md font-medium transition-colors cursor-pointer flex items-center gap-1.5 ${
               activeView === 'profile'
-                ? 'bg-white text-zinc-900 shadow-xs'
-                : 'text-zinc-600 hover:text-zinc-900'
+                ? 'bg-forest-900 text-white shadow-xs'
+                : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/50'
             }`}
           >
             <Factory size={13} />
@@ -192,8 +189,8 @@ export function PlantOnboarding() {
                       <div>
                         <div className="flex items-center gap-2">
                           <span className="font-semibold text-zinc-900 text-sm">{enq.fromName}</span>
-                          <span className="text-[10px] uppercase font-bold text-zinc-500 bg-zinc-100 px-1.5 py-0.2 rounded">
-                            {enq.summary?.role === 'waste_provider' ? 'Waste Generator' : 'Gas Consumer'}
+                          <span className="text-[10px] uppercase font-bold text-forest-900 bg-forest-50 px-1.5 py-0.2 rounded border border-forest-200/60">
+                            {enq.summary?.role === 'waste_provider' ? 'Feedstock Supply' : 'Gas Demand'}
                           </span>
                         </div>
                         <span className="text-[11px] text-zinc-500 block">
@@ -205,7 +202,7 @@ export function PlantOnboarding() {
                         className={`text-[11px] font-semibold px-2 py-0.5 rounded-full border self-start sm:self-auto ${
                           isAnswered
                             ? 'bg-forest-50 text-forest-900 border-forest-200'
-                            : 'bg-amber-50 text-amber-900 border-amber-200'
+                            : 'bg-zinc-100 text-zinc-800 border-zinc-200'
                         }`}
                       >
                         {isAnswered ? 'Proposal Sent' : 'Needs Response'}
@@ -249,7 +246,7 @@ export function PlantOnboarding() {
                       <button
                         type="button"
                         onClick={() => setSelectedEnquiry(isSelected ? null : enq)}
-                        className="text-xs px-3 py-1.5 rounded-lg font-medium bg-zinc-900 hover:bg-zinc-800 text-white transition-colors cursor-pointer"
+                        className="text-xs px-3 py-1.5 rounded-lg font-medium bg-forest-900 hover:bg-forest-800 text-white transition-colors cursor-pointer"
                       >
                         {isSelected ? 'Close Response Box' : isAnswered ? 'Send Follow-up' : 'Respond to Client'}
                       </button>

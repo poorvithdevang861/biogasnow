@@ -9,10 +9,7 @@ import {
   ChevronDown,
   Droplets,
   Sparkles,
-  IndianRupee,
   Utensils,
-  Building2,
-  CheckCircle2,
 } from 'lucide-react';
 import { useProfile } from '../context/ProfileContext';
 import { CylinderDisplay } from '../components/CylinderIcon';
@@ -124,30 +121,30 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* 2. THREE PRIMARY ROLES: Brought UP right under Hero!     */}
+      {/* 2. THREE PRIMARY ENTRY POINTS                            */}
       {/* ======================================================== */}
       <section className="space-y-3">
         <div className="text-center space-y-1">
           <h2 className="text-sm font-semibold text-zinc-900 uppercase tracking-wider">
-            Select your role to start
+            Select an action to get started
           </h2>
           <p className="text-xs text-zinc-500">
-            Choose your profile to enter your tailored onboarding workflow.
+            Choose your objective to enter your guided onboarding flow.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Card 1: Waste Generator */}
+          {/* Card 1: Supply Organic Waste */}
           <div
             onClick={() => handleRoleSelect('waste-restaurant-1', '/waste-provider')}
-            className="p-5 rounded-xl bg-white border border-zinc-200/90 hover:border-forest-700 hover:shadow-md transition-all duration-150 flex flex-col justify-between cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.04)] group"
+            className="p-5 rounded-xl bg-white border border-zinc-200/90 hover:border-forest-700 hover:shadow-md transition-all duration-150 flex flex-col justify-between cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.03)] group"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-forest-900 bg-forest-50 px-2 py-0.5 rounded border border-forest-200">
-                  Waste Generator
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-forest-900 bg-forest-50 px-2 py-0.5 rounded border border-forest-200/80">
+                  Supply Waste
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-forest-50 flex items-center justify-center text-forest-900 group-hover:scale-105 transition-transform">
+                <div className="w-8 h-8 rounded-lg bg-forest-50 border border-forest-200/60 flex items-center justify-center text-forest-900 group-hover:scale-105 transition-transform">
                   <Leaf size={18} className="stroke-[1.75]" />
                 </div>
               </div>
@@ -157,7 +154,7 @@ export function Home() {
                   I have organic waste
                 </h3>
                 <p className="text-xs text-zinc-600 mt-1 leading-relaxed">
-                  For restaurants, canteens, and societies. Log daily scrap volume, see how many LPG cylinders you displace, and connect with nearby digesters.
+                  For kitchens, canteens, and food processors. Enter daily scrap volume, calculate cylinders replaced, and connect with nearby digesters.
                 </p>
               </div>
             </div>
@@ -165,32 +162,32 @@ export function Home() {
             <div className="pt-5">
               <button
                 type="button"
-                className="w-full inline-flex items-center justify-center gap-1.5 bg-zinc-900 group-hover:bg-forest-900 text-white text-xs font-medium py-2.5 px-3 rounded-lg transition-colors cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-1.5 bg-forest-900 hover:bg-forest-800 text-white text-xs font-medium py-2.5 px-3 rounded-lg transition-colors cursor-pointer"
               >
-                <span>Enter as Waste Generator</span>
+                <span>Calculate & Supply Waste</span>
                 <ArrowRight size={14} className="stroke-[1.5]" />
               </button>
             </div>
           </div>
 
-          {/* Card 2: Biogas Consumer */}
+          {/* Card 2: Replace Cooking Gas */}
           <div
             onClick={() => handleRoleSelect('consumer-household-1', '/consumer')}
-            className="p-5 rounded-xl bg-white border border-zinc-200/90 hover:border-forest-700 hover:shadow-md transition-all duration-150 flex flex-col justify-between cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.04)] group"
+            className="p-5 rounded-xl bg-white border border-zinc-200/90 hover:border-forest-700 hover:shadow-md transition-all duration-150 flex flex-col justify-between cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.03)] group"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-900 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-                  Biogas Consumer
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-forest-900 bg-forest-50 px-2 py-0.5 rounded border border-forest-200/80">
+                  Replace Gas
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-700 group-hover:scale-105 transition-transform">
+                <div className="w-8 h-8 rounded-lg bg-forest-50 border border-forest-200/60 flex items-center justify-center text-forest-900 group-hover:scale-105 transition-transform">
                   <Flame size={18} className="stroke-[1.75]" />
                 </div>
               </div>
 
               <div>
-                <h3 className="text-base font-semibold text-zinc-900 group-hover:text-amber-950 transition-colors">
-                  I want clean cooking fuel
+                <h3 className="text-base font-semibold text-zinc-900 group-hover:text-forest-950 transition-colors">
+                  I want clean cooking gas
                 </h3>
                 <p className="text-xs text-zinc-600 mt-1 leading-relaxed">
                   For kitchens, boilers, and heating setups. Size your burner demand, compare verified local plant operators, and cut cylinder expenses.
@@ -201,31 +198,31 @@ export function Home() {
             <div className="pt-5">
               <button
                 type="button"
-                className="w-full inline-flex items-center justify-center gap-1.5 bg-zinc-900 group-hover:bg-amber-800 text-white text-xs font-medium py-2.5 px-3 rounded-lg transition-colors cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-1.5 bg-forest-900 hover:bg-forest-800 text-white text-xs font-medium py-2.5 px-3 rounded-lg transition-colors cursor-pointer"
               >
-                <span>Enter as Gas Consumer</span>
+                <span>Size Fuel Demand</span>
                 <ArrowRight size={14} className="stroke-[1.5]" />
               </button>
             </div>
           </div>
 
-          {/* Card 3: Plant Provider */}
+          {/* Card 3: Operate Biogas Plants */}
           <div
             onClick={() => handleRoleSelect('plant-apex-1', '/plant-provider')}
-            className="p-5 rounded-xl bg-white border border-zinc-200/90 hover:border-forest-700 hover:shadow-md transition-all duration-150 flex flex-col justify-between cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.04)] group"
+            className="p-5 rounded-xl bg-white border border-zinc-200/90 hover:border-forest-700 hover:shadow-md transition-all duration-150 flex flex-col justify-between cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.03)] group"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-900 bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200">
-                  Plant Provider
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-forest-900 bg-forest-50 px-2 py-0.5 rounded border border-forest-200/80">
+                  Plant Network
                 </span>
-                <div className="w-8 h-8 rounded-lg bg-zinc-100 flex items-center justify-center text-zinc-800 group-hover:scale-105 transition-transform">
+                <div className="w-8 h-8 rounded-lg bg-forest-50 border border-forest-200/60 flex items-center justify-center text-forest-900 group-hover:scale-105 transition-transform">
                   <Factory size={18} className="stroke-[1.75]" />
                 </div>
               </div>
 
               <div>
-                <h3 className="text-base font-semibold text-zinc-900 group-hover:text-zinc-950 transition-colors">
+                <h3 className="text-base font-semibold text-zinc-900 group-hover:text-forest-950 transition-colors">
                   I operate biogas plants
                 </h3>
                 <p className="text-xs text-zinc-600 mt-1 leading-relaxed">
@@ -237,9 +234,9 @@ export function Home() {
             <div className="pt-5">
               <button
                 type="button"
-                className="w-full inline-flex items-center justify-center gap-1.5 bg-zinc-900 group-hover:bg-zinc-800 text-white text-xs font-medium py-2.5 px-3 rounded-lg transition-colors cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-1.5 bg-forest-900 hover:bg-forest-800 text-white text-xs font-medium py-2.5 px-3 rounded-lg transition-colors cursor-pointer"
               >
-                <span>Enter as Plant Operator</span>
+                <span>Open Operator Hub</span>
                 <ArrowRight size={14} className="stroke-[1.5]" />
               </button>
             </div>
@@ -248,146 +245,7 @@ export function Home() {
       </section>
 
       {/* ======================================================== */}
-      {/* 3. CORE REAL-WORLD USE CASES: Tangible & Practical       */}
-      {/* ======================================================== */}
-      <section className="space-y-4">
-        <div className="text-center space-y-1">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-forest-900 bg-forest-50 px-2 py-0.5 rounded border border-forest-200">
-            Real-World Impact
-          </span>
-          <h2 className="text-xl sm:text-2xl font-semibold text-zinc-900">
-            Who this platform is built for
-          </h2>
-          <p className="text-xs text-zinc-500 max-w-md mx-auto">
-            Three proven cases where organic waste directly replaces commercial fossil fuels.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Case 1: Restaurants & Commercial Kitchens */}
-          <div className="p-5 rounded-xl bg-white border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-3.5 flex flex-col justify-between">
-            <div className="space-y-2.5">
-              <div className="w-9 h-9 rounded-lg bg-amber-50 flex items-center justify-center text-amber-700">
-                <Utensils size={18} className="stroke-[1.75]" />
-              </div>
-              <div>
-                <span className="text-[11px] font-bold text-amber-900 uppercase tracking-wider block">Case 01 · Hospitality</span>
-                <h3 className="text-base font-semibold text-zinc-900">Restaurants & Canteens</h3>
-              </div>
-              <p className="text-xs text-zinc-600 leading-relaxed">
-                Kitchens producing 100–250 kg daily food prep scraps replace 5 to 12 commercial 19 kg LPG cylinders each month.
-              </p>
-            </div>
-
-            <div className="p-3 rounded-lg bg-amber-50/60 border border-amber-200/70 space-y-1.5 text-xs">
-              <div className="flex justify-between items-center text-amber-950 font-medium">
-                <span>Fuel Saved:</span>
-                <span className="font-bold">6–12 LPG cylinders / mo</span>
-              </div>
-              <div className="flex justify-between items-center text-amber-950 font-medium">
-                <span>Cost Savings:</span>
-                <span className="font-bold text-forest-900">₹11,000 – ₹22,000 / mo</span>
-              </div>
-              <div className="flex justify-between items-center text-amber-900 text-[11px]">
-                <span>Payback Time:</span>
-                <span>10–14 months</span>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => handleRoleSelect('waste-restaurant-1', '/waste-provider')}
-              className="w-full text-xs font-medium py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white transition-colors cursor-pointer flex items-center justify-center gap-1.5"
-            >
-              <span>Calculate for your kitchen</span>
-              <ArrowRight size={13} />
-            </button>
-          </div>
-
-          {/* Case 2: Housing Societies & Community Kitchens */}
-          <div className="p-5 rounded-xl bg-white border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-3.5 flex flex-col justify-between">
-            <div className="space-y-2.5">
-              <div className="w-9 h-9 rounded-lg bg-forest-50 flex items-center justify-center text-forest-900">
-                <Building2 size={18} className="stroke-[1.75]" />
-              </div>
-              <div>
-                <span className="text-[11px] font-bold text-forest-900 uppercase tracking-wider block">Case 02 · Residential</span>
-                <h3 className="text-base font-semibold text-zinc-900">Apartments & Societies</h3>
-              </div>
-              <p className="text-xs text-zinc-600 leading-relaxed">
-                Residential clusters process 300–800 kg segregated wet waste on-site, piping clean blue cooking flame to common kitchens or gardens.
-              </p>
-            </div>
-
-            <div className="p-3 rounded-lg bg-forest-50/60 border border-forest-200/70 space-y-1.5 text-xs">
-              <div className="flex justify-between items-center text-forest-950 font-medium">
-                <span>Landfill Waste:</span>
-                <span className="font-bold text-forest-900">100% Zero-Dumping</span>
-              </div>
-              <div className="flex justify-between items-center text-forest-950 font-medium">
-                <span>Free Byproduct:</span>
-                <span className="font-bold">50 kg organic compost / day</span>
-              </div>
-              <div className="flex justify-between items-center text-zinc-600 text-[11px]">
-                <span>Waste Haulage Fee:</span>
-                <span className="line-through text-zinc-400">₹15,000 / mo</span> <span className="text-forest-900 font-semibold ml-1">₹0</span>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => handleRoleSelect('consumer-household-1', '/consumer')}
-              className="w-full text-xs font-medium py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white transition-colors cursor-pointer flex items-center justify-center gap-1.5"
-            >
-              <span>Explore society setup</span>
-              <ArrowRight size={13} />
-            </button>
-          </div>
-
-          {/* Case 3: Commercial Biogas Operators */}
-          <div className="p-5 rounded-xl bg-white border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-3.5 flex flex-col justify-between">
-            <div className="space-y-2.5">
-              <div className="w-9 h-9 rounded-lg bg-zinc-100 flex items-center justify-center text-zinc-800">
-                <Factory size={18} className="stroke-[1.75]" />
-              </div>
-              <div>
-                <span className="text-[11px] font-bold text-zinc-700 uppercase tracking-wider block">Case 03 · Digester Plants</span>
-                <h3 className="text-base font-semibold text-zinc-900">Plant Fabricators & Operators</h3>
-              </div>
-              <p className="text-xs text-zinc-600 leading-relaxed">
-                Digester engineers lock in steady local food waste supply within 15 km, fill capacity, and connect directly with thermal gas buyers.
-              </p>
-            </div>
-
-            <div className="p-3 rounded-lg bg-zinc-100/70 border border-zinc-200 space-y-1.5 text-xs">
-              <div className="flex justify-between items-center text-zinc-900 font-medium">
-                <span>Feedstock Security:</span>
-                <span className="font-bold text-forest-900">Guaranteed Daily Inflow</span>
-              </div>
-              <div className="flex justify-between items-center text-zinc-900 font-medium">
-                <span>Offtake Market:</span>
-                <span className="font-bold">Verified Buyer Requests</span>
-              </div>
-              <div className="flex justify-between items-center text-zinc-600 text-[11px]">
-                <span>Capacity Sizing:</span>
-                <span className="font-semibold text-zinc-900">85% – 95% Active</span>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => handleRoleSelect('plant-apex-1', '/plant-provider')}
-              className="w-full text-xs font-medium py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white transition-colors cursor-pointer flex items-center justify-center gap-1.5"
-            >
-              <span>List your plant capacity</span>
-              <ArrowRight size={13} />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* ======================================================== */}
-      {/* 4. LIVE SIMULATOR: Visual LPG Cylinders                  */}
+      {/* 3. LIVE SIMULATOR: Visual LPG Cylinders                  */}
       {/* ======================================================== */}
       <section className="space-y-4">
         <div className="text-center space-y-1">
@@ -403,7 +261,7 @@ export function Home() {
           </p>
         </div>
 
-        <div className="rounded-xl border border-zinc-200/90 bg-white p-5 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.05)] space-y-6">
+        <div className="rounded-xl border border-zinc-200/90 bg-white p-5 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.03)] space-y-6">
           {/* Preset Buttons */}
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-100 pb-4">
             <div className="flex items-center gap-2">
@@ -458,24 +316,24 @@ export function Home() {
           {/* VISUAL RESULTS WITH CYLINDERS */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 pt-1">
             {/* Featured Visual: LPG Cylinders Displaced (Takes 6 cols) */}
-            <div className="md:col-span-6 p-4 rounded-xl bg-gradient-to-br from-amber-50/70 to-orange-50/40 border border-amber-200/80 flex flex-col justify-between space-y-3">
+            <div className="md:col-span-6 p-4 rounded-xl bg-forest-50/40 border border-forest-200/80 flex flex-col justify-between space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold uppercase tracking-wider text-amber-950">
+                <span className="text-xs font-semibold uppercase tracking-wider text-forest-950">
                   LPG Cylinders Replaced
                 </span>
-                <span className="text-xs font-medium text-forest-800 bg-white px-2 py-0.5 rounded-full border border-amber-200">
+                <span className="text-xs font-medium text-forest-900 bg-white px-2 py-0.5 rounded-full border border-forest-200">
                   ₹{monthlySavingsRs} / month saved
                 </span>
               </div>
 
               {/* Physical Cylinder Group */}
               <div className="py-1">
-                <CylinderDisplay count={lpgCylindersMonth} size={28} showLabel={false} />
+                <CylinderDisplay count={lpgCylindersMonth} size={28} showLabel={false} cylinderClassName="text-forest-900" />
               </div>
 
-              <div className="border-t border-amber-200/60 pt-2 flex items-baseline justify-between">
-                <span className="text-2xl font-bold text-amber-950 tabular-nums">
-                  {lpgCylindersMonth} <span className="text-xs font-normal text-amber-800">commercial 19kg cylinders/mo</span>
+              <div className="border-t border-forest-200/60 pt-2 flex items-baseline justify-between">
+                <span className="text-2xl font-bold text-forest-950 tabular-nums">
+                  {lpgCylindersMonth} <span className="text-xs font-normal text-forest-800">commercial 19kg cylinders/mo</span>
                 </span>
               </div>
             </div>

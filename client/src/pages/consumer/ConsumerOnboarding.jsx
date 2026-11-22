@@ -160,10 +160,7 @@ export function ConsumerOnboarding() {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-200/80 pb-4">
         <div>
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-900 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-            Biogas Consumer Onboarding
-          </span>
-          <h1 className="text-xl sm:text-2xl font-semibold text-zinc-900 mt-1">
+          <h1 className="text-xl sm:text-2xl font-semibold text-zinc-900">
             Replace commercial LPG cylinders with clean biogas
           </h1>
           <p className="text-xs text-zinc-500 mt-0.5">
@@ -224,7 +221,7 @@ export function ConsumerOnboarding() {
             initial={false}
             animate={{ width: `${(currentStep / STEPS.length) * 100}%` }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.25, ease: 'easeOut' }}
-            className="h-full bg-amber-600 rounded-full"
+            className="h-full bg-forest-900 rounded-full"
           />
         </div>
       </div>
@@ -292,13 +289,13 @@ export function ConsumerOnboarding() {
                   </div>
 
                   {/* VISUAL CYLINDER SELECTOR */}
-                  <div className="p-5 rounded-xl bg-gradient-to-br from-amber-50/80 to-orange-50/40 border border-amber-200 space-y-4">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-amber-200/70 pb-3">
+                  <div className="p-5 rounded-xl bg-forest-50/40 border border-forest-200/80 space-y-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-forest-200/60 pb-3">
                       <div>
-                        <span className="text-xs font-bold uppercase tracking-wider text-amber-950 block">
+                        <span className="text-xs font-bold uppercase tracking-wider text-forest-950 block">
                           Current Monthly 19 kg Cylinder Usage
                         </span>
-                        <span className="text-xs text-amber-800">
+                        <span className="text-xs text-forest-800">
                           Replaces expensive commercial fossil gas cylinders
                         </span>
                       </div>
@@ -324,7 +321,7 @@ export function ConsumerOnboarding() {
                             onClick={() => setMonthlyCylinders(p.count)}
                             className={`text-xs px-3 py-1.5 rounded-lg border transition-all cursor-pointer font-medium ${
                               isSelected
-                                ? 'bg-amber-900 text-white border-amber-900 shadow-xs'
+                                ? 'bg-forest-900 text-white border-forest-900 shadow-xs'
                                 : 'bg-white text-zinc-700 border-zinc-200 hover:border-zinc-300'
                             }`}
                           >
@@ -336,14 +333,14 @@ export function ConsumerOnboarding() {
 
                     {/* VISUAL CYLINDER DISPLAY */}
                     <div className="py-2">
-                      <CylinderDisplay count={monthlyCylinders} size={30} showLabel={false} />
+                      <CylinderDisplay count={monthlyCylinders} size={30} showLabel={false} cylinderClassName="text-forest-900" />
                     </div>
 
                     <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-bold text-amber-950 tabular-nums">
+                      <span className="text-3xl font-bold text-forest-950 tabular-nums">
                         {monthlyCylinders}
                       </span>
-                      <span className="text-xs font-medium text-amber-900">
+                      <span className="text-xs font-medium text-forest-900">
                         commercial 19 kg cylinders to displace (~{requiredBiogasM3} m³ biogas needed daily)
                       </span>
                     </div>
@@ -357,7 +354,7 @@ export function ConsumerOnboarding() {
                       type="text"
                       value={application}
                       onChange={(e) => setApplication(e.target.value)}
-                      className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-amber-600"
+                      className="w-full text-xs sm:text-sm px-3.5 py-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
                       placeholder="e.g. Commercial restaurant cooking stoves, hot water boilers"
                     />
                   </div>
@@ -409,13 +406,13 @@ export function ConsumerOnboarding() {
                           onClick={() => setSelectedScale(s.id)}
                           className={`p-4 rounded-xl border transition-all cursor-pointer space-y-2 flex flex-col justify-between ${
                             isSelected
-                              ? 'border-amber-700 bg-amber-50/60 shadow-xs'
+                              ? 'border-forest-900 bg-forest-50/50 shadow-xs'
                               : 'border-zinc-200 bg-white hover:border-zinc-300'
                           }`}
                         >
                           <div className="space-y-1">
                             <span className="text-xs font-semibold text-zinc-900 block">{s.title}</span>
-                            <span className="text-[11px] font-medium text-amber-900 bg-amber-100/70 px-2 py-0.5 rounded inline-block">
+                            <span className="text-[11px] font-medium text-forest-900 bg-forest-100/80 px-2 py-0.5 rounded inline-block">
                               Best for: {s.ideal}
                             </span>
                             <p className="text-xs text-zinc-500 leading-relaxed pt-1">{s.desc}</p>
@@ -458,7 +455,7 @@ export function ConsumerOnboarding() {
                           onClick={() => toggleCompareSelect(plant.id)}
                           className={`p-4 rounded-xl border transition-all cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                             isChecked
-                              ? 'border-amber-700 bg-amber-50/50 shadow-xs'
+                              ? 'border-forest-900 bg-forest-50/50 shadow-xs'
                               : 'border-zinc-200 bg-white hover:border-zinc-300'
                           }`}
                         >
@@ -481,7 +478,7 @@ export function ConsumerOnboarding() {
                             type="button"
                             className={`text-xs px-3.5 py-1.5 rounded-lg font-medium border transition-colors cursor-pointer shrink-0 ${
                               isChecked
-                                ? 'bg-amber-900 text-white border-amber-900'
+                                ? 'bg-forest-900 text-white border-forest-900'
                                 : 'bg-zinc-50 text-zinc-700 border-zinc-200'
                             }`}
                           >
@@ -559,7 +556,7 @@ export function ConsumerOnboarding() {
                           type="text"
                           value={contactPhone}
                           onChange={(e) => setContactPhone(e.target.value)}
-                          className="w-full text-xs p-2 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-amber-600"
+                          className="w-full text-xs p-2 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
                         />
                       </div>
                       <div className="space-y-1">
@@ -568,7 +565,7 @@ export function ConsumerOnboarding() {
                           type="email"
                           value={contactEmail}
                           onChange={(e) => setContactEmail(e.target.value)}
-                          className="w-full text-xs p-2 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-amber-600"
+                          className="w-full text-xs p-2 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
                         />
                       </div>
                     </div>
@@ -579,7 +576,7 @@ export function ConsumerOnboarding() {
                         type="text"
                         value={siteSpace}
                         onChange={(e) => setSiteSpace(e.target.value)}
-                        className="w-full text-xs p-2 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-amber-600"
+                        className="w-full text-xs p-2 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
                       />
                     </div>
                   </div>
@@ -617,7 +614,7 @@ export function ConsumerOnboarding() {
                   type="button"
                   disabled={loading}
                   onClick={handleSubmit}
-                  className="inline-flex items-center gap-1.5 bg-amber-700 hover:bg-amber-800 disabled:opacity-50 text-white font-medium text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer shadow-xs"
+                  className="inline-flex items-center gap-1.5 bg-forest-900 hover:bg-forest-800 disabled:opacity-50 text-white font-medium text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer shadow-xs"
                 >
                   <Send size={13} />
                   <span>{loading ? 'Submitting...' : 'Request Site Survey'}</span>
@@ -627,7 +624,7 @@ export function ConsumerOnboarding() {
                   type="button"
                   disabled={loading}
                   onClick={nextStep}
-                  className="inline-flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 bg-forest-900 hover:bg-forest-800 text-white font-medium text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer"
                 >
                   <span>Continue</span>
                   <ArrowRight size={13} />
