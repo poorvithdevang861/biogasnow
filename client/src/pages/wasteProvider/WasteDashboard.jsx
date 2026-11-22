@@ -106,11 +106,10 @@ export function WasteDashboard() {
             <button
               type="button"
               onClick={() => setTab('assessment')}
-              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
-                activeTab === 'assessment'
+              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-medium transition-colors cursor-pointer ${activeTab === 'assessment'
                   ? 'bg-zinc-900 text-white hover:bg-zinc-800'
                   : 'bg-zinc-100 text-zinc-800 hover:bg-zinc-200'
-              }`}
+                }`}
             >
               <Sparkles size={14} className="stroke-[1.5]" />
               <span>New waste assessment</span>
@@ -245,11 +244,10 @@ export function WasteDashboard() {
                     key={scale}
                     type="button"
                     onClick={() => setScaleFilter(scale)}
-                    className={`capitalize text-xs px-2.5 py-1 rounded-lg border transition-colors cursor-pointer ${
-                      scaleFilter === scale
+                    className={`capitalize text-xs px-2.5 py-1 rounded-lg border transition-colors cursor-pointer ${scaleFilter === scale
                         ? 'bg-zinc-900 text-white border-zinc-900 font-medium'
                         : 'bg-zinc-50 text-zinc-700 border-zinc-200 hover:bg-zinc-100'
-                    }`}
+                      }`}
                   >
                     {scale === 'all' ? 'All scales' : scale}
                   </button>

@@ -358,6 +358,28 @@
   ],
   "enquiries": [
     {
+      "id": "enq-1795349553976",
+      "fromProfile": "waste-restaurant-1",
+      "fromName": "Annapurna Kitchens",
+      "toPlantIds": [
+        "plant-apex-1"
+      ],
+      "summary": {
+        "role": "waste_provider",
+        "wasteType": "Food waste (commercial kitchen)",
+        "quantityRange": "50 kg/day (Daily collection)",
+        "frequency": "Daily collection",
+        "location": "Indiranagar, Bengaluru",
+        "estimatedBiogasRange": "3.4 – 6.8 m³/day",
+        "siteConstraints": "Rear service lane access; ground space for 2 bins"
+      },
+      "questions": "We need daily bin collection or an on-site digester survey.",
+      "contactPreference": "Email with quotation and collection schedule",
+      "status": "pending_review",
+      "replies": [],
+      "createdAt": "2026-11-22T12:12:33.976Z"
+    },
+    {
       "id": "enq-demo-001",
       "fromProfile": "waste-restaurant-1",
       "fromName": "Annapurna Kitchens",
