@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import {
   Flame,
@@ -31,8 +31,11 @@ const STEPS = [
 
 export function ConsumerOnboarding() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const shouldReduceMotion = useReducedMotion();
-  const { activeProfile } = useProfile();
+  const { activeProfile, updateActiveProfile } = useProfile();
+
+  const activeTab = searchParams.get('tab') || 'onboarding';
 
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -43,8 +46,10 @@ export function ConsumerOnboarding() {
   const [enquirySuccess, setEnquirySuccess] = useState(null);
   const [sentEnquiries, setSentEnquiries] = useState([]);
   const [showSentRequests, setShowSentRequests] = useState(false);
+  const [profileSaved, setProfileSaved] = useState(false);
 
   // Form State
+  const [profileName, setProfileName] = useState(activeProfile?.name || 'Gulmohar Greens Society');
   const [monthlyCylinders, setMonthlyCylinders] = useState(8);
   const [application, setApplication] = useState('Commercial kitchen cooking stoves');
   const [selectedScale, setSelectedScale] = useState('medium');
@@ -52,6 +57,18 @@ export function ConsumerOnboarding() {
   const [siteSpace, setSiteSpace] = useState('Private yard / rooftop (~30 m²)');
   const [contactPhone, setContactPhone] = useState('+91 98220 54321');
   const [contactEmail, setContactEmail] = useState('canteen@punehospitality.in');
+
+  const handleSaveProfile = (e) => {
+    e.preventDefault();
+    if (updateActiveProfile) {
+      updateActiveProfile({
+        name: profileName,
+        location,
+      });
+    }
+    setProfileSaved(true);
+    setTimeout(() => setProfileSaved(false), 2500);
+  };
 
   // Load plants & sent enquiries
   useEffect(() => {
@@ -208,23 +225,156 @@ export function ConsumerOnboarding() {
         </div>
       )}
 
-      {/* Step Progress Bar */}
-      <div className="space-y-1.5">
-        <div className="flex justify-between items-center text-xs">
-          <span className="font-medium text-zinc-700">
-            Step {currentStep} of {STEPS.length}: <strong className="text-zinc-900">{STEPS[currentStep - 1].title}</strong>
-          </span>
-          <span className="text-xs text-zinc-400">Takes ~2 minutes</span>
+      {/* TAB 1: PROFILE & DETAILS VIEW */}
+      {activeTab === 'profile' ? (
+        <div className="bg-white rounded-xl border border-zinc-200/90 p-5 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.03)] space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-100 pb-3">
+            <div>
+              <h2 className="text-base font-semibold text-zinc-900">
+                Cooking Fuel & Energy Profile Settings
+              </h2>
+              <p className="text-xs text-zinc-500">
+                Update your establishment type, LPG replacement volume, and site details anytime.
+              </p>
+            </div>
+            {profileSaved && (
+              <span className="self-start sm:self-auto text-xs font-medium text-forest-900 bg-forest-50 border border-forest-200/80 px-2.5 py-1 rounded-lg flex items-center gap-1.5">
+                <CheckCircle2 size={13} className="text-forest-900" /> Changes saved
+              </span>
+            )}
+          </div>
+
+          <form onSubmit={handleSaveProfile} className="space-y-4 text-xs">
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <label className="font-medium text-zinc-700 block">Organization / Establishment Name</label>
+                <input
+                  type="text"
+                  value={profileName}
+                  onChange={(e) => setProfileName(e.target.value)}
+                  className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="font-medium text-zinc-700 block">Monthly 19 kg Commercial LPG Cylinders</label>
+                <input
+                  type="number"
+                  min="1"
+                  value={monthlyCylinders}
+                  onChange={(e) => setMonthlyCylinders(Number(e.target.value))}
+                  className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                />
+              </div>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <label className="font-medium text-zinc-700 block">Cooking / Thermal Energy Application</label>
+                <input
+                  type="text"
+                  value={application}
+                  onChange={(e) => setApplication(e.target.value)}
+                  className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                  placeholder="e.g. Commercial cooking stoves, boiler heating"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="font-medium text-zinc-700 block">Recommended Plant Scale Class</label>
+                <select
+                  value={selectedScale}
+                  onChange={(e) => setSelectedScale(e.target.value)}
+                  className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                >
+                  <option value="micro">Micro Scale (2–5 m³/day · 1–4 cylinders)</option>
+                  <option value="small">Small Modular (5–15 m³/day · 5–12 cylinders)</option>
+                  <option value="medium">Medium Commercial (15–50 m³/day · 12–35 cylinders)</option>
+                  <option value="large">Community / Industrial (50+ m³/day · 35+ cylinders)</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="space-y-1">
+              <label className="font-medium text-zinc-700 block">Site / Facility Address</label>
+              <input
+                type="text"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+              />
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <label className="font-medium text-zinc-700 block">Contact Phone Number</label>
+                <input
+                  type="text"
+                  value={contactPhone}
+                  onChange={(e) => setContactPhone(e.target.value)}
+                  className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="font-medium text-zinc-700 block">Contact Email Address</label>
+                <input
+                  type="email"
+                  value={contactEmail}
+                  onChange={(e) => setContactEmail(e.target.value)}
+                  className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1">
+              <label className="font-medium text-zinc-700 block">Available Installation Footprint / Space Notes</label>
+              <textarea
+                rows="2"
+                value={siteSpace}
+                onChange={(e) => setSiteSpace(e.target.value)}
+                className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+              />
+            </div>
+
+            <div className="pt-3 flex items-center justify-between border-t border-zinc-100">
+              <button
+                type="button"
+                onClick={() => setSearchParams({})}
+                className="text-xs font-medium text-zinc-600 hover:text-zinc-900 py-2 px-3 rounded-lg hover:bg-zinc-100 transition-colors cursor-pointer"
+              >
+                ← Return to Sizing Onboarding
+              </button>
+
+              <button
+                type="submit"
+                className="bg-forest-900 hover:bg-forest-800 text-white font-medium text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer shadow-xs"
+              >
+                Save Profile Changes
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="h-1.5 w-full bg-zinc-200/80 rounded-full overflow-hidden">
-          <motion.div
-            initial={false}
-            animate={{ width: `${(currentStep / STEPS.length) * 100}%` }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.25, ease: 'easeOut' }}
-            className="h-full bg-forest-900 rounded-full"
-          />
-        </div>
-      </div>
+      ) : (
+        /* TAB 2: GUIDED ONBOARDING FLOW */
+        <div className="space-y-6">
+          {/* Step Progress Bar */}
+          <div className="space-y-1.5">
+            <div className="flex justify-between items-center text-xs">
+              <span className="font-medium text-zinc-700">
+                Step {currentStep} of {STEPS.length}: <strong className="text-zinc-900">{STEPS[currentStep - 1].title}</strong>
+              </span>
+              <span className="text-xs text-zinc-400">Takes ~2 minutes</span>
+            </div>
+            <div className="h-1.5 w-full bg-zinc-200/80 rounded-full overflow-hidden">
+              <motion.div
+                initial={false}
+                animate={{ width: `${(currentStep / STEPS.length) * 100}%` }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.25, ease: 'easeOut' }}
+                className="h-full bg-forest-900 rounded-full"
+              />
+            </div>
+          </div>
 
       {/* SUCCESS CONFIRMATION */}
       {enquirySuccess ? (
@@ -632,6 +782,8 @@ export function ConsumerOnboarding() {
               )}
             </div>
           </div>
+        </div>
+      )}
         </div>
       )}
     </div>

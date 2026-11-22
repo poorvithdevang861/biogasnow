@@ -117,12 +117,23 @@ export function ProfileProvider({ children }) {
     setActiveIdState(id);
   };
 
+  const updateActiveProfile = (updates) => {
+    setProfiles((prev) =>
+      prev.map((p) => {
+        if (p.id === activeProfile.id) {
+          return { ...p, ...updates };
+        }
+        return p;
+      })
+    );
+  };
+
   useEffect(() => {
     setActiveProfileId(activeProfile.id);
   }, [activeProfile.id]);
 
   return (
-    <ProfileContext.Provider value={{ activeProfile, profiles, setProfileById, loading }}>
+    <ProfileContext.Provider value={{ activeProfile, profiles, setProfileById, updateActiveProfile, loading }}>
       {children}
     </ProfileContext.Provider>
   );

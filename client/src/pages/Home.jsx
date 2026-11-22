@@ -206,7 +206,7 @@ export function Home() {
             </div>
           </div>
 
-          {/* Card 3: Operate Biogas Plants */}
+          {/* Card 3: Supply & Set Up Biogas Plants */}
           <div
             onClick={() => handleRoleSelect('plant-apex-1', '/plant-provider')}
             className="p-5 rounded-xl bg-white border border-zinc-200/90 hover:border-forest-700 hover:shadow-md transition-all duration-150 flex flex-col justify-between cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.03)] group"
@@ -214,7 +214,7 @@ export function Home() {
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-semibold uppercase tracking-wider text-forest-900 bg-forest-50 px-2 py-0.5 rounded border border-forest-200/80">
-                  Plant Network
+                  Plant Setup
                 </span>
                 <div className="w-8 h-8 rounded-lg bg-forest-50 border border-forest-200/60 flex items-center justify-center text-forest-900 group-hover:scale-105 transition-transform">
                   <Factory size={18} className="stroke-[1.75]" />
@@ -223,10 +223,10 @@ export function Home() {
 
               <div>
                 <h3 className="text-base font-semibold text-zinc-900 group-hover:text-forest-950 transition-colors">
-                  I operate biogas plants
+                  I supply & set up plants
                 </h3>
                 <p className="text-xs text-zinc-600 mt-1 leading-relaxed">
-                  For plant engineers and operators. Publish plant capacity, showcase operating installations, and receive qualified customer enquiries.
+                  For digester fabricators and turnkey installers. Manage customer site survey requests, quote modular plants, and configure installation specifications.
                 </p>
               </div>
             </div>
@@ -236,7 +236,7 @@ export function Home() {
                 type="button"
                 className="w-full inline-flex items-center justify-center gap-1.5 bg-forest-900 hover:bg-forest-800 text-white text-xs font-medium py-2.5 px-3 rounded-lg transition-colors cursor-pointer"
               >
-                <span>Open Operator Hub</span>
+                <span>Enter Plant Setup Hub</span>
                 <ArrowRight size={14} className="stroke-[1.5]" />
               </button>
             </div>

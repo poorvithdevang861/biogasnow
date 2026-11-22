@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import {
   Flame,
@@ -15,6 +15,7 @@ import {
   Clock,
   Mail,
   ChevronDown,
+  User,
 } from 'lucide-react';
 import { api } from '../../api/client';
 import { useProfile } from '../../context/ProfileContext';
@@ -32,8 +33,11 @@ const STEPS = [
 
 export function WasteOnboarding() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const shouldReduceMotion = useReducedMotion();
-  const { activeProfile } = useProfile();
+  const { activeProfile, updateActiveProfile } = useProfile();
+
+  const activeTab = searchParams.get('tab') || 'onboarding';
 
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -43,8 +47,10 @@ export function WasteOnboarding() {
   const [enquirySuccess, setEnquirySuccess] = useState(null);
   const [sentEnquiries, setSentEnquiries] = useState([]);
   const [showSentRequests, setShowSentRequests] = useState(false);
+  const [profileSaved, setProfileSaved] = useState(false);
 
   // Form State
+  const [profileName, setProfileName] = useState(activeProfile?.name || 'Annapurna Kitchens');
   const [formData, setFormData] = useState({
     wasteType: 'Kitchen food scraps (cooked food, prep peels)',
     quantityKg: '150',
@@ -55,6 +61,18 @@ export function WasteOnboarding() {
     contactPhone: '+91 98450 12345',
     questions: 'We need daily bin collection or an on-site digester survey.',
   });
+
+  const handleSaveProfile = (e) => {
+    e.preventDefault();
+    if (updateActiveProfile) {
+      updateActiveProfile({
+        name: profileName,
+        location: formData.location,
+      });
+    }
+    setProfileSaved(true);
+    setTimeout(() => setProfileSaved(false), 2500);
+  };
 
   // Load sent requests on mount
   useEffect(() => {
@@ -214,86 +232,220 @@ export function WasteOnboarding() {
         </div>
       )}
 
-      {/* Progress Bar */}
-      <div className="space-y-1.5">
-        <div className="flex justify-between items-center text-xs">
-          <span className="font-medium text-zinc-700">
-            Step {currentStep} of {STEPS.length}: <strong className="text-zinc-900">{STEPS[currentStep - 1].title}</strong>
-          </span>
-          <span className="text-xs text-zinc-400">Takes ~2 minutes</span>
-        </div>
-        <div className="h-1.5 w-full bg-zinc-200/80 rounded-full overflow-hidden">
-          <motion.div
-            initial={false}
-            animate={{ width: `${(currentStep / STEPS.length) * 100}%` }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.25, ease: 'easeOut' }}
-            className="h-full bg-forest-900 rounded-full"
-          />
-        </div>
-      </div>
-
-      {/* SUCCESS CONFIRMATION VIEW */}
-      {enquirySuccess ? (
-        <div className="bg-white rounded-xl border border-zinc-200 p-6 text-center space-y-5">
-          <div className="w-12 h-12 rounded-full bg-forest-50 border border-forest-200 flex items-center justify-center mx-auto text-forest-900">
-            <CheckCircle2 size={28} className="stroke-[2.2]" />
+      {/* TAB 1: PROFILE & DETAILS VIEW */}
+      {activeTab === 'profile' ? (
+        <div className="bg-white rounded-xl border border-zinc-200/90 p-5 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.03)] space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-100 pb-3">
+            <div>
+              <h2 className="text-base font-semibold text-zinc-900">
+                Facility & Waste Profile Settings
+              </h2>
+              <p className="text-xs text-zinc-500">
+                Update your kitchen scrap generation, facility access, and contact details anytime.
+              </p>
+            </div>
+            {profileSaved && (
+              <span className="self-start sm:self-auto text-xs font-medium text-forest-900 bg-forest-50 border border-forest-200/80 px-2.5 py-1 rounded-lg flex items-center gap-1.5">
+                <CheckCircle2 size={13} className="text-forest-900" /> Changes saved
+              </span>
+            )}
           </div>
 
-          <div className="space-y-1.5 max-w-md mx-auto">
-            <h3 className="text-xl font-semibold text-zinc-900">Pickup Request Sent!</h3>
-            <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-              Your waste volume has been forwarded to the nearby digester operator. Reference ID:{' '}
-              <strong className="font-mono text-zinc-900 bg-zinc-100 border border-zinc-200 px-1.5 py-0.5 rounded">
-                {enquirySuccess.id}
-              </strong>
-            </p>
-          </div>
+          <form onSubmit={handleSaveProfile} className="space-y-4 text-xs">
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <label className="font-medium text-zinc-700 block">Organization / Kitchen Name</label>
+                <input
+                  type="text"
+                  value={profileName}
+                  onChange={(e) => setProfileName(e.target.value)}
+                  className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                />
+              </div>
 
-          <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 text-left max-w-md mx-auto text-xs space-y-2">
-            <span className="font-semibold text-zinc-900 block">Notified Operator:</span>
-            <ul className="space-y-1 text-zinc-600">
-              {matchedPlants
-                .filter((p) => selectedPlantIds.includes(p.id))
-                .map((p) => (
-                  <li key={p.id} className="flex items-center gap-1.5 font-medium text-zinc-800">
-                    <Building2 size={13} className="text-forest-900 shrink-0" />
-                    <span>{p.organisation} ({p.serviceArea?.slice(0, 2).join(', ')})</span>
-                  </li>
-                ))}
-            </ul>
-          </div>
+              <div className="space-y-1">
+                <label className="font-medium text-zinc-700 block">Estimated Daily Scrap Volume (kg/day)</label>
+                <input
+                  type="number"
+                  value={formData.quantityKg}
+                  onChange={(e) => setFormData({ ...formData, quantityKg: e.target.value })}
+                  className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                />
+              </div>
+            </div>
 
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
-            <button
-              type="button"
-              onClick={() => {
-                setEnquirySuccess(null);
-                setShowSentRequests(true);
-              }}
-              className="bg-forest-900 hover:bg-forest-800 text-white font-medium text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer"
-            >
-              View in My Requests
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate('/')}
-              className="text-xs text-zinc-600 hover:text-zinc-900 font-medium px-3 py-2 transition-colors cursor-pointer"
-            >
-              Back to Home
-            </button>
-          </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <label className="font-medium text-zinc-700 block">Primary Waste Stream</label>
+                <select
+                  value={formData.wasteType}
+                  onChange={(e) => setFormData({ ...formData, wasteType: e.target.value })}
+                  className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                >
+                  <option value="Kitchen food scraps (cooked food, prep peels)">Kitchen food scraps (cooked & raw)</option>
+                  <option value="Raw vegetable & fruit trimmings">Raw vegetable & fruit market trimmings</option>
+                  <option value="Dairy & canteen food waste">Dairy & canteen food waste</option>
+                  <option value="Mixed residential wet waste">Segregated residential wet waste</option>
+                </select>
+              </div>
+
+              <div className="space-y-1">
+                <label className="font-medium text-zinc-700 block">Pickup / Collection Cadence</label>
+                <select
+                  value={formData.frequency}
+                  onChange={(e) => setFormData({ ...formData, frequency: e.target.value })}
+                  className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                >
+                  <option value="Daily collection">Daily morning pickup (recommended)</option>
+                  <option value="Alternate days">Alternate days (every 48 hrs)</option>
+                  <option value="Weekly batch">Weekly bulk batch</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="space-y-1">
+              <label className="font-medium text-zinc-700 block">Facility Address / Location</label>
+              <input
+                type="text"
+                value={formData.location}
+                onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+              />
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-1">
+                <label className="font-medium text-zinc-700 block">Contact Phone Number</label>
+                <input
+                  type="text"
+                  value={formData.contactPhone}
+                  onChange={(e) => setFormData({ ...formData, contactPhone: e.target.value })}
+                  className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="font-medium text-zinc-700 block">Contact Email Address</label>
+                <input
+                  type="email"
+                  value={formData.contactEmail}
+                  onChange={(e) => setFormData({ ...formData, contactEmail: e.target.value })}
+                  className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1">
+              <label className="font-medium text-zinc-700 block">Loading Bay / Service Lane Access Notes</label>
+              <textarea
+                rows="2"
+                value={formData.siteNotes}
+                onChange={(e) => setFormData({ ...formData, siteNotes: e.target.value })}
+                className="w-full p-2.5 rounded-lg bg-white border border-zinc-300 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-forest-900"
+              />
+            </div>
+
+            <div className="pt-3 flex items-center justify-between border-t border-zinc-100">
+              <button
+                type="button"
+                onClick={() => setSearchParams({})}
+                className="text-xs font-medium text-zinc-600 hover:text-zinc-900 py-2 px-3 rounded-lg hover:bg-zinc-100 transition-colors cursor-pointer"
+              >
+                ← Return to Onboarding Calculator
+              </button>
+
+              <button
+                type="submit"
+                className="bg-forest-900 hover:bg-forest-800 text-white font-medium text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer shadow-xs"
+              >
+                Save Profile Changes
+              </button>
+            </div>
+          </form>
         </div>
       ) : (
-        /* WIZARD CONTAINER */
-        <div className="bg-white rounded-xl border border-zinc-200/90 p-5 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.03)] space-y-6 min-h-[360px]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentStep}
-              variants={shouldReduceMotion ? undefined : tabContentVariants}
-              initial={shouldReduceMotion ? false : 'initial'}
-              animate={shouldReduceMotion ? false : 'animate'}
-              exit={shouldReduceMotion ? false : 'exit'}
-            >
+        /* TAB 2: GUIDED ONBOARDING FLOW */
+        <div className="space-y-6">
+          {/* Progress Bar */}
+          <div className="space-y-1.5">
+            <div className="flex justify-between items-center text-xs">
+              <span className="font-medium text-zinc-700">
+                Step {currentStep} of {STEPS.length}: <strong className="text-zinc-900">{STEPS[currentStep - 1].title}</strong>
+              </span>
+              <span className="text-xs text-zinc-400">Takes ~2 minutes</span>
+            </div>
+            <div className="h-1.5 w-full bg-zinc-200/80 rounded-full overflow-hidden">
+              <motion.div
+                initial={false}
+                animate={{ width: `${(currentStep / STEPS.length) * 100}%` }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.25, ease: 'easeOut' }}
+                className="h-full bg-forest-900 rounded-full"
+              />
+            </div>
+          </div>
+
+          {/* SUCCESS CONFIRMATION VIEW */}
+          {enquirySuccess ? (
+            <div className="bg-white rounded-xl border border-zinc-200 p-6 text-center space-y-5">
+              <div className="w-12 h-12 rounded-full bg-forest-50 border border-forest-200 flex items-center justify-center mx-auto text-forest-900">
+                <CheckCircle2 size={28} className="stroke-[2.2]" />
+              </div>
+
+              <div className="space-y-1.5 max-w-md mx-auto">
+                <h3 className="text-xl font-semibold text-zinc-900">Pickup Request Sent!</h3>
+                <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                  Your waste volume has been forwarded to the nearby digester operator. Reference ID:{' '}
+                  <strong className="font-mono text-zinc-900 bg-zinc-100 border border-zinc-200 px-1.5 py-0.5 rounded">
+                    {enquirySuccess.id}
+                  </strong>
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl bg-zinc-50 border border-zinc-200 text-left max-w-md mx-auto text-xs space-y-2">
+                <span className="font-semibold text-zinc-900 block">Notified Operator:</span>
+                <ul className="space-y-1 text-zinc-600">
+                  {matchedPlants
+                    .filter((p) => selectedPlantIds.includes(p.id))
+                    .map((p) => (
+                      <li key={p.id} className="flex items-center gap-1.5 font-medium text-zinc-800">
+                        <Building2 size={13} className="text-forest-900 shrink-0" />
+                        <span>{p.organisation} ({p.serviceArea?.slice(0, 2).join(', ')})</span>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+
+              <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEnquirySuccess(null);
+                    setShowSentRequests(true);
+                  }}
+                  className="bg-forest-900 hover:bg-forest-800 text-white font-medium text-xs px-4 py-2 rounded-lg transition-colors cursor-pointer"
+                >
+                  View in My Requests
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigate('/')}
+                  className="text-xs text-zinc-600 hover:text-zinc-900 font-medium px-3 py-2 transition-colors cursor-pointer"
+                >
+                  Back to Home
+                </button>
+              </div>
+            </div>
+          ) : (
+            /* WIZARD CONTAINER */
+            <div className="bg-white rounded-xl border border-zinc-200/90 p-5 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.03)] space-y-6 min-h-[360px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentStep}
+                  variants={shouldReduceMotion ? undefined : tabContentVariants}
+                  initial={shouldReduceMotion ? false : 'initial'}
+                  animate={shouldReduceMotion ? false : 'animate'}
+                  exit={shouldReduceMotion ? false : 'exit'}
+                >
               {/* ======================================================== */}
               {/* STEP 1: What type of organic waste do you have?          */}
               {/* ======================================================== */}
@@ -747,6 +899,8 @@ export function WasteOnboarding() {
               )}
             </div>
           </div>
+        </div>
+      )}
         </div>
       )}
     </div>
